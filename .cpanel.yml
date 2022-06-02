@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/generaltiniogov/public_html/test/
+    - export DEPLOYPATH=/home/generaltiniogov/public_html/
     - /bin/cp -R generaltinio.gov.ph/App $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/assets $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/uploads $DEPLOYPATH
