@@ -4,7 +4,7 @@ del .gitignore
 rmdir /s /q .git
 @REM if not exist uploads mkdir uploads
 @REM type nul > uploads\filename.txt
-call composer install
-call composer dump-autoload -o
+@REM call composer install
+@REM call composer dump-autoload -o
 del papaya.sql
 pause
