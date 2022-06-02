@@ -4,7 +4,7 @@ deployment:
     - export DEPLOYPATH=/home/generaltiniogov/public_html/
     - /bin/cp -R generaltinio.gov.ph/App $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/assets $DEPLOYPATH
-    - /bin/cp -R generaltinio.gov.ph/uploads $DEPLOYPATH
+    # - /bin/cp -R generaltinio.gov.ph/uploads $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/vendor $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/.env.example $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/.htaccess $DEPLOYPATH
