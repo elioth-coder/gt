@@ -156,10 +156,13 @@ class DataFetcher {
   }
 
   static function getSearchResults($config) {
-    define("HOST_NAME", "localhost");
-    define("USERNAME", "root");
-    define("PASSWORD", "");
-    define("DATABASENAME", "papaya");
+    $dotenv = \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
+    $dotenv->load();
+
+    define("HOST_NAME", $_ENV['DB_HOST']);
+    define("USERNAME", $_ENV['DB_USER']);
+    define("PASSWORD", $_ENV['DB_PASS']);
+    define("DATABASENAME", $_ENV['DB_NAME']);
 
     try {
       $pdo = new \PDO("mysql:host=".HOST_NAME.";dbname=".DATABASENAME, USERNAME, PASSWORD);
