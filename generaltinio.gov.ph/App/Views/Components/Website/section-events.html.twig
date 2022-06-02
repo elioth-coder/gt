@@ -1,0 +1,37 @@
+<section id="upcoming-events">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Upcoming Events
+  </h3>   
+  {% for event in events %}
+    <div class="p-4 pl-28 relative sm:w-1/2 sm:float-left box-border">
+      <a href="/view/event/{{ event.id }}#content" class="flex flex-col w-20 shadow-3xl float-left mr-4 absolute left-4 lg:left-0 top-4">
+        {% set commonStyles = [
+          'border w-full font-black uppercase text-center', 
+          'border-' ~ page_settings.color ~ '-700',
+        ]|join(' ') %}
+        <section class="{{ commonStyles }} text-md text-white bg-{{ page_settings.color }}-800">
+          {{ event.date_time|date('M') }}
+        </section>
+        <section class="{{ commonStyles }} text-3xl pt-1 pb-2 text-{{ page_settings.color }}-800">
+          {{ event.date_time|date('j') }}
+        </section>
+      </a>
+      <h4 class="hover:underline font-semibold text-lg text-{{ page_settings.color }}-900">
+        <a href="/view/event/{{ event.id }}#content">{{ event.title }}</a>
+      </h4>
+      <p class="italic text-sm text-gray-600">{{ event.date_time|date('h:i a') }} ~</p>
+      <p class="italic text-sm text-gray-600">{{ event.venue }}</p>
+      <p class="clear-both"></p>
+    </div>
+  {% endfor %}  
+  <section class="clear-both"></section>
+  <a href="/search?q=&type=EVENT#content" 
+    class="hover:text-{{ page_settings.color }}-600 underline block p-3 bg-gray-100">
+    {{ include('@components/Common/icon-outline.twig', { 
+        'name'  : 'view-list', 
+        'style' : 'h-5 w-5 inline-block' 
+      }) 
+    }}    
+    <span>View All Events</span>
+  </a>  
+</section>

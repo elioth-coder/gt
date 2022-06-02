@@ -1,0 +1,108 @@
+{% 
+  set links = [
+    { 
+      'href'  : '/',
+      'title' : 'View Website',
+      'page'  : 'website',
+      'icon'  : 'eye',
+    },
+    { 
+      'href'  : '/system/users',
+      'title' : 'Users',
+      'page'  : 'users',
+      'icon'  : 'users',
+    },
+    { 
+      'href'  : '/system/announcements',
+      'title' : 'Announcements',
+      'page'  : 'announcements',
+      'icon'  : 'speakerphone',
+    },
+    { 
+      'href'  : '/system/headlines',
+      'title' : 'Headlines',
+      'page'  : 'headlines',
+      'icon'  : 'newspaper',
+    },
+    { 
+      'href'  : '/system/events',
+      'title' : 'Events',
+      'page'  : 'events',
+      'icon'  : 'calendar',
+    },
+    { 
+      'href'  : '/system/featured_stories',
+      'title' : 'Featured Stories',
+      'page'  : 'featured_stories',
+      'icon'  : 'book-open',
+    },
+    { 
+      'href'  : '/system/tourist_spots',
+      'title' : 'Tourist Spots',
+      'page'  : 'tourist_spots',
+      'icon'  : 'location-marker',
+    },
+    { 
+      'href'  : '/system/departments',
+      'title' : 'Departments',
+      'page'  : 'departments',
+      'icon'  : 'badge-check',
+    },
+    { 
+      'href'  : '/system/page_sections',
+      'title' : 'Page Sections',
+      'page'  : 'page_sections',
+      'icon'  : 'template',
+    },
+    { 
+      'href'  : '/system/biddings',
+      'title' : 'Biddings',
+      'page'  : 'biddings',
+      'icon'  : 'collection',
+    },
+    { 
+      'href'  : '/system/awards',
+      'title' : 'Awards',
+      'page'  : 'awards',
+      'icon'  : 'chart-square-bar',
+    },
+    { 
+      'href'  : '/system/full_disclosure',
+      'title' : 'Full Disclosure',
+      'page'  : 'full_disclosure',
+      'icon'  : 'scale',
+    },
+    { 
+      'href'  : '/system/ordinances_resolutions',
+      'title' : 'Ordinances & Resolutions',
+      'page'  : 'ordinances_resolutions',
+      'icon'  : 'book-open',
+    },
+    { 
+      'href'  : '/system/file_manager',
+      'title' : 'File Manager',
+      'page'  : 'file_manager',
+      'icon'  : 'folder',
+    },
+    { 
+      'href'  : 'javascript:logout()',
+      'title' : 'Logout',
+      'page'  : 'logout',
+      'icon'  : 'logout',
+    },
+  ]
+%}
+
+<section id="sidebar" class="h-screen w-64 bg-green-700 flex flex-col p-4 overflow-y-hidden hover:overflow-y-scroll hover:px-2">
+  {% for link in links %}
+    <a href="{{ link.href }}" 
+      class="{{ (current_page==link.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} w-full flex p-3 border-green-900 border-b hover:bg-green-900 hover:border-transparent hover:rounded">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : link.icon, 
+          'style' : 'h-6 w-6 mr-3' 
+        }) 
+      }}
+      <span>{{ link.title }}</span>
+    </a>
+  {% endfor %}
+</section>

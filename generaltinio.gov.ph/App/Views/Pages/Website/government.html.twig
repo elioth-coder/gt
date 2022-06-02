@@ -1,0 +1,57 @@
+{% extends "@pages/Website/base.html.twig" %}
+
+{% block title %}Government Page{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+  {% include('@components/Common/markdown.style.twig') %}
+  <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
+{% endblock styles %}
+{% block innerContent %}
+  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
+    <section class="lg:px-4 ">
+      {% for page_section in page_sections %}
+        <div class="w-full editor-preview mb-5">
+          {{ page_section|raw }}
+        </div>
+      {% endfor %}
+      {% include('@components/Website/section-full_disclosures.html.twig') %}
+      {% include('@components/Website/section-bids.html.twig') %}
+      {% include('@components/Website/section-ordinances_resolutions.html.twig') %}
+      {% include('@components/Website/section-departments.html.twig') %}
+    </section>
+    <section class="lg:px-4">
+      {% include('@components/Website/section-articles.html.twig') %}
+      <br>
+      {% include('@components/Website/section-news.html.twig') %}
+      <br>
+      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
+    </section>
+  </div>
+{% endblock innerContent %}
+{% block scripts %}
+  {{ parent() }}
+  <script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+  <script>
+    $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
+
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        let table1 = new DataTable('#ordinances_resolutions-table', {
+          "columnDefs": [
+            { "width": "15%", "targets": 0 },
+            { "width": "12%", "targets": 2 },
+            { "width": "12%", "targets": 3 },
+          ]
+        });
+
+        let table2 = new DataTable('#bids-table', {
+          "columnDefs": [
+            { "width": "12%", "targets": 0 },
+            { "width": "12%", "targets": 2 },
+            { "width": "12%", "targets": 3 },
+          ]
+        });
+      } catch(e) {}
+    });
+  </script>
+{% endblock scripts %}

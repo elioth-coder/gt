@@ -1,0 +1,32 @@
+<section id="community-headlines" class="lg:px-4">
+  <h1 class="border-b text-3xl border-gray-300 text-{{ page_settings.color }}-600 font-semibold py-4">
+    Community Headlines
+  </h1>
+  {% for headline in headlines %}
+    <div class="py-4 border-b border-gray-300">
+      <section class="sm:inline-block">
+        <p class="text-xs text-gray-400 italic">{{ headline.date|date('M d, Y') }}</p>
+        <h4 class="hover:underline text-lg text-{{ page_settings.color }}-700 font-semibold">
+          <a href="/view/news/{{ headline.id }}#content">{{ headline.title }}</a>
+        </h4>
+      </section>
+      <a href="/view/news/{{ headline.id }}#content">
+        <img src="/uploads/headlines/{{ headline.image }}" 
+          class="h-24 mr-2 mt-1 float-left sm:mr-4"
+        />
+      </a>
+      <p>{{ headline.content[:120]}}{{ (headline.content|length > 120) ? '...' : '' }}</p>
+      <p class="clear-both"></p>
+    </div>
+  {% endfor %}
+
+  <button type="button" 
+    class="font-bold bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded text-sm py-2 px-3 text-center mt-4 mr-2 mb-2 dark:focus:ring-yellow-900">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'menu', 
+          'style' : 'h-5 w-5 inline-block' 
+        }) 
+      }}     
+    <span>View all headlines</span>
+  </button>
+</section>

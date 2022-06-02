@@ -1,0 +1,94 @@
+<form id="BiddingsForm" action="/system/biddings" method="POST" enctype="multipart/form-data" class="p-5 flex flex-row flex-wrap shadow-lg bg-gray-100 rounded border">
+  <div class="w-1/2 p-5 pb-0">
+    <div class="w-full flex flex-col">
+      <label class="font-bold py-2 px-4 w-full">File : </label>
+      <iframe id="prevFile" src="/assets/img/PreviewNotAvailable.jpg" class="border border-gray-300 rounded h-72 w-full mb-5" alt="" ></iframe>
+      <div id="container-file" class="field-container py-4 relative">
+        <input
+          class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+          type="file" name="file" id="file" 
+          accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,.xlsx, .xls, .csv" 
+        />
+        <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+      </div>    
+    </div>
+  </div>
+  <div class="w-1/2 p-5">
+    <div id="container-closing_date" class="field-container py-4 relative">
+      <label for="closing_date" class="font-bold py-2 px-4">Closing Date : </label>
+      <input
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="date" id="closing_date" name="closing_date" 
+      />  
+      <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+    </div>
+    <div id="container-title" class="field-container py-4 relative">
+      <label for="title" class="font-bold py-2 px-4">Title : </label>
+      <input placeholder="Enter bid title."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="title" name="title" 
+      />  
+      <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+    </div>
+    <div id="container-details" class="field-container py-4 relative xl:w-100">
+      <label for="details" class="font-bold py-2 px-4">Details : </label>
+      <textarea
+        class="
+          w-full
+          px-4
+          py-2
+          rounded
+          border
+          border-gray-300 focus:border-green-700 focus:outline-none
+        "
+        id="details"
+        rows="3"
+        placeholder="Enter details."
+        name="details"
+      ></textarea>
+      <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+    </div>
+    <div id="container-category" class="field-container py-4 relative">
+      <label for="category" class="font-bold py-2 px-4">Category : </label>
+      <select class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none"
+        id="category" name="category">
+        <option value="">Select category</option>
+        <option value="Consulting">Consulting</option>
+        <option value="Civil Work">Civil Work</option>
+        <option value="Goods and Services">Goods and Services</option>
+      </select>
+      <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+    </div>
+    <div id="container-status" class="field-container py-4 relative">
+      <label for="status" class="font-bold py-2 px-4">Status : </label>
+      <select class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none"
+        id="status" name="status">
+        <option value="">Select status</option>
+        <option value="Publish">Publish</option>
+        <option value="Unpublish">Unpublish</option>
+      </select> 
+      <p class="error-message absolute left-4 bottom-[-10px] text-red-600 hidden">This field is required.</p>
+    </div>
+  </div>
+
+  <div class="p-5 w-full border-t-2 text-right">
+    <button id="save-button" type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+      class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+      <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+      <span class="relative">Save Bid</span>
+    </button>
+
+    <span id="update-buttons" style="display:none">
+      <button type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Update</span>
+      </button>
+      <button type="button" onclick="cancelEdit(); setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-red-700 border-2 border-red-700 text-red-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Cancel</span>
+      </button>
+    </span>
+  </div>
+</form>

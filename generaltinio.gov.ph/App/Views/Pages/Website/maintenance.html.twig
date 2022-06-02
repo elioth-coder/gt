@@ -1,0 +1,32 @@
+{% extends "@pages/base.html.twig" %}
+{% block title %}Website Under Maintenance{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+  <style>
+  #main {
+
+  }
+  .background {
+    /* The image used */
+    background-image: url("/assets/img/maintenance-mode.png");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  </style>
+{% endblock styles %}
+{% block content %}
+  <main id="main" class="background flex flex-col w-screen h-screen justify-center items-center">
+    <h1 class="bg-gray-100 bg-opacity-75 p-10 shadow text-gray-700 text-center text-5xl font-bold">
+      The <a class="text-blue-900" href="#">[generaltinio.gov.ph]</a> is undergoing maintenance.
+    </h1>
+  </main>
+{% endblock content %}
+{% block scripts %}
+  {{ parent() }}
+{% endblock scripts %}

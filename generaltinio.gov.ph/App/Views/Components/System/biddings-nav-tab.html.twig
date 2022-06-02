@@ -1,0 +1,28 @@
+<div class="flex flex-wrap" id="tabs-id">
+  <div class="w-full">
+    <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-green-600" onclick="changeAtiveTab(event,'tab-ongoing-table')">
+          <i class="fas fa-space-shuttle text-base mr-1"></i>  Ongoing Bids
+        </a>
+      </li>
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-green-600 bg-white" onclick="changeAtiveTab(event,'tab-awarded-table')">
+          <i class="fas fa-cog text-base mr-1"></i>  Awarded Bids
+        </a>
+      </li>
+    </ul>
+    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div class="px-4 py-5 flex-auto">
+        <div class="tab-content tab-space">
+          <div class="block" id="tab-ongoing-table">
+            {{ include('@components/System/biddings-ongoing-table.html.twig') }}
+          </div>
+          <div class="hidden" id="tab-awarded-table">
+            {{ include('@components/System/biddings-awarded-table.html.twig') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

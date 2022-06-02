@@ -1,0 +1,18 @@
+<section id="departments">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Departments
+  </h3>    
+  {% for department in departments %}
+    <div class="border-b py-4 relative sm:w-1/2 sm:float-left box-border">
+      <a href="/department/{{ department.id }}#content" class="w-20 border-box block float-left mr-2">
+        <img src="/uploads/departments/{{ department.logo }}" 
+          class="w-full border shadow rounded-full"
+        />
+      </a>
+      <h3 class="hover:underline h-full pt-3 font-semibold text-lg text-{{ page_settings.color }}-900">
+        <a href="/department/{{ department.id }}#content">{{ department.name }}</a>
+      </h3>
+      <p class="clear-both"></p>
+    </div>
+  {% endfor %}  
+</section>

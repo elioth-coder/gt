@@ -1,0 +1,19 @@
+{
+    "autoload": {
+      "psr-4": {
+          "App\\": "App/"
+      }
+    },
+
+    "require": {
+        "miladrahimi/phprouter": "5.*",
+        "twig/twig": "3.0",
+        "opis/database": "^4.2",
+        "intervention/image": "^2.7",
+        "rakit/validation": "^1.4",
+        "league/flysystem": "^2.4",
+        "kaoken/markdown-it-php": "^13.3",
+        "jawira/case-converter": "^3.4",
+        "vlucas/phpdotenv": "^5.4"
+    }
+}

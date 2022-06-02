@@ -1,0 +1,38 @@
+<table id="file_manager-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">File Name</th>
+      <th class="text-left">File Type</th>
+      <th class="text-left">Size</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if files is empty %}
+        <tr>
+          <td colspan="5" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No files found.</td>
+        </tr>
+    {% endif %}
+
+    {% for file in files %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td class="truncate">{{ file.name }}</td>
+          <td>{{ file.type }}</td>
+          <td class="text-right">{{ file.size }}</td>
+          <td class="text-center">
+            <button title="Edit" onclick="{{ 'editFile(' ~ file|json_encode() ~ ');' }}" class="text-blue-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button title="Copy link" onclick="{{ 'copyLink(' ~ file|json_encode() ~ ');' }}" class="text-gray-900">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'link', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button title="Delete" onclick="{{ "deleteFile('" ~ file.name ~ "');" }}" class="text-red-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

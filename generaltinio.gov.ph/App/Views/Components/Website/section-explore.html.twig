@@ -1,0 +1,16 @@
+<section id="explore-the-town">
+  <h3 class="text-3xl text-{{ page_settings.color }}-600 pt-4 font-semibold">
+    Explore the Town
+  </h3> 
+  <p class="border-b border-gray-300 text-gray-500 pb-4">Explore the amazing paradise of General Tinio, Nueva Ecija</p>
+  <div class="py-4">
+    {% for tourist_spot in tourist_spots %}
+      <a title="{{ tourist_spot.name }}" href="/view/tourist_spot/{{ tourist_spot.id }}#content" class="flex flex-col mb-4 sm:w-1/3 sm:float-left">
+        <img src="/uploads/tourist_spots/{{ tourist_spot.image }}" class="w-full"/>
+        <p class="truncate p-3 border-x border-b bg-gray-100 text-center font-semibold text-{{ page_settings.color }}-600">
+          {{ tourist_spot.name }}
+        </p>
+      </a>
+    {% endfor %}
+  </div>
+</section>

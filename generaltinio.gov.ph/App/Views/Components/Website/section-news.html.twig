@@ -1,0 +1,32 @@
+<section id="community-news">
+  <h1 class="border-b text-3xl border-gray-300 text-{{ page_settings.color }}-600 font-semibold py-4">
+    Community News
+  </h1>
+  {% for news in headlines %}
+    <div class="py-4 border-b border-gray-300 lg:w-72 box-border">
+      <section class="sm:inline-block">
+        <p class="text-xs text-gray-400 italic">{{ news.date|date('M d, Y') }}</p>
+        <h4 class="hover:underline text-lg text-{{ page_settings.color }}-700 font-semibold">
+          <a href="/view/news/{{ news.id }}#content">{{ news.title }}</a>
+        </h4>
+      </section>
+      <a href="/view/news/{{ news.id }}#content">
+        <img src="/uploads/headlines/{{ news.image }}" 
+          class="h-24 mr-2 mt-1 float-left sm:mr-4"
+        />
+      </a>
+      <p>{{ news.content[:120]}}{{ (news.content|length > 120) ? '...' : '' }}</p>
+      <p class="clear-both"></p>
+    </div>
+  {% endfor %}
+
+  <a href="/search?q=&type=NEWS#content" 
+    class="hover:text-{{ page_settings.color }}-600 underline block p-3 bg-gray-100">
+    {{ include('@components/Common/icon-outline.twig', { 
+        'name'  : 'view-list', 
+        'style' : 'h-5 w-5 inline-block' 
+      }) 
+    }}    
+    <span>View All News</span>
+  </a>  
+</section>

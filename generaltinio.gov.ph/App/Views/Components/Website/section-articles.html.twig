@@ -1,0 +1,30 @@
+<section id="articles">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Articles
+  </h3>    
+  {% for article in articles %}
+    <div class="border-b py-4 sm:px-2 lg:px-0 relative sm:w-1/2 sm:float-left lg:w-72 box-border lg:float-none">
+      <a href="/view/article/{{ article.id }}#content" class="w-full block float-left">
+        <img src="/uploads/featured_stories/{{ article.image }}" 
+          class="w-full border shadow"
+        />
+      </a>
+      <h4 class="hover:underline font-semibold text-lg text-{{ page_settings.color }}-900">
+        <a href="/view/article/{{ article.id }}#content">{{ article.title }}</a>
+      </h4>
+      <h5 class="font-semibold text-base text-{{ page_settings.color }}-700">{{ article.subtitle }}</h5>
+      <p class="clear-both"></p>
+    </div>
+  {% endfor %}  
+
+  <section class="clear-both"></section>
+  <a href="/search?q=&type=ARTICLE#content" 
+    class="hover:text-{{ page_settings.color }}-600 underline block p-3 bg-gray-100">
+    {{ include('@components/Common/icon-outline.twig', { 
+        'name'  : 'view-list', 
+        'style' : 'h-5 w-5 inline-block' 
+      }) 
+    }}    
+    <span>View All Articles</span>
+  </a>  
+</section>

@@ -1,0 +1,56 @@
+{% extends '@pages/base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block styles %}
+  {{ parent() }}
+  <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
+{% endblock styles %}
+{% block content %}
+  <main class="flex flex-row bg-gray-400">
+   {{ include('@components/System/sidebar.html.twig') }}
+    <section id="right_content" class="h-screen max-h-screen min-h-screen overflow-y-scroll w-full bg-white p-5">
+      {% block right_content %}{% endblock %}
+    </section>
+  </main>
+{% endblock content %}
+{% block scripts %}
+  {{ parent() }}
+  <script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+  <script src="/assets/js/date_format.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
+  <script>
+  async function logout() {
+    let processingModal = Swal.fire({ 
+      imageUrl: '/assets/img/loading.gif',
+      title: 'Processing...',
+      allowOutsideClick: false, 
+      allowEscapeKey: false,          
+      showConfirmButton: false
+    });
+
+    let response = await fetch('/logout', {
+      credentials: "same-origin",
+      method: 'POST',
+    });
+    let { status } = await response.json();
+
+    processingModal.close();
+    if (status == 'success') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Successfully logged out!',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => window.location.reload());
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Failed to logout!',
+      });
+    }
+
+  }
+  </script>
+{% endblock scripts %}

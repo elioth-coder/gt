@@ -1,0 +1,47 @@
+{% 
+  set links = [
+    { 
+      'href'  : '#',
+      'title' : 'Twitter',
+      'icon'  : 'twitter',
+      'color' : 'text-blue-400',
+    },
+    { 
+      'href'  : '#',
+      'title' : 'Facebook',
+      'icon'  : 'facebook',
+      'color' : 'text-blue-800',
+    },
+    { 
+      'href'  : '#',
+      'title' : 'Youtube',
+      'icon'  : 'youtube',
+      'color' : 'text-red-500',
+    },
+    { 
+      'href'  : '#',
+      'title' : 'Mail',
+      'icon'  : 'mail',
+      'color' : 'text-yellow-500',
+    },        
+  ]
+%}
+<section id="media-and-copyright">
+  <div id="media-links" class="flex flex-row">
+    {% for link in links %}
+      <a title="{{ link.title }}" href="{{ link.href }}" class="p-1 {{ link.color }} drop-shadow-lg">
+        {{ include('@components/Common/icon-mixed.twig', { 
+            'name'  : link.icon, 
+            'style' : 'h-12 w-12 inline-block' 
+          }) 
+        }}      
+      </a>
+    {% endfor %}
+  </div>
+  <div id="copyright">
+    <p class="text-sm text-gray-900 my-2">
+      Copyright 2021 Municipality of General Tinio N.E. 
+      <br>All rights reserved.
+    </p>
+  </div>
+</section>

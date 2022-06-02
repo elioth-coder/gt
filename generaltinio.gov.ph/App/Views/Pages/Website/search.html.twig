@@ -1,0 +1,144 @@
+{% extends "@pages/Website/base.html.twig" %}
+
+{% block title %}{{ page_settings.title }}{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+  {% include('@components/Common/markdown.style.twig') %}
+{% endblock styles %}
+{% block innerContent %}
+  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
+    <section class="lg:px-4 ">
+      <h1 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+        Search results for: "{{ q }}"
+      </h1>
+
+      {% if results is empty %}
+        <div class="w-full lg:w-[616px]">
+          <h2 class="text-2xl text-gray-300 text-center p-5 font-semibold">
+            No results found.
+          </h2>
+        </div>
+      {% endif %}
+
+      {% for result in results %}
+        <div class="w-full border-b py-4">
+          {% if result.type == "NEWS" %}
+            <a href="/view/news/{{ result.id }}#content" class="block float-left">
+              <img src="/uploads/headlines/{{ result.image }}" 
+                class="w-[180px] border"
+              />
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/view/news/{{ result.id }}#content">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+          {% if result.type == "ARTICLE" %}
+            <a href="/view/article/{{ result.id }}#content" class="block float-left">
+              <img src="/uploads/featured_stories/{{ result.image }}" 
+                class="w-[180px] border"
+              />
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/view/article/{{ result.id }}#content">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+          {% if result.type == "TOURIST SPOT" %}
+            <a href="/view/tourist_spot/{{ result.id }}#content" class="block float-left">
+              <img src="/uploads/tourist_spots/{{ result.image }}" 
+                class="w-[180px] border"
+              />
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/view/tourist_spot/{{ result.id }}#content">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+          {% if result.type == "EVENT" %}
+            <a href="/view/event/{{ result.id }}#content" class="block float-left">
+              {% if result.image %}
+                <img src="/uploads/events/{{ result.image }}" 
+                  class="w-[180px] border"
+                />
+              {% else %}
+                <section class="w-[180px] h-[120px] bg-gray-200 flex items-center justify-center">
+                  <h3 class="text-center text-2xl font-semibold text-gray-400">NO IMAGE</h3>
+                </section>                
+              {% endif %}
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/view/event/{{ result.id }}#content">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+          {% if result.type == "PAGE SECTION" %}
+            <a href="/{{ result.image|lower }}#{{ result.title|lower|split(" ")|join("-") }}" class="block float-left">
+              <section class="w-[180px] h-[120px] bg-gray-200 flex items-center justify-center">
+                <h3 class="text-center text-2xl font-semibold text-gray-400">{{ result.image|upper }}</h3>
+              </section>
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/{{ result.image|lower }}#{{ result.title|lower|split(" ")|join("-") }}">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+          {% if result.type == "DEPARTMENT" %}
+            <a href="/department/{{ result.id }}#content" class="block float-left">
+              <img src="/uploads/departments/{{ result.image }}" 
+                class="w-[180px]"
+              />
+            </a>
+            <section class="pl-2 float-left" style="width: calc(100% - 180px);">
+              <h3 class="text-{{ page_settings.color }}-600 -mt-2 text-2xl underline">
+                <a href="/department/{{ result.id }}#content">{{ result.title }}</a>
+              </h3>
+              <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
+              <p class="text-gray-500">Type: {{ result.type }}</p>
+            </section>
+            <p class="clear-both"></p>
+          {% endif %}
+
+        </div>
+      {% endfor %}
+    </section>
+    <section class="lg:px-4 ">
+      {% include('@components/Website/section-articles.html.twig') %}
+      <br>
+      {% include('@components/Website/section-news.html.twig') %}
+      <br>
+      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
+    </section>
+  </div>
+{% endblock innerContent %}
+{% block scripts %}
+  {{ parent() }}
+  <script>
+    $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
+  </script>
+{% endblock scripts %}

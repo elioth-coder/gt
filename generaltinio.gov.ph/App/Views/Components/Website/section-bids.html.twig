@@ -1,0 +1,37 @@
+<section id="bids">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Bids and Awards
+  </h3>
+  <div class="py-5">   
+    <table id="bids-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left">Category</th>
+          <th class="text-left">Project</th>
+          <th class="text-left">Issued</th>
+          <th class="text-left">Opening</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% if bids is empty %}
+            <tr>
+              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No Bids found.</td>
+            </tr>
+        {% endif %}
+        {% for bid in bids %}
+          <tr>
+            <td class="truncate" title="{{  bid.category }}">{{ bid.category }}</td>
+            <td class="truncate" title="{{  bid.title }}">
+              <a href="/uploads/documents/Biddings/{{ bid.file }}" 
+                target="_blank" class="underline text-{{ page_settings.color }}-600">
+                {{ bid.title }}
+              </a>
+            </td>
+            <td>{{ bid.created_date|date('Y-m-d') }}</td>
+            <td>{{ bid.closing_date|date('Y-m-d') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

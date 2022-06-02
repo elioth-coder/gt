@@ -1,0 +1,55 @@
+<form id="DepartmentsForm" action="/system/headlines" method="POST" enctype="multipart/form-data" 
+  class="p-5 flex flex-row flex-wrap shadow-lg bg-gray-100 rounded border">
+  <div class="w-1/2 p-5 pb-0">
+    <div class="py-4">
+      <label for="name" class="font-bold py-2 px-4">Name : </label>
+      <input required placeholder="Enter deparment name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="name" name="name" 
+      />  
+    </div>
+    <div class="w-full flex flex-col">
+      <label class="font-bold py-2 px-4 w-full">Logo : </label>
+      <img id="image" class="border border-gray-300 rounded h-72 w-full mb-5" src="/assets/img/default.jpg" alt="" />
+      <input type="file" name="file" id="file" accept="image/*" />
+    </div>
+  </div>
+
+  <div class="w-1/2 p-5">
+    <div class="py-4">
+      <label for="sequence" class="font-bold py-2 px-4">Sequence : </label>
+      <input required placeholder="Enter deparment sequence."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="number" id="sequence" name="sequence" 
+      />  
+    <div class="py-4">
+      <label for="details" class="font-bold py-2 px-4">Details : </label>
+      <textarea required placeholder="Enter department details."
+        rows="6"
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        id="details" name="details" 
+      /></textarea>
+    </div>
+  </div>
+
+  <div class="p-5 w-full border-t-2 text-right">
+    <button id="save-button" type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+      class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+      <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+      <span class="relative">Save Department</span>
+    </button>
+
+    <span id="update-buttons" style="display:none">
+      <button type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Update</span>
+      </button>
+      <button type="button" onclick="cancelEdit(); setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-red-700 border-2 border-red-700 text-red-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Cancel</span>
+      </button>
+    </span>
+  </div>
+</form>

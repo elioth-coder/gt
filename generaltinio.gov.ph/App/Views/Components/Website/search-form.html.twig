@@ -1,0 +1,34 @@
+{% set styles = {
+  'searchBar': {
+    'self': [
+      'bg-white p-3 flex-row',
+      'lg:absolute lg:px-0 lg:right-0 lg:top-10 lg:w-64 lg:bg-transparent',
+    ]|join(' '),
+    'inputText': [
+      'focus:ring-blue-500 focus:border-blue-500',
+      'border-r-0 border border-gray-300 block flex-1 min-w-0 w-full text-sm', 
+      'border-gray-300 p-2.5',
+      'lg:p-1.5',
+    ]|join(' '),    
+    'button': [
+      'bg-white cursor-pointer inline-flex items-center px-3 text-sm border border-gray-300',
+    ]|join(' '),
+  }
+} %}
+
+<form id="searchBar" class="{{ styles.searchBar.self }}" method="GET" action="/search#content">
+  <div class="flex">
+    <input type="text"
+      value="{{ q }}"
+      name="q"
+      class="{{ styles.searchBar.inputText }}" 
+      placeholder="Search...">
+    <button type="submit" class="{{ styles.searchBar.button }}">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'search', 
+          'style' : 'h-6 w-6' 
+        }) 
+      }} 
+    </button>
+  </div>
+</form>

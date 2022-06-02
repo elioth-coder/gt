@@ -1,0 +1,47 @@
+<form id="FileManagerForm" action="/system/file_manager" method="POST" enctype="multipart/form-data" 
+  class="p-5 flex flex-row flex-wrap shadow-lg bg-gray-100 rounded border">
+  <div class="w-1/2 p-5 pb-0">
+    <div class="w-full flex flex-col">
+      <label class="font-bold py-2 px-4 w-full">Preview : </label>
+      <img id="image" class="border border-gray-300 rounded h-72 w-full mb-5" src="/assets/img/default.jpg" alt="" />
+    </div>
+  </div>
+
+  <div class="w-1/2 p-5">
+    <div class="py-4">
+      <label for="file" class="font-bold py-2 px-4">File : </label>
+      <input required placeholder="Enter file name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="file" id="file" name="file" accept="image/*, .pdf, .doc, .docx, .csv, .xls, .xlsx"
+      />  
+    </div>
+    <div class="py-4">
+      <label for="file_name" class="font-bold py-2 px-4">Save As : </label>
+      <input required placeholder="Enter file name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="file_name" name="file_name" 
+      />  
+    </div>
+  </div>
+
+  <div class="p-5 w-full border-t-2 text-right">
+    <button id="save-button" type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+      class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+      <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+      <span class="relative">Save File</span>
+    </button>
+
+    <span id="update-buttons" style="display:none">
+      <button type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Update</span>
+      </button>
+      <button type="button" onclick="cancelEdit(); setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-red-700 border-2 border-red-700 text-red-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Cancel</span>
+      </button>
+    </span>
+  </div>
+</form>

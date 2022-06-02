@@ -1,0 +1,32 @@
+<table id="announcements-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Type</th>
+      <th class="text-left">Title</th>
+      <th class="text-left">Date</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if announcements is empty %}
+        <tr>
+          <td colspan="5" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No announcements found.</td>
+        </tr>
+    {% endif %}
+
+    {% for announcement in announcements %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td class="truncate">{{ announcement.type|upper }}</td>
+          <td class="truncate">{{ announcement.title }}</td>
+          <td>{{ announcement.date_time }}</td>
+          <td class="text-center">
+            <button title="Delete" onclick="{{ 'deleteAnnouncement(' ~ announcement.id ~ ');' }}" class="text-red-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

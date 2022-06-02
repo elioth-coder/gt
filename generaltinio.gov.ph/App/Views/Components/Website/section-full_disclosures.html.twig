@@ -1,0 +1,20 @@
+<section id="full_disclosures">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Full Disclosure Policy
+  </h3>
+  <div class="">    
+    {% for i in 0..9 %}
+      {% set year = current_year - i %}
+
+      <a href="/full_disclosure/{{ year }}#content" class="block float-left h-30 w-40 m-1">
+        {{ include('@components/Common/icon-solid.twig', { 
+            'name'  : 'folder', 
+            'style' : 'h-32 w-32 mx-auto text-yellow-500' 
+          }) 
+        }}          
+        <h3 class="text-center text-lg font-bold -mt-5">{{ year }}</h3>
+      </a>
+    {% endfor %} 
+    <div class="clear-both"></div>
+  </div>
+</section>

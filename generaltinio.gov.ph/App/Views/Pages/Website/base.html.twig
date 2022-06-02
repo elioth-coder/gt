@@ -1,0 +1,133 @@
+{% extends '@pages/base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block styles %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  {{ include('@components/Website/tabs-style.html.twig') }}
+{% endblock styles %}
+{% block content %}
+  <style>
+  main {
+    font-family: "Segoe UI Light","Segoe UI","Segoe",Tahoma,Helvetica,Arial,sans-serif;
+  }
+
+  #content {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  }
+
+  /* lg: */
+  @media (min-width: 1024px) {
+    #content {
+      max-width: 960px;
+      margin-top: 400px;
+    }
+    #footer {
+      max-width: 960px;
+    }    
+  }
+
+  /* xl: */
+  @media (min-width: 1280px) {
+    #content,
+    #footer {
+      max-width: 1070px;
+    }
+  }
+  </style>
+  <main class="flex flex-col bg-gray-300 overflow-hidden">
+    {{ include('@components/Website/header.html.twig', { 'page_settings': page_settings, 'user': user }) }}
+    {{ include('@components/Website/carousel.html.twig', { 'featured_stories': featured_stories }) }}
+    <div id="content" class="p-4 bg-white lg:border lg:mx-auto lg:z-10">
+      {% block innerContent %}{% endblock %}
+    </div>
+    <footer id="footer" class="p-4 bg-gray-100 mx-auto w-full">
+      {{ include('@components/Website/section-media_and_copyright.html.twig') }}
+    </footer>
+
+    <a href="#header" class="fixed bottom-4 right-4 z-10 rounded-lg p-3 text-white hover:bg-opacity-100 bg-opacity-75 bg-{{ page_settings.color }}-900">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'chevron-double-up', 
+          'style' : 'h-6 w-6' 
+        }) 
+      }}      
+    </a>
+  </main>
+  {{ include('@components/Website/login-form.html.twig') }}
+{% endblock content %}
+{% block scripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="/assets/js/date_format.js"></script>
+  <script>
+    LoginForm.onsubmit = async (e) => {
+      e.preventDefault();
+
+      let processingModal = Swal.fire({ 
+        imageUrl: '/assets/img/loading.gif',
+        title: 'Processing...',
+        allowOutsideClick: false, 
+        allowEscapeKey: false,          
+        showConfirmButton: false
+      });
+
+      let response = await fetch('/login', {
+        credentials: "same-origin",
+        method: 'POST',
+        body: new FormData(LoginForm)
+      });
+      let { status } = await response.json();
+
+      processingModal.close();
+      if (status == 'success') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Successfully logged in!',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => window.location.href='/system/headlines');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Failed to login!',
+        });
+      }
+    }
+
+    function showLoginForm() {
+      $('#login-modal').removeClass('hidden');
+    }
+
+    function hideLoginForm() {
+      $('#login-modal').addClass('hidden');
+    }
+
+    function toggleCollapse() {
+      document.getElementById('current-tab').classList.toggle('collapse');      
+      document.getElementById('tabs-page').classList.toggle('collapse');      
+    }
+
+    $(document).ready(function(){
+      $('#carousel').slick({
+        autoplay: true,
+        arrows: false,
+        cssEase: 'ease-in-out',
+        speed: 5000,
+      });
+
+      carouselPrev.onclick = (e) => {
+        $('#carousel')
+          .slick('slickPause')
+          .slick('slickPrev');
+      }
+
+      carouselNext.onclick = (e) => {
+        $('#carousel')
+          .slick('slickNext')
+          .slick('slickPlay');
+      }
+    });
+  </script>
+{% endblock scripts %}

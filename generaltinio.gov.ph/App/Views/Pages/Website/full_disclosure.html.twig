@@ -1,0 +1,76 @@
+{% extends "@pages/Website/base.html.twig" %}
+
+{% block title %}Full Disclosure Page{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" />
+{% endblock styles %}
+{% block innerContent %}
+  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
+    <section class="lg:px-4">
+      <h1 class="border-b border-gray-300 text-3xl text-blue-600 py-4 font-semibold">
+        Full Disclosure ({{ year }})
+      </h1>
+      <div class="py-4">
+        {% for quarter in quarters %}
+          <section class="py-4">
+            <h2 class="text-xl text-blue-600 font-semibold">QUARTER {{ quarter.number }}</h2>
+            {% if quarter.documents is empty %}
+              <p class="text-center text-gray-400 my-5">No documents found.</p>
+            {% else %}
+              <div class="py-4" id="accordion" data-accordion="collapse" data-active-classes="bg-blue-400 text-blue-900">
+              {% for document in quarter.documents %}
+                <h2 id="accordion-document-{{ document.id }}-heading" class="border-b border-blue-200">
+                  <button type="button" class="flex justify-between items-center p-5 w-full font-medium text-left border border-b-0 border-gray-200 focus:ring-4 focus:ring-blue-200 hover:bg-blue-100 bg-blue-100 text-blue-600" 
+                    data-accordion-target="#accordion-document-{{ document.id }}-body" 
+                    aria-expanded="true" 
+                    aria-controls="accordion-document-{{ document.id }}-body">
+                    <span>{{ document.details }}</span>
+                    <svg data-accordion-icon="" class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  </button>
+                </h2>
+                <div id="accordion-document-{{ document.id }}-body" class="hidden">
+                  <div class="p-1 border border-b-0 border-gray-200">
+                    <iframe id="document-{{ document.id }}-frame" src="/assets/img/PreviewNotAvailable.jpg" class="border border-gray-300 rounded h-72 w-full mb-5" alt="" ></iframe>
+                    <div class="text-center pb-4">
+                      <a href="/uploads/documents/FullDisclosure/{{ document.file }}" target="_blank" 
+                        class="font-bold bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded text-sm py-2 px-3 text-center dark:focus:ring-blue-900">
+                          {{ include('@components/Common/icon-outline.twig', { 
+                              'name'  : 'arrows-expand', 
+                              'style' : 'h-5 w-5 inline-block' 
+                            }) 
+                          }}     
+                        <span>View Full Document</span>
+                      </a>
+                    </div>
+                    <script type="text/javascript">
+                      fetch('/uploads/documents/FullDisclosure/{{ document.file }}')
+                        .then(res => res.blob())
+                        .then(blob => {
+                          let objectURL = URL.createObjectURL(blob);
+                          document.getElementById('document-{{ document.id }}-frame').src = objectURL;
+                        });
+                    </script>
+                  </div>
+                </div>
+              {% endfor %} 
+              </div>         
+            {% endif %}
+          </section>
+        {% endfor %}
+      </div>
+      {% include('@components/Website/section-full_disclosures.html.twig') %}
+    </section>
+    <section class="lg:px-4">
+      {% include('@components/Website/section-articles.html.twig') %}
+      <br>
+      {% include('@components/Website/section-news.html.twig') %}
+      <br>
+      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
+    </section>
+  </div>
+{% endblock innerContent %}
+{% block scripts %}
+  {{ parent() }}
+  <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
+{% endblock scripts %}

@@ -1,0 +1,69 @@
+{% set styles = {
+  'tabsPage' : {
+    'self' : [
+      'flex flex-col bg-'~ page_settings.color ~'-600',
+      'lg:absolute lg:top-full lg:z-10 lg:flex-row lg:justify-center',
+    ]|join(' '),    
+    'list': [
+      'block w-full border-b border-' ~ page_settings.color ~ '-700',
+      'lg:w-max',
+    ]|join(' '),
+    'anchor': [
+      'w-full block py-2 px-4 font-semibold text-white',        
+    ]|join(' '),
+    'chevron': [
+        'inline-block align-middle float-right',
+    ]|join(' '),
+  }
+} %}
+<style>
+/* lg: */
+@media (min-width: 1024px) {
+  #tabs-page {
+    left: -9999px !important;
+    right: -9999px !important;
+  }
+}
+</style>
+<ul id="tabs-page" class="{{ [
+    ['collapse']|join(" "),
+    styles.tabsPage.self
+  ]|join(" ") }}">
+  <li class="border-t sm:hidden {{ styles.tabsPage.list }}">
+    <a href="#" onclick="toggleCollapse();"
+      class="text-center relative {{ styles.tabsPage.anchor }}">
+      <button onclick="document.getElementById('tabs-main').classList.toggle('collapse'); event.stopPropagation();"
+        class="absolute top-0 left-0 p-2 bg-{{ page_settings.color }}-700">
+        {{ include('@components/Common/icon-outline.twig', { 
+            'name'  : 'menu', 
+            'style' : 'h-6 w-6' 
+          }) 
+        }}       
+      </button>        
+      <span class="ml-5">{{ page_settings.current_page }}</span>
+      <button class="chevron-down {{ styles.tabsPage.chevron }}">
+        {{ include('@components/Common/icon-outline.twig', { 
+            'name'  : 'chevron-down', 
+            'style' : 'h-6 w-6' 
+          }) 
+        }}        
+      </button>
+      <button class="chevron-up {{ styles.tabsPage.chevron }}">
+        {{ include('@components/Common/icon-outline.twig', { 
+            'name'  : 'chevron-up', 
+            'style' : 'h-6 w-6' 
+          }) 
+        }} 
+      </button>
+    </a>
+  </li>
+
+  {% for link in page_settings.sublinks %}
+    <li class="tab {{ styles.tabsPage.list }}">
+      <a href="{{ link.url }}" 
+        class="{{ styles.tabsPage.anchor }}">
+        {{ link.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

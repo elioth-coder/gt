@@ -1,0 +1,37 @@
+<section id="ordinances_resolutions">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Ordinances and Resolutions
+  </h3>
+  <div class="py-5">   
+    <table id="ordinances_resolutions-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left">No.</th>
+          <th class="text-left">Title</th>
+          <th class="text-left">Category</th>
+          <th class="text-left">Date</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% if ordinances_resolutions is empty %}
+            <tr>
+              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No Bids found.</td>
+            </tr>
+        {% endif %}
+        {% for ordinance_resolution in ordinances_resolutions %}
+          <tr>
+            <td class="truncate" title="{{  ordinance_resolution.ORno }}">{{ ordinance_resolution.ORno }}</td>
+            <td class="truncate" title="{{  ordinance_resolution.title }}">
+              <a href="/uploads/documents/OrdiReso/{{ ordinance_resolution.file }}" 
+                target="_blank" class="underline text-{{ page_settings.color }}-600">
+                {{ ordinance_resolution.title }}
+              </a>
+            </td>
+            <td class="truncate" title="{{  ordinance_resolution.category }}">{{ ordinance_resolution.category }}</td>
+            <td>{{ ordinance_resolution.date_approved }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

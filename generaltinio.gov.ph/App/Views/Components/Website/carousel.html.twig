@@ -1,0 +1,122 @@
+{% set styles = {
+  'carousel' : {
+    'section': [
+      'py-3 px-5',
+      'sm:px-20 sm:absolute sm:inset-x-0 sm:top-10 sm:z-10',
+      'lg:px-10 lg:pt-12 lg:mx-auto',
+    ]|join(' '),
+    'title': [
+      'text-'~ page_settings.color ~'-600',
+      'sm:bg-'~ page_settings.color ~'-600 sm:bg-opacity-90 sm:text-white sm:w-max sm:p-3',
+    ]|join(' '),
+    'mainTitle': [
+      'text-3xl',
+      'sm:text-5xl',
+    ]|join(' '),
+    'subTitle': [
+      'text-xl',
+      'sm:text-3xl sm:mt-1',
+    ]|join(' '),
+    'learnMore': [
+      'inline-block font-bold bg-yellow-400 hover:bg-yellow-500 focus:ring-4', 
+      'focus:ring-yellow-300 rounded text-sm py-2 px-3 text-center mt-4 mr-2', 
+      'mb-2 dark:focus:ring-yellow-900',
+    ]|join(' '),
+    'arrowButton': [
+      'absolute bg-opacity-75 bg-gray-800 text-white z-10 rounded-full top-10 p-2',
+      'sm:top-1/2 sm:-mt-2',
+      'lg:top-1/2 lg:-mt-2',
+    ]|join(' '),
+    'prevButton': 'left-2.5',
+    'nextButton': 'right-2.5',
+  }
+} %}
+
+<style>
+/* lg: */
+@media (min-width: 1024px) {
+  #carousel-container {
+    top: 108px;
+  }
+
+  #carousel section {
+    max-width: 960px;
+  }
+
+  .carousel-img-container {
+    height: calc(100vh - 170px);
+  }
+}
+
+/* xl: */
+@media (min-width: 1280px) {
+  #carousel section {
+    max-width: 1070px;
+  }
+  #carouselPrev {
+    left: calc(50% - 560px);
+    top: 150px;
+  }
+  #carouselNext {
+    right: calc(50% - 560px);
+    top: 150px;
+  }
+}
+</style>
+<div id="carousel-container" class="relative lg:absolute lg:w-full lg:mt-16">
+  <div id="carousel" class="bg-gray-200">
+    {% for featured_story in featured_stories %}
+      <div class="flex flex-col relative carousel-img-container">
+        <img src="/uploads/featured_stories/{{ featured_story.image }}" class="h-full mx-auto" />
+        <section
+          class="{{ styles.carousel.section }}">
+          <h2 class="{{ [
+              styles.carousel.title,
+              styles.carousel.mainTitle,
+            ]|join(' ') }}">
+            {{ featured_story.title }}
+          </h2>
+          <h3 class="{{ [
+              styles.carousel.title,
+              styles.carousel.subTitle,
+            ]|join(" ")}}">
+            {{ featured_story.subtitle }}
+          </h3>
+          <a href="/view/article/{{ featured_story.id }}#content"
+            class="{{ [styles.carousel.learnMore]|join(" ") }}">
+            {{ include('@components/Common/icon-outline.twig', { 
+                'name'  : 'information-circle', 
+                'style' : 'h-6 w-6 inline' 
+              }) 
+            }}             
+            Learn More
+          </a>
+        </section>
+      </div>
+    {% endfor %}
+  </div>
+  <section id="carousel-arrows" class="overflow-visible">
+    <button id="carouselPrev" 
+      class="{{ [
+        styles.carousel.arrowButton,
+        styles.carousel.prevButton,
+      ]|join(" ") }}">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'chevron-left', 
+          'style' : 'h-6 w-6' 
+        }) 
+      }}      
+    </button>
+    <button id="carouselNext" 
+      class="{{ [
+        styles.carousel.arrowButton,
+        styles.carousel.nextButton,
+      ]|join(" ") }}">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'chevron-right', 
+          'style' : 'h-6 w-6' 
+        }) 
+      }} 
+    </button>
+  </section>
+</div>

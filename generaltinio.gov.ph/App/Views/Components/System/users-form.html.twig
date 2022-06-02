@@ -1,0 +1,103 @@
+<form id="UsersForm" action="/system/users" method="POST" enctype="multipart/form-data" 
+  class="p-5 flex flex-row flex-wrap shadow-lg bg-gray-100 rounded border">
+  <div class="w-1/2 p-5 pb-0">
+    <div class="py-4">
+      <label for="username" class="font-bold py-2 px-4">Username : </label>
+      <input required placeholder="Enter username."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="username" name="username" 
+      />  
+    </div>
+    <div class="py-4">
+      <label for="password" class="font-bold py-2 px-4">Password : </label>
+      <input required placeholder="Enter password."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="password" id="password" name="password" 
+      />  
+    </div>
+    <div class="w-full flex flex-col">
+      <label class="font-bold py-2 px-4 w-full">Image : </label>
+      <img id="image" class="border border-gray-300 rounded h-72 w-full mb-5" src="/assets/img/default.jpg" alt="" />
+      <input type="file" name="file" id="file" accept="image/*" />
+    </div>
+    <div class="py-4">
+      <label for="type" class="font-bold py-2 px-4">Type : </label>
+      <select required
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="type" name="type">
+        <option value="">Select a type: </option>
+        <option value="ADMIN">ADMIN</option>
+        <option value="EMPLOYEE">EMPLOYEE</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="w-1/2 p-5">
+    <div class="py-4">
+      <label for="first_name" class="font-bold py-2 px-4">First Name : </label>
+      <input required placeholder="Enter first name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="first_name" name="first_name" 
+      />  
+    </div>
+    <div class="py-4">
+      <label for="middle_name" class="font-bold py-2 px-4">Middle Name : </label>
+      <input required placeholder="Enter middle name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="middle_name" name="middle_name" 
+      />  
+    </div>
+    <div class="py-4">
+      <label for="last_name" class="font-bold py-2 px-4">Last Name : </label>
+      <input required placeholder="Enter last name."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="last_name" name="last_name" 
+      />  
+    </div>
+    <div class="py-4">
+      <label for="gender" class="font-bold py-2 px-4">Gender : </label>
+      <select required
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="gender" name="gender">
+        <option value="">Select a gender: </option>
+        <option value="MALE">MALE</option>
+        <option value="FEMALE">FEMALE</option>
+      </select>
+    </div>
+    <div class="py-4">
+      <label for="birthday" class="font-bold py-2 px-4">Birthday : </label>
+      <input required
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="date" id="birthday" name="birthday" 
+      />  
+    </div>    <div class="py-4">
+      <label for="contact_info" class="font-bold py-2 px-4">Contact Information : </label>
+      <textarea required placeholder="Enter contact information."
+        rows="6"
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        id="contact_info" name="contact_info" 
+      /></textarea>
+    </div>
+  </div>
+
+  <div class="p-5 w-full border-t-2 text-right">
+    <button id="save-button" type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+      class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+      <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+      <span class="relative">Save User</span>
+    </button>
+
+    <span id="update-buttons" style="display:none">
+      <button type="submit" onclick="setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Update</span>
+      </button>
+      <button type="button" onclick="cancelEdit(); setTimeout(() => this.blur(), 300);" 
+        class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-red-700 border-2 border-red-700 text-red-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
+        <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
+        <span class="relative">Cancel</span>
+      </button>
+    </span>
+  </div>
+</form>

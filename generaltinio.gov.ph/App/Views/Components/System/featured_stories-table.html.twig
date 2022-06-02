@@ -1,0 +1,40 @@
+<table id="featured_stories-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Title</th>
+      <th class="text-left">Subtitle</th>
+      <th>Category</th>
+      <th>Visible</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if featured_stories is empty %}
+        <tr>
+          <td colspan="6" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No featured stories found.</td>
+        </tr>
+    {% endif %}
+
+    {% for featured_story in featured_stories %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td class="truncate">{{ featured_story.title }}</td>
+          <td class="truncate">{{ featured_story.subtitle }}</td>
+          <td class="text-center">{{ featured_story.category }}</td>
+          <td class="text-center">{{ featured_story.visible }}</td>
+          <td class="text-center">
+            <button title="Announce" onclick="{{ 'announceFeaturedStory(' ~ featured_story|json_encode() ~ ');' }}" class="text-gray-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'speakerphone', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button onclick="{{ 'editFeaturedStory(' ~ featured_story|json_encode() ~ ');' }}" class="text-blue-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button onclick="{{ 'deleteFeaturedStory(' ~ featured_story.id ~ ');' }}" class="text-red-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

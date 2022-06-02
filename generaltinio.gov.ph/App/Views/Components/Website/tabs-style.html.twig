@@ -1,0 +1,48 @@
+<style>
+#tabs-main #current-tab .chevron-down,
+#tabs-quick .chevron-down,
+#tabs-main .chevron-down,
+#tabs-page .chevron-down {
+  display: none;
+}
+#tabs-main #current-tab .chevron-up,
+#tabs-quick .chevron-up,
+#tabs-main .chevron-up,
+#tabs-page .chevron-up {
+  display: inline-block;
+}
+
+#tabs-main #current-tab.collapse .chevron-down,
+#tabs-quick.collapse .chevron-down,
+#tabs-main.collapse .chevron-down,
+#tabs-page.collapse .chevron-down {
+  display: inline-block;
+}
+#tabs-main #current-tab.collapse .chevron-up,
+#tabs-quick.collapse .chevron-up,
+#tabs-main.collapse .chevron-up,
+#tabs-page.collapse .chevron-up {
+  display: none;
+}
+
+#tabs-quick .tab,
+#tabs-main .tab,
+#tabs-page .tab {
+  display: block;
+}
+#tabs-quick.collapse .tab,
+#tabs-main.collapse .tab,
+#tabs-page.collapse .tab {
+  display: none;
+}
+
+/* sm: */
+@media (min-width: 640px) {
+  #tabs-quick .tab,
+  #tabs-main .tab,
+  #tabs-quick.collapse .tab,
+  #tabs-main.collapse .tab {
+    display: block;
+  }
+}
+</style>

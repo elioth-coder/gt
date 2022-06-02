@@ -1,0 +1,46 @@
+<table id="ORs-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">No.</th>
+      <th class="text-left">Title</th>
+      <th class="text-left">In-Charged</th>
+      <th class="text-left">Author</th>
+      <th class="text-left">Category</th>
+      <th class="text-left">Status</th>
+      <th class="text-left">Date</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if OR is empty %}
+        <tr>
+          <td colspan="8" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No Bids found.</td>
+        </tr>
+    {% endif %}
+    {% for ORs in OR %}
+      {% if ORs.status != 'Awarded' %}
+        <tr>
+          <td class="truncate" title="{{}}">{{ ORs.ORno }}</td>
+          <td class="truncate">{{ ORs.title }}</td>
+          <td class="truncate">{{ ORs.com_incharged }}</td>
+          <td class="truncate">{{ ORs.author }}</td>
+          <td class="truncate">{{ ORs.category }}</td>
+          <td class="truncate">{{ ORs.status }}</td>
+          <td>{{ ORs.date_approved }}</td>
+          <td class="text-center">
+            <button onclick="{{ 'editBid(' ~ ORs|json_encode() ~ ');' }}" class="text-blue-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </button>
+            <button onclick="{{ 'deleteBid(' ~ ORs.id ~ ');' }}" class="text-red-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

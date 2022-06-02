@@ -1,0 +1,31 @@
+<table id="bids-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Title</th>
+      <th class="text-left">Details</th>
+      <th class="text-left">Category</th>
+      <th class="text-left">Status</th>
+      <th class="text-left">Closing Date</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if bid is empty %}
+        <tr>
+          <td colspan="6" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No Bids found.</td>
+        </tr>
+    {% endif %}
+    {% for bids in bid %}
+      {% if bids.status != 'Awarded' %}
+        <tr>
+          <td>{{ loop.revindex }}.</td>
+          <td class="truncate">{{ bids.title }}</td>
+          <td class="truncate">{{ bids.details }}</td>
+          <td class="truncate">{{ bids.category }}</td>
+          <td class="truncate">{{ bids.status }}</td>
+          <td>{{ bids.closing_date }}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

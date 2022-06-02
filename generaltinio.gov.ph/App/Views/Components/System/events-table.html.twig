@@ -1,0 +1,40 @@
+<table id="events-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Title</th>
+      <th class="text-left">Details</th>
+      <th class="text-left">Venue</th>
+      <th class="text-left">Date and Time</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if events is empty %}
+        <tr>
+          <td colspan="6" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No events found.</td>
+        </tr>
+    {% endif %}
+
+    {% for event in events %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td class="truncate">{{ event.title }}</td>
+          <td class="truncate">{{ event.details }}</td>
+          <td class="truncate">{{ event.venue }}</td>
+          <td>{{ event.date_time }}</td>
+          <td class="text-center">
+            <button title="Announce" onclick="{{ 'announceEvent(' ~ event|json_encode() ~ ');' }}" class="text-gray-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'speakerphone', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button onclick="{{ 'editEvent(' ~ event|json_encode() ~ ');' }}" class="text-blue-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button onclick="{{ 'deleteEvent(' ~ event.id ~ ');' }}" class="text-red-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

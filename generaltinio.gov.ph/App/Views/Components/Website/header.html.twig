@@ -1,0 +1,51 @@
+{% set styles = {
+  'header': {
+    'self': [
+      'flex flex-col bg-green-700 relative overflow-visible z-10',
+    ]|join(' '),
+    'wrapper': [
+      'w-full relative',
+      'lg:mx-auto',
+    ]|join(' '),
+    'logo': [
+      'flex flex-row py-5 items-center justify-center',
+      'lg:absolute lg:top-0 lg:left-0 lg:py-2 lg:px-3',
+    ]|join(' '),
+  }
+} %}
+<style>
+/* lg: */
+@media (min-width: 1024px) {
+  #header #wrapper {
+    max-width: 960px;
+    height: 138px;
+  }
+  #header  #tabs-main .tab .chevron {
+    display: none;
+  }
+  #header  #tabs-page .tab {
+    display: block;
+  }
+}
+/* xl: */
+@media (min-width: 1280px) {
+  #header #wrapper {
+    max-width: 1070px;
+  }
+}
+</style>
+<header id="header" class="{{ styles.header.self }}">
+  <div id="wrapper" class="{{ styles.header.wrapper }}">
+    <section id="logo" class="{{ styles.header.logo }}">
+      <img class="border rounded-full shadow-lg mr-4" src="/assets/img/logo-80x80.png" />
+      <h1 class="text-white font-bold">
+        <span class="uppercase text-xs leading-none">The Municipality of</span><br>
+        <span class="uppercase text-2xl leading-none">General Tinio</span>
+      </h1>
+    </section>
+    {{ include('@components/Website/tabs-quick.html.twig', { 'user': user }) }}
+    {{ include('@components/Website/tabs-main.html.twig') }}
+    {{ include('@components/Website/tabs-page.html.twig', { 'page_settings': page_settings }) }}
+    {{ include('@components/Website/search-form.html.twig') }}
+  </div>
+</header>

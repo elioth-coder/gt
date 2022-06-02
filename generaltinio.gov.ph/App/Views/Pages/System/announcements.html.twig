@@ -1,0 +1,69 @@
+{% extends '@pages/System/base.html.twig' %}
+
+{% block title %}List of Announcements{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+{% endblock styles %}
+{% block right_content %}
+  <div class="flex flex-col p-10">
+    <h1 class="text-center text-4xl">Module: Announcements</h1>
+    <hr class="my-5">
+    {{ include('@components/System/announcements-table.html.twig', { 'announcements' : announcements }) }}
+  </div>
+{% endblock right_content %}
+{% block scripts %}
+  {{ parent() }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        let table = new DataTable('#announcements-table', {
+          "columnDefs": [
+            { "width": "3%", "targets": 0 },
+            { "width": "10%", "targets": 1 },
+            { "width": "15%", "targets": 3 },
+            { "width": "8%", "targets": 4 },
+          ]
+        });
+      } catch(e) {}
+    });
+
+    async function deleteAnnouncement(id) {
+      let result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      });
+
+      if(result.isConfirmed) {
+        let response = await fetch('/system/announcements/' + id, {
+          credentials: "same-origin",
+          method: 'DELETE',
+        });
+        let {
+          message,
+          status
+        } = await response.json();
+
+        if (status == 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: message,
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => window.location.reload()); 
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: message
+          });
+        }
+      }
+    }
+    </script>
+{% endblock scripts %}

@@ -1,0 +1,51 @@
+<div id="login-modal" class="hidden bg-gray-600 bg-opacity-50 flex overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center h-full inset-0">
+  <div class="relative px-4 w-full max-w-md h-auto">
+
+    <div class="relative bg-white shadow-lg">
+      <div class="flex justify-end p-2">
+        <button onclick="hideLoginForm();" type="button" 
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="login-modal">
+          {{ include('@components/Common/icon-outline.twig', { 
+              'name'  : 'x', 
+              'style' : 'w-5 h-5' 
+            }) 
+          }}
+        </button>
+      </div>
+      <form id="LoginForm" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="#">
+        <h3 class="text-xl font-medium text-gray-900">Login for employees</h3>
+        <div>
+          <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Enter username</label>
+          <input type="text" name="username" id="username" autocomplete="off" 
+            placeholder="username" required=""
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+          />
+        </div>
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Enter password</label>
+          <input type="password" name="password" id="password" 
+            autocomplete="off" placeholder="••••••••"  required=""
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+          />
+        </div>
+        <div class="flex justify-between">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input id="remember" aria-describedby="remember" type="checkbox" 
+                class="w-4 h-4 bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-green-300"
+              />
+            </div>
+            <div class="ml-3 text-sm">
+              <label for="remember" class="font-medium text-gray-900">Remember me</label>
+            </div>
+          </div>
+          <a href="#" class="text-sm text-green-700 hover:underline">Forgot Password?</a>
+        </div>
+        <button type="submit" 
+          class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium text-sm px-5 py-2.5 text-center">
+          Login to system
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

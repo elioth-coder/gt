@@ -1,0 +1,60 @@
+
+<div id="test" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+
+	<div class="relative p-4 w-full max-w-7xl h-full md:h-auto">
+
+		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+			<div class="flex justify-between items-start p-3 rounded-t border-b dark:border-gray-600">
+				<h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
+					Select Bid...
+				</h3>
+				<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="test">
+					{{ include('@components/Common/icon-outline.twig', { 'name': 'x', 'style': 'w-6 h-6' }) }}
+				</button>
+			</div>
+
+			<div class="p-3 space-y-6">
+				<table id="bids-list" class="border divide-y divide-gray-200" width="100%">
+					<thead class="bg-gray-100">
+						<tr>
+							<th class="text-left">#</th>
+							<th class="text-left">Title</th>
+							<th class="text-left">Details</th>
+							<th class="text-left">Category</th>
+							<th class="text-left">Status</th>
+							<th class="text-left">Closing Date</th>
+							<th class="text-center">*</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{% if bid is empty %}
+							<tr>
+								<td colspan="7" class="px-2 py-3 max-w-max align-top text-center text-gray-500">
+								No Bids found.
+								</td>
+							</tr>
+						{% endif %}
+						{% for bids in bid %}
+      						{% if bids.status != 'Awarded' %}
+							<tr>
+								<td>{{ loop.revindex }}.</td>
+								<td class="truncate">{{ bids.title }}</td>
+								<td class="truncate">{{ bids.details }}</td>
+								<td class="truncate">{{ bids.category }}</td>
+								<td class="truncate">{{ bids.status }}</td>
+								<td>{{ bids.closing_date }}</td>
+								<td>
+								<input id="{{ bids.id }}" type="radio" name="bids" value="{{ bids.title }}" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" aria-labelledby="country-option-1" aria-describedby="country-option-1">
+								</td>
+							</tr>
+							{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="flex justify-end items-center p-3 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                <button data-modal-toggle="test" onclick="selected_bids()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Select</button>
+            </div>
+		</div>
+	</div>
+</div>

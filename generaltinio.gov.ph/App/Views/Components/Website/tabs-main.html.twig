@@ -1,0 +1,87 @@
+{% set links = [
+  { 
+    'url'  : '/', 
+    'color': 'green',
+    'title': 'Home',  
+  },
+  { 
+    'url'  : '/about', 
+    'color': 'orange',
+    'title': 'About',  
+  },
+  { 
+    'url'  : '/government', 
+    'color': 'blue',
+    'title': 'Government',  
+  },
+  { 
+    'url'  : '/tourism', 
+    'color': 'yellow',
+    'title': 'Tourism',  
+  },
+  { 
+    'url'  : '/business', 
+    'color': 'red',
+    'title': 'Business',  
+  },
+  { 
+    'url'  : '/faq', 
+    'color': 'purple',
+    'title': 'FAQ',  
+  },
+] %}
+
+{% set styles = {
+  'tabsMain' : {
+    'self': [
+      'flex flex-row flex-wrap',
+      'lg:absolute lg:w-full lg:bottom-0',
+    ]|join(' '),
+    'list': [
+      'block w-1/2',
+      'sm:w-1/3',
+      'lg:w-1/6',
+    ]|join(' '),
+    'anchor': [
+      'h-full block py-2 font-semibold uppercase text-center text-white relative',        
+    ]|join(' '),
+    'chevron': [
+      'block align-middle absolute top-0 bottom-0 right-2',
+    ]|join(" ")
+  }
+} %}
+
+<ul id="tabs-main" class="collapse {{ styles.tabsMain.self }}">
+  {% for link in links %}
+    {% set isCollapse = page_settings.current_page == link.title %}
+    <li {{ (page_settings.current_page == link.title) ? 'id="current-tab"' : '' }} 
+      class="{{ [
+        ['tab', ((isCollapse) ? 'collapse' : '')]|join(" "),
+        styles.tabsMain.list,
+      ]|join(" ") }}">
+      <a href="{{ (page_settings.current_page == link.title) ? "#" : link.url }}" onclick="toggleCollapse();"
+        class="{{ [
+          ['bg-'~ link.color ~'-600']|join(" "),
+          styles.tabsMain.anchor
+        ]|join(" ") }}">
+        {{ link.title }}
+        {% if isCollapse %}
+          <button class="chevron chevron-down {{ styles.tabsMain.chevron }}">
+            {{ include('@components/Common/icon-outline.twig', { 
+                'name'  : 'chevron-down', 
+                'style' : 'h-6 w-6' 
+              }) 
+            }}       
+          </button>
+          <button class="chevron chevron-up {{ styles.tabsMain.chevron }}">
+            {{ include('@components/Common/icon-outline.twig', { 
+                'name'  : 'chevron-up', 
+                'style' : 'h-6 w-6' 
+              }) 
+            }}  
+          </button>
+        {% endif %}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
