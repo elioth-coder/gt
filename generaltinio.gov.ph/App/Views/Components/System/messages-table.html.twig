@@ -1,0 +1,32 @@
+<table id="messages-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Name</th>
+      <th class="text-left">Message</th>
+      <th class="text-left">Email</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if messages is empty %}
+        <tr>
+          <td colspan="5" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No messages found.</td>
+        </tr>
+    {% endif %}
+
+    {% for message in messages %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td>{{ message.name }}</td>
+          <td>{{ message.message }}</td>
+          <td>{{ message.email }}</td>
+          <td class="text-center">
+            <button title="Reply" class="text-green-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'reply', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

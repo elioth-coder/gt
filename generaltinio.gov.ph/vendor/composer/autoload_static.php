@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df
+class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -195,6 +195,7 @@ class ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df
         'App\\Controller\\FileManagerController' => __DIR__ . '/../..' . '/App/Controller/FileManagerController.php',
         'App\\Controller\\FullDisclosureController' => __DIR__ . '/../..' . '/App/Controller/FullDisclosureController.php',
         'App\\Controller\\HeadlinesController' => __DIR__ . '/../..' . '/App/Controller/HeadlinesController.php',
+        'App\\Controller\\MessagesController' => __DIR__ . '/../..' . '/App/Controller/MessagesController.php',
         'App\\Controller\\OrdinancesResolutionsController' => __DIR__ . '/../..' . '/App/Controller/OrdinancesResolutionsController.php',
         'App\\Controller\\PageSectionsController' => __DIR__ . '/../..' . '/App/Controller/PageSectionsController.php',
         'App\\Controller\\TouristSpotsController' => __DIR__ . '/../..' . '/App/Controller/TouristSpotsController.php',
@@ -215,6 +216,7 @@ class ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df
         'App\\Validator\\AwardsFormValidator' => __DIR__ . '/../..' . '/App/Validator/AwardsFormValidator.php',
         'App\\Validator\\BiddingsFormValidator' => __DIR__ . '/../..' . '/App/Validator/BiddingsFormValidator.php',
         'App\\Validator\\FullDisclosureValidator' => __DIR__ . '/../..' . '/App/Validator/FullDisclosureValidator.php',
+        'App\\Validator\\MessagesFormValidator' => __DIR__ . '/../..' . '/App/Validator/MessagesFormValidator.php',
         'App\\Validator\\OrdinancesResolutionsValidator' => __DIR__ . '/../..' . '/App/Validator/OrdinancesResolutionsValidator.php',
         'App\\Validator\\UniqueRule' => __DIR__ . '/../..' . '/App/Validator/UniqueRule.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -957,9 +959,9 @@ class ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit87f586d3dc5c08a7a47aa15ca0ece7df::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -2,7 +2,6 @@
 namespace App\Validator;
 
 use App\Utility\Authenticator;
-use App\Utility\FileSystem;
 
 class AwardsFormValidator {
   static function validate($config = ['dataset' => [], 'files' => [], 'id']) {

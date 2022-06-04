@@ -7,6 +7,7 @@ use App\Controller\WebsiteController;
 use App\Controller\UsersController;
 use App\Controller\AnnouncementsController;
 use App\Controller\HeadlinesController;
+use App\Controller\MessagesController;
 use App\Controller\EventsController;
 use App\Controller\FeaturedStoriesController;
 use App\Controller\TouristSpotsController;
@@ -42,6 +43,8 @@ $router->group(['middleware' => [MaintenanceMiddleware::class]], function(Router
   $router->get('/view/{type}/{id}', [WebsiteController::class, 'view']);
   $router->get('/department/{id}', [WebsiteController::class, 'department']);
   $router->get('/full_disclosure/{year}', [WebsiteController::class, 'full_disclosure']);
+
+  $router->post('/system/messages', [MessagesController::class, 'store']);
 });
 
 $router->group(['middleware' => [LoginMiddleware::class]], function(Router $router) {
@@ -53,6 +56,8 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->get('/system/announcements', [AnnouncementsController::class, 'index']);
   $router->post('/system/announcements', [AnnouncementsController::class, 'store']);
   $router->delete('/system/announcements/{id}', [AnnouncementsController::class, 'destroy']);
+  
+  $router->get('/system/messages', [MessagesController::class, 'index']);
 
   $router->get('/system/headlines', [HeadlinesController::class, 'index']);
   $router->post('/system/headlines', [HeadlinesController::class, 'store']);

@@ -19,6 +19,12 @@
       'icon'  : 'speakerphone',
     },
     { 
+      'href'  : '/system/messages',
+      'title' : 'Messages',
+      'page'  : 'messages',
+      'icon'  : 'chat-alt',
+    },
+    { 
       'href'  : '/system/headlines',
       'title' : 'Headlines',
       'page'  : 'headlines',
@@ -96,7 +102,11 @@
 <section id="sidebar" class="h-screen w-64 bg-green-700 flex flex-col p-4 overflow-y-hidden hover:overflow-y-scroll hover:px-2">
   {% for link in links %}
     <a href="{{ link.href }}" 
-      class="{{ (current_page==link.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} w-full flex p-3 border-green-900 border-b hover:bg-green-900 hover:border-transparent hover:rounded">
+      class="
+        {{ (current_page==link.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} 
+        w-full flex p-3 border-green-900 border-b 
+        {{ (current_page!=link.page) ? 'hover:bg-green-900 hover:border-transparent hover:rounded' : '' }}
+      ">
       {{ include('@components/Common/icon-outline.twig', { 
           'name'  : link.icon, 
           'style' : 'h-6 w-6 mr-3' 

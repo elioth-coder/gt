@@ -1,0 +1,28 @@
+{% extends '@pages/System/base.html.twig' %}
+
+{% block title %}Messages{% endblock title %}
+{% block right_content %}
+  <div class="flex flex-col p-10">
+  <h1 class="text-center text-4xl">Module: Messages</h1>
+  <hr class="my-5">
+  {{ include('@components/System/messages-table.html.twig') }}
+  </div>
+{% endblock right_content %}
+{% block scripts %}
+  {{ parent() }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        let table1 = new DataTable('#messages-table', {
+          "columnDefs": [
+            { "width": "5%", "targets": 0 },
+            { "width": "10%", "targets": 1 },
+            { "width": "10%", "targets": 3 },
+            { "width": "10%", "targets": 4 },
+          ]
+        });
+      } catch(e) {}
+    });
+
+  </script>
+{% endblock scripts %}
