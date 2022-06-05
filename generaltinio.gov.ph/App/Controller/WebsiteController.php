@@ -44,19 +44,21 @@ class WebsiteController {
   function home() {
     $featured_stories = DataFetcher::getFeaturedStories(['page' => 'HOME']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments(['limit'=>5]);
     $events           = DataFetcher::getEvents();
     $tourist_spots    = DataFetcher::getTouristSpots();
     $announcement     = DataFetcher::getLatestAnnouncement();
+    $sections         = DataFetcher::getPageSections(['page'=>'HOME']);
+    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
 
     $template = TwigTemplate::load('@pages/Website/index.html.twig');    
-    $sublinks = [
-      [ 'url' => '#upcoming-events',     'title' => 'Upcoming Events' ],
-      [ 'url' => '#explore-the-town',    'title' => 'Explore The Town' ],
-    ];
-
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
-    $sublinks[] = ['url' => '#our-location', 'title' => 'Our Location'];
+    $sublinks[] = ['url' => '#departments',  'title' => 'Departments' ];
+    $sublinks[] = ['url' => '#upcoming-events',  'title' => 'Upcoming Events' ];
+    $sublinks[] = ['url' => '#explore-the-town', 'title' => 'Explore The Town' ];
+    $sublinks[] = ['url' => '#articles',         'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news',   'title'=> 'Community News']; 
+    $sublinks[] = ['url' => '#our-location',     'title' => 'Our Location'];
     $page_settings = [
       'current_page' => 'Home',
       'color'        => 'green',
@@ -93,10 +95,12 @@ class WebsiteController {
 
     return $template->render([
       'page_settings'    => $page_settings, 
+      'page_sections'    => $page_sections,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
       'headlines'        => $headlines,
       'events'           => $events,
+      'departments'      => $departments,
       'tourist_spots'    => $tourist_spots,
       'event'            => $event,
       'news'             => $news,

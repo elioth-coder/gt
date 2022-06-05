@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7945fd83279be51c2b31f1d43e924a52064752e9',
+    'reference' => '515a7343e99de76b3f61a3a5a9b1b31043048013',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7945fd83279be51c2b31f1d43e924a52064752e9',
+      'reference' => '515a7343e99de76b3f61a3a5a9b1b31043048013',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -142,6 +142,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '5f6839e75ff04e878ec6aec880df935c3061af20',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.6.0',
+      'version' => '6.6.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e43bac82edc26ca04b36143a48bde1c051cfd5b1',
     ),
     'phpoption/phpoption' => 
     array (

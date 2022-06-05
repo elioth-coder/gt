@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
+class ComposerStaticInit3314739b76fedf4ce7b0321d984fbd6b
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -49,6 +49,7 @@ class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'PhpOption\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
         array (
@@ -126,6 +127,10 @@ class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Opis\\Database\\' => 
         array (
@@ -692,6 +697,12 @@ class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
         'Opis\\Database\\Schema\\CreateColumn' => __DIR__ . '/..' . '/opis/database/src/Schema/CreateColumn.php',
         'Opis\\Database\\Schema\\CreateTable' => __DIR__ . '/..' . '/opis/database/src/Schema/CreateTable.php',
         'Opis\\Database\\Schema\\ForeignKey' => __DIR__ . '/..' . '/opis/database/src/Schema/ForeignKey.php',
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\OAuthTokenProvider' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuthTokenProvider.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
         'PhpOption\\LazyOption' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/LazyOption.php',
         'PhpOption\\None' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/None.php',
         'PhpOption\\Option' => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption/Option.php',
@@ -959,9 +970,9 @@ class ComposerStaticInit6bb1b178bcd8bba568de603292fa0967
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6bb1b178bcd8bba568de603292fa0967::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3314739b76fedf4ce7b0321d984fbd6b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3314739b76fedf4ce7b0321d984fbd6b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3314739b76fedf4ce7b0321d984fbd6b::$classMap;
 
         }, null, ClassLoader::class);
     }

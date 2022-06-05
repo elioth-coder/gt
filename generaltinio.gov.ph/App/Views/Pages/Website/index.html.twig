@@ -1,6 +1,10 @@
 {% extends "@pages/Website/base.html.twig" %}
 
 {% block title %}Home Page{% endblock %}
+{% block styles %}
+  {{ parent() }}
+  {% include('@components/Common/markdown.style.twig') %}
+{% endblock styles %}
 {% block innerContent %}
   <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
     <section class="lg:px-4">
@@ -13,7 +17,7 @@
           <img src="/uploads/featured_stories/{{ article.image }}" 
             class="w-full border shadow-3xl my-4" 
           />
-          <p class="mb-4 text-lg font-normal text-gray-500">
+          <p class="mb-4 font-normal text-gray-500">
             by {{ article.first_name }} {{ article.last_name }}<br>
             {{ article.date|date('F d, Y') }}
           </p>
@@ -65,6 +69,13 @@
           <hr class="my-2">
         </section>
       {% endif %}
+      {% for page_section in page_sections %}
+        <div class="w-full editor-preview mb-5">
+          {{ page_section|raw }}
+        </div>
+      {% endfor %}
+      <br>
+      {{ include('@components/Website/section-departments.html.twig', { 'page_settings': page_settings, 'departments': departments }) }}
     </section>
     <section class="lg:px-4 ">
       {% include('@components/Website/section-articles.html.twig') %}
@@ -86,6 +97,7 @@
 {% block scripts %}
   {{ parent() }}
   <script>
+    $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
     ContactUsForm.onsubmit = async (e) => {
       e.preventDefault();
 

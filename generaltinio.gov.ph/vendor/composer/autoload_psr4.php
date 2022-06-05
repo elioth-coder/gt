@@ -14,6 +14,7 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Opis\\Database\\' => array($vendorDir . '/opis/database/src'),
     'MiladRahimi\\PhpRouter\\' => array($vendorDir . '/miladrahimi/phprouter/src'),
     'MiladRahimi\\PhpContainer\\Tests\\' => array($vendorDir . '/miladrahimi/phpcontainer/tests'),
