@@ -22,7 +22,8 @@
           <td>{{ message.message }}</td>
           <td>{{ message.email }}</td>
           <td class="text-center">
-            <button title="Reply" class="text-green-500">
+            <button title="Reply" class="text-green-500"
+              onclick="replyToMessage({{ message|json_encode }})">
               {{ include('@components/Common/icon-outline.twig', { 'name': 'reply', 'style': 'w-6 h-6' }) }}
             </button>
           </td>

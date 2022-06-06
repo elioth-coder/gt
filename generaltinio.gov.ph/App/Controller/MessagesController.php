@@ -5,6 +5,9 @@ use Laminas\Diactoros\Response\JsonResponse;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Validator\MessagesFormValidator;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class MessagesController {
   function index() {
@@ -37,5 +40,35 @@ class MessagesController {
     $response = ($result) ? ['status' => 'success'] : ['status' => 'error'];
 
     return new JsonResponse($response);
+  }
+
+  function reply() {
+    try {
+      $mail = new PHPMailer(true);    
+
+      $mail->setFrom("information@generaltinio.gov.ph", "General Tinio");
+      $mail->addAddress($_POST['receiver'], $_POST['receiver_name']);
+
+      $mail->SMTPDebug = false;                               
+      $mail->isSMTP();            
+      $mail->Host = "mail.generaltinio.gov.ph";
+      $mail->SMTPAuth = true;                          
+      $mail->Username = "information@generaltinio.gov.ph";                 
+      $mail->Password = "information1234";                           
+      $mail->SMTPSecure = "tls";                           
+      $mail->Port = 587;                                   
+      
+      $mail->isHTML(true);
+      $mail->Subject = "INFORMATION AT MUNICIPALITY OF GENERAL TINIO";
+      $mail->Body = $_POST['question']. "\n\n" . $_POST['reply'];
+      $mail->AltBody = $_POST['question']. "\n\n" . $_POST['reply'];
+    
+      $mail->send();
+      $response = ['status' => 'success', 'mesage'=> "Replied to message successfully."];
+    } catch (Exception $e) {
+      $response = ['status' => 'error', 'mesage'=> "Error: " . $e->errorMessage()];
+    }    
+
+    return new JsonResponse($response);    
   }
 }

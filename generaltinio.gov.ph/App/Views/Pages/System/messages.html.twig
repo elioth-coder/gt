@@ -6,6 +6,8 @@
   <h1 class="text-center text-4xl">Module: Messages</h1>
   <hr class="my-5">
   {{ include('@components/System/messages-table.html.twig') }}
+  <hr class="my-5">
+  {{ include('@components/System/messages-form.html.twig') }}
   </div>
 {% endblock right_content %}
 {% block scripts %}
@@ -24,5 +26,71 @@
       } catch(e) {}
     });
 
+    MessagesForm.onsubmit = async (e) => {
+      e.preventDefault();
+
+      let processingModal = Swal.fire({ 
+        imageUrl: '/assets/img/loading.gif',
+        title: 'Processing...',
+        allowOutsideClick: false, 
+        allowEscapeKey: false,          
+        showConfirmButton: false
+      });
+
+      let response = await fetch('/system/messages/reply', {
+        credentials: "same-origin",
+        method: 'POST',
+        body: new FormData(MessagesForm)
+      });
+      let {
+        message,
+        status
+      } = await response.json();
+
+      processingModal.close();
+      if (status == 'success') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => window.location.reload());
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: message
+        });
+      }
+    }
+
+    function replyToMessage(data) {
+      let { id, name, email, message } = data;
+
+      MessagesForm.querySelector('#receiver').value = email;
+      MessagesForm.querySelector('#receiver_name').value = name;
+      MessagesForm.querySelector('#question').value = `From: ${name}\nQuestion: ${message}`;
+      MessagesForm.querySelector('#reply').removeAttribute('disabled');
+      MessagesForm.querySelector('#reply-buttons').style.display = "inline-block";
+    }
+
+    function cancelReply() {
+      MessagesForm.querySelector('#receiver').value = "";
+      MessagesForm.querySelector('#receiver_name').value = "";
+      MessagesForm.querySelector('#question').value = "";
+      MessagesForm.querySelector('#reply').value = "";
+      MessagesForm.querySelector('#reply-buttons').style.display = "none";
+      MessagesForm.querySelector('#reply').setAttribute('disabled', true);
+
+      let fileInput = MessagesForm.querySelector('#file');
+      let newFileInput = document.createElement('input');
+
+      newFileInput.setAttribute('type', 'file');
+      newFileInput.setAttribute('id', 'file');
+      newFileInput.setAttribute('name', 'file');
+
+      fileInput.replaceWith(newFileInput);
+    }
   </script>
 {% endblock scripts %}

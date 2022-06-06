@@ -58,6 +58,7 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->delete('/system/announcements/{id}', [AnnouncementsController::class, 'destroy']);
   
   $router->get('/system/messages', [MessagesController::class, 'index']);
+  $router->post('/system/messages/reply', [MessagesController::class, 'reply']);
 
   $router->get('/system/headlines', [HeadlinesController::class, 'index']);
   $router->post('/system/headlines', [HeadlinesController::class, 'store']);
