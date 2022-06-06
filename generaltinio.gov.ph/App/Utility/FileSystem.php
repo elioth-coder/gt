@@ -15,12 +15,12 @@ class FileSystem {
       // Customize how visibility is converted to unix permissions
       PortableVisibilityConverter::fromArray([
         'file' => [
-            'public' => 0644,
-            'private' => 0604,
+          'public' => 0744,
+          'private' => 0700,
         ],
         'dir' => [
             'public' => 0755,
-            'private' => 7604,
+            'private' => 0700,
         ],
       ]),
 

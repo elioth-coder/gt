@@ -31,4 +31,3 @@ class PageSectionHelper {
     return $page_sections;
   }
 }
-
