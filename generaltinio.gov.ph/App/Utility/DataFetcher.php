@@ -98,10 +98,9 @@ class DataFetcher {
     return $result;
   }
 
-  static function getDepartments($config=['limit'=>5]) {
+  static function getDepartments($config) {
     $result = DataFetcher::db()->from('department')
       ->orderBy('sequence', 'asc')
-      ->limit(!empty($config['limit']) ? $config['limit'] : 5)
       ->select()
       ->all();
       

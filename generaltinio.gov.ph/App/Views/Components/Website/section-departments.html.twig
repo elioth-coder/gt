@@ -5,7 +5,11 @@
   {% for department in departments %}
     <div class="border-b py-4 relative sm:w-1/2 sm:float-left box-border">
       <a href="/department/{{ department.id }}#content" class="w-20 border-box block float-left mr-2">
-        <img src="/uploads/departments/{{ department.logo }}" 
+        <img src="{{ 
+            (department.logo) 
+            ? '/uploads/departments/'~ department.logo 
+            : '/assets/img/transparency-seal.png' 
+          }}"
           class="w-full border shadow rounded-full"
         />
       </a>

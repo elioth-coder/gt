@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'c4b6a8ee383c3982cbf16665137e6e8a2fc08668',
+    'reference' => '5e74d901c0e11aa9b255f638dc1db729bb4f0d8b',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'c4b6a8ee383c3982cbf16665137e6e8a2fc08668',
+      'reference' => '5e74d901c0e11aa9b255f638dc1db729bb4f0d8b',
     ),
     'graham-campbell/result-type' => 
     array (

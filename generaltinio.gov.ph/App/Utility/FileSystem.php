@@ -12,7 +12,6 @@ class FileSystem {
   private static function createInstance() {
     $adapter = new LocalFilesystemAdapter(
       FileSystem::getBasePath(),
-      // Customize how visibility is converted to unix permissions
       PortableVisibilityConverter::fromArray([
         'file' => [
           'public' => 0755,
@@ -23,12 +22,7 @@ class FileSystem {
             'private' => 0755,
         ],
       ]),
-
-      // Write flags
       LOCK_EX,
-
-      // How to deal with links, either DISALLOW_LINKS or SKIP_LINKS
-      // Disallowing them causes exceptions when encountered
       LocalFilesystemAdapter::DISALLOW_LINKS
     );
 
