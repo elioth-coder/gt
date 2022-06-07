@@ -107,7 +107,7 @@
       }
     };
 
-    function editBid(data) {
+    function editFullDisclosure(data) {
       let { id, file, details, year, quarter, status } = data;
 
       let hiddenIdInput = FullDisclosureForm.querySelector('#id');
@@ -180,7 +180,7 @@
       FullDisclosureForm.querySelector('#update-buttons').style.display = "none";
     }
 
-    async function deleteBid(id) {
+    async function deleteFullDisclosure(id) {
       let result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

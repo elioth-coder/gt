@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita82e3d18ae5dd14ab924aeb311167753
+class ComposerStaticInitc18faec89d10670794285004be432bc2
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -196,6 +196,7 @@ class ComposerStaticInita82e3d18ae5dd14ab924aeb311167753
         'App\\Controller\\BiddingsController' => __DIR__ . '/../..' . '/App/Controller/BiddingsController.php',
         'App\\Controller\\DepartmentsController' => __DIR__ . '/../..' . '/App/Controller/DepartmentsController.php',
         'App\\Controller\\EventsController' => __DIR__ . '/../..' . '/App/Controller/EventsController.php',
+        'App\\Controller\\ExecutiveOrdersController' => __DIR__ . '/../..' . '/App/Controller/ExecutiveOrdersController.php',
         'App\\Controller\\FeaturedStoriesController' => __DIR__ . '/../..' . '/App/Controller/FeaturedStoriesController.php',
         'App\\Controller\\FileManagerController' => __DIR__ . '/../..' . '/App/Controller/FileManagerController.php',
         'App\\Controller\\FullDisclosureController' => __DIR__ . '/../..' . '/App/Controller/FullDisclosureController.php',
@@ -220,6 +221,7 @@ class ComposerStaticInita82e3d18ae5dd14ab924aeb311167753
         'App\\Utility\\TwigTemplate' => __DIR__ . '/../..' . '/App/Utility/TwigTemplate.php',
         'App\\Validator\\AwardsFormValidator' => __DIR__ . '/../..' . '/App/Validator/AwardsFormValidator.php',
         'App\\Validator\\BiddingsFormValidator' => __DIR__ . '/../..' . '/App/Validator/BiddingsFormValidator.php',
+        'App\\Validator\\ExecutiveOrdersFormValidator' => __DIR__ . '/../..' . '/App/Validator/ExecutiveOrdersFormValidator.php',
         'App\\Validator\\FullDisclosureValidator' => __DIR__ . '/../..' . '/App/Validator/FullDisclosureValidator.php',
         'App\\Validator\\MessagesFormValidator' => __DIR__ . '/../..' . '/App/Validator/MessagesFormValidator.php',
         'App\\Validator\\OrdinancesResolutionsValidator' => __DIR__ . '/../..' . '/App/Validator/OrdinancesResolutionsValidator.php',
@@ -970,9 +972,9 @@ class ComposerStaticInita82e3d18ae5dd14ab924aeb311167753
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita82e3d18ae5dd14ab924aeb311167753::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita82e3d18ae5dd14ab924aeb311167753::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita82e3d18ae5dd14ab924aeb311167753::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc18faec89d10670794285004be432bc2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc18faec89d10670794285004be432bc2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc18faec89d10670794285004be432bc2::$classMap;
 
         }, null, ClassLoader::class);
     }

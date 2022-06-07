@@ -60,6 +60,58 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="/assets/js/date_format.js"></script>
   <script>
+    ContactUsForm.onsubmit = async (e) => {
+      e.preventDefault();
+
+      let processingModal = Swal.fire({ 
+        imageUrl: '/assets/img/loading.gif',
+        title: 'Processing...',
+        allowOutsideClick: false, 
+        allowEscapeKey: false,          
+        showConfirmButton: false
+      });
+      let hiddenIdInput = ContactUsForm.querySelector('#id');
+      let response = await fetch('/system/messages', {
+        credentials: "same-origin",
+        method: 'POST',
+        body: new FormData(ContactUsForm)
+      });
+      let {
+        message,
+        status,
+        errors
+      } = await response.json();
+
+      processingModal.close();
+      if (status == 'success') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: message,
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => window.location.reload());
+      } else {
+        console.log(errors)
+
+        for(let key in errors) {
+          let error = errors[key];
+
+          for(let i in error) {
+            $(`#container-${key} [name]`).addClass('border-red-500');
+            $(`#container-${key} .error-message`).removeClass('hidden');
+            $(`#container-${key} .error-message`).html(error[i]);
+          }
+        }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'An error occured!'
+        });
+      }
+    };
+    
     LoginForm.onsubmit = async (e) => {
       e.preventDefault();
 

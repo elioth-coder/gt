@@ -1,6 +1,6 @@
 {% extends "@pages/Website/base.html.twig" %}
 
-{% block title %}Business Page{% endblock title %}
+{% block title %}BUSINESS - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   {% include('@components/Common/markdown.style.twig') %}
@@ -21,6 +21,14 @@
       <br>
       {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
     </section>
+  </div>
+  <div class="lg:flex lg:flex-col lg:px-6">
+    {{ 
+      include('@components/Website/bottom-content.html.twig', { 
+        'page_settings': page_settings,
+        'departments'  : departments,
+      })
+    }}
   </div>
 {% endblock innerContent %}
 {% block scripts %}

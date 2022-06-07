@@ -17,6 +17,7 @@ use App\Controller\BiddingsController;
 use App\Controller\AwardsController;
 use App\Controller\FullDisclosureController;
 use App\Controller\OrdinancesResolutionsController;
+use App\Controller\ExecutiveOrdersController;
 use App\Controller\FileManagerController;
 use App\Middleware\LoginMiddleware;
 use App\Middleware\MaintenanceMiddleware;
@@ -40,6 +41,7 @@ $router->group(['middleware' => [MaintenanceMiddleware::class]], function(Router
   $router->get('/business', [WebsiteController::class, 'business']);
   $router->get('/faq', [WebsiteController::class, 'faq']);
   $router->get('/search', [WebsiteController::class, 'search']);
+  $router->get('/list/{type}', [WebsiteController::class, 'list']);
   $router->get('/view/{type}/{id}', [WebsiteController::class, 'view']);
   $router->get('/department/{id}', [WebsiteController::class, 'department']);
   $router->get('/full_disclosure/{year}', [WebsiteController::class, 'full_disclosure']);
@@ -109,6 +111,11 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->post('/system/ordinances_resolutions', [OrdinancesResolutionsController::class, 'store']);
   $router->delete('/system/ordinances_resolutions/{id}', [OrdinancesResolutionsController::class, 'destroy']);
   $router->post('/system/ordinances_resolutions/{id}/update', [OrdinancesResolutionsController::class, 'update']);
+
+  $router->get('/system/executive_orders', [ExecutiveOrdersController::class, 'index']);
+  $router->post('/system/executive_orders', [ExecutiveOrdersController::class, 'store']);
+  $router->delete('/system/executive_orders/{id}', [ExecutiveOrdersController::class, 'destroy']);
+  $router->post('/system/executive_orders/{id}/update', [ExecutiveOrdersController::class, 'update']);
 
   $router->get('/system/file_manager', [FileManagerController::class, 'index']);
   $router->post('/system/file_manager', [FileManagerController::class, 'store']);

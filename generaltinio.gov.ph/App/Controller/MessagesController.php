@@ -47,6 +47,7 @@ class MessagesController {
       $mail = new PHPMailer(true);    
 
       $mail->setFrom("information@generaltinio.gov.ph", "General Tinio");
+      $mail->AddCC("information@generaltinio.gov.ph", "General Tinio");
       $mail->addAddress($_POST['receiver'], $_POST['receiver_name']);
 
       $mail->SMTPDebug = false;                               
@@ -55,13 +56,16 @@ class MessagesController {
       $mail->SMTPAuth = true;                          
       $mail->Username = "information@generaltinio.gov.ph";                 
       $mail->Password = "information1234";                           
-      $mail->SMTPSecure = "tls";                           
-      $mail->Port = 587;                                   
+      // $mail->SMTPSecure = "tls";                           
+      // $mail->Port = 587;                                   
+      
+      $mail->SMTPSecure = "ssl";                           
+      $mail->Port = 465;                                   
       
       $mail->isHTML(true);
       $mail->Subject = "INFORMATION AT MUNICIPALITY OF GENERAL TINIO";
-      $mail->Body = $_POST['question']. "\n\n" . $_POST['reply'];
-      $mail->AltBody = $_POST['question']. "\n\n" . $_POST['reply'];
+      $mail->Body = $_POST['question']. "<br><br>" . $_POST['reply'];
+      $mail->AltBody = $_POST['question']. "<br><br>" . $_POST['reply'];
     
       $mail->send();
       $response = ['status' => 'success', 'mesage'=> "Replied to message successfully."];

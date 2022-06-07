@@ -9,6 +9,7 @@ use App\Model\User;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Kaoken\MarkdownIt\MarkdownIt;
+use Jawira\CaseConverter\Convert;
 
 class WebsiteController {
   function login() {
@@ -44,13 +45,13 @@ class WebsiteController {
   function home() {
     $featured_stories = DataFetcher::getFeaturedStories(['page' => 'HOME']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-    $departments      = DataFetcher::getDepartments(['limit'=>5]);
-    $events           = DataFetcher::getEvents();
-    $tourist_spots    = DataFetcher::getTouristSpots();
     $announcement     = DataFetcher::getLatestAnnouncement();
     $sections         = DataFetcher::getPageSections(['page'=>'HOME']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $events           = DataFetcher::getEvents();
+    $tourist_spots    = DataFetcher::getTouristSpots();
+    $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/index.html.twig');    
     $sublinks[] = ['url' => '#departments',  'title' => 'Departments' ];
@@ -99,12 +100,12 @@ class WebsiteController {
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
       'headlines'        => $headlines,
-      'events'           => $events,
-      'departments'      => $departments,
-      'tourist_spots'    => $tourist_spots,
       'event'            => $event,
       'news'             => $news,
       'article'          => $article,
+      'events'           => $events,
+      'tourist_spots'    => $tourist_spots,
+      'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
@@ -115,7 +116,7 @@ class WebsiteController {
     $sections         = DataFetcher::getPageSections(['page'=>'ABOUT']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
-
+    $departments      = DataFetcher::getDepartments();
     $template = TwigTemplate::load('@pages/Website/about.html.twig');    
   
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
@@ -132,6 +133,155 @@ class WebsiteController {
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function government() {
+    $bids                   = DataFetcher::getBidsAndAwards();
+    $ordinances_resolutions = DataFetcher::getOrdinancesAndResolutions();
+    $featured_stories       = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
+    $headlines              = DataFetcher::getHeadlines(['limit'=>3]);
+    $sections               = DataFetcher::getPageSections(['page'=>'GOVERNMENT']);
+    $sublinks               = PageSectionHelper::extractLinksFrom($sections);
+    $page_sections          = PageSectionHelper::extractSectionsFrom($sections);
+    $departments            = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/government.html.twig');    
+  
+    $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
+    $sublinks[] = ['url' => '#bids', 'title'=> 'Bids & Awards']; 
+    $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
+    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
+    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
+    $page_settings = [
+      'current_page' => 'Government',
+      'color'        => 'blue',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'bids'                   => $bids,
+      'ordinances_resolutions' => $ordinances_resolutions,
+      'current_year'           => date('Y'),
+      'page_settings'          => $page_settings, 
+      'page_sections'          => $page_sections,
+      'headlines'              => $headlines,
+      'articles'               => $featured_stories,
+      'featured_stories'       => $featured_stories,
+      'departments'            => $departments,
+      'user'                   => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function department($id) {
+    $department       = DataFetcher::getDepartment(['id'=>$id]);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/department.html.twig');  
+      
+    $md = new MarkdownIt(['html'=> true]);
+    $department->details = $md->render($department->details);
+
+    $sublinks   = array();
+    $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
+    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
+    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
+    $page_settings = [
+      'current_page' => 'Government',
+      'color'        => 'blue',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'page_settings'    => $page_settings, 
+      'department'       => $department,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function full_disclosure($year) {
+    $disclosures      = DataFetcher::getFullDisclosures(['year'=>$year]);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/full_disclosure.html.twig');  
+      
+    $sublinks   = array();
+    $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
+    $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
+    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
+    $page_settings = [
+      'current_page' => 'Government',
+      'color'        => 'blue',
+      'sublinks'     => $sublinks,
+    ];
+
+    $quarters = [];
+    for($i=1; $i<=4; $i++) {
+      $docs = [];
+
+      foreach($disclosures as $disclosure) {
+        if($disclosure->quarter == $i) {
+          $docs[] = $disclosure;
+        }
+      }
+
+      $quarters[] = array('number' => $i, 'documents' => $docs);
+    }
+
+    return $template->render([
+      'year'             => $year,
+      'current_year'     => date('Y'),
+      'page_settings'    => $page_settings, 
+      'quarters'         => $quarters,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function tourism() {
+    $tourist_spots    = DataFetcher::getTouristSpots(['limit'=>5]);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'TOURISM']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $sections         = DataFetcher::getPageSections(['page'=>'TOURISM']);
+    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $departments      = DataFetcher::getDepartments();
+ 
+    $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
+    
+    $sublinks[] = ['url' => '#tourist-spots', 'title'=> 'Tourist Spots']; 
+    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
+    $page_settings = [
+      'current_page' => 'Tourism',
+      'color'        => 'yellow',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'page_settings'    => $page_settings, 
+      'page_sections'    => $page_sections,
+      'tourist_spots'    => $tourist_spots,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
@@ -142,6 +292,7 @@ class WebsiteController {
     $sections         = DataFetcher::getPageSections(['page'=>'BUSINESS']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/business.html.twig');    
   
@@ -159,6 +310,7 @@ class WebsiteController {
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
+      'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
@@ -169,6 +321,7 @@ class WebsiteController {
     $sections         = DataFetcher::getPageSections(['page'=>'FAQ']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/faq.html.twig');    
   
@@ -186,15 +339,16 @@ class WebsiteController {
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
+      'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
 
   function search() { 
-    $type             = !empty($_GET['type']) ? $_GET['type'] : null; 
-    $results          = DataFetcher::getSearchResults(['q'=> $_GET['q'], 'type'=> $type ]);
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'FAQ']);
+    $results          = DataFetcher::getSearchResults(['q'=> $_GET['q']]);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'HOME']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/search.html.twig');    
     
@@ -203,7 +357,7 @@ class WebsiteController {
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
     $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
-      'title'        => 'Search results for: "' . $_GET['q'] . '"',
+      'title'        => 'Search results for: "' . htmlspecialchars($_GET['q']) . '"',
       'current_page' => 'Search',
       'color'        => 'green',
       'sublinks'     => $sublinks,
@@ -216,14 +370,48 @@ class WebsiteController {
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
+      'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
 
+  function list($type) { 
+    $type             = urldecode($type);
+    $results          = DataFetcher::getListResults(['type'=> $type ]);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'HOME']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/list.html.twig');    
+    
+    $title = (new Convert('LIST OF ' . $type))->toTitle();
+    $sublinks   = array();
+    $sublinks[] = ['url' => '#list-results', 'title'=> $title]; 
+    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
+    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
+    $page_settings = [
+      'title'        => $title,
+      'current_page' => 'List',
+      'color'        => 'green',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'type'             => $type,
+      'page_settings'    => $page_settings, 
+      'results'          => $results,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
 
   function view($type, $id) {
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'FAQ']);
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'HOME']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/view.html.twig');    
     
@@ -282,150 +470,7 @@ class WebsiteController {
       'article'          => $article,
       'articles'         => $articles,
       'featured_stories' => $featured_stories,
-      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
-    ]);
-  }
-
-  function department($id) {
-    $department       = DataFetcher::getDepartment(['id'=>$id]);
-    $departments      = DataFetcher::getDepartments(['limit'=>100]);
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
-    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-
-    $template = TwigTemplate::load('@pages/Website/department.html.twig');  
-      
-    $md = new MarkdownIt(['html'=> true]);
-    $department->details = $md->render($department->details);
-
-    $sublinks   = array();
-    $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
-    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
-    $page_settings = [
-      'current_page' => 'Government',
-      'color'        => 'blue',
-      'sublinks'     => $sublinks,
-    ];
-
-    return $template->render([
-      'page_settings'    => $page_settings, 
-      'department'       => $department,
       'departments'      => $departments,
-      'headlines'        => $headlines,
-      'articles'         => $featured_stories,
-      'featured_stories' => $featured_stories,
-      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
-    ]);
-  }
-
-  function full_disclosure($year) {
-    $disclosures      = DataFetcher::getFullDisclosures(['year'=>$year]);
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
-    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-
-    $template = TwigTemplate::load('@pages/Website/full_disclosure.html.twig');  
-      
-    $sublinks   = array();
-    $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
-    $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
-    $page_settings = [
-      'current_page' => 'Government',
-      'color'        => 'blue',
-      'sublinks'     => $sublinks,
-    ];
-
-    $quarters = [];
-    for($i=1; $i<=4; $i++) {
-      $docs = [];
-
-      foreach($disclosures as $disclosure) {
-        if($disclosure->quarter == $i) {
-          $docs[] = $disclosure;
-        }
-      }
-
-      $quarters[] = array('number' => $i, 'documents' => $docs);
-    }
-
-    return $template->render([
-      'year'             => $year,
-      'current_year'     => date('Y'),
-      'page_settings'    => $page_settings, 
-      'quarters'         => $quarters,
-      'headlines'        => $headlines,
-      'articles'         => $featured_stories,
-      'featured_stories' => $featured_stories,
-      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
-    ]);
-  }
-
-  function government() {
-    $bids                   = DataFetcher::getBidsAndAwards();
-    $ordinances_resolutions = DataFetcher::getOrdinancesAndResolutions();
-    $departments            = DataFetcher::getDepartments(['limit'=>5]);
-    $featured_stories       = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
-    $headlines              = DataFetcher::getHeadlines(['limit'=>3]);
-    $sections               = DataFetcher::getPageSections(['page'=>'GOVERNMENT']);
-    $sublinks               = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections          = PageSectionHelper::extractSectionsFrom($sections);
-
-    $template = TwigTemplate::load('@pages/Website/government.html.twig');    
-  
-    $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
-    $sublinks[] = ['url' => '#bids', 'title'=> 'Bids & Awards']; 
-    $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
-    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
-    $page_settings = [
-      'current_page' => 'Government',
-      'color'        => 'blue',
-      'sublinks'     => $sublinks,
-    ];
-
-    return $template->render([
-      'bids'                   => $bids,
-      'ordinances_resolutions' => $ordinances_resolutions,
-      'current_year'           => date('Y'),
-      'page_settings'          => $page_settings, 
-      'page_sections'          => $page_sections,
-      'departments'            => $departments,
-      'headlines'              => $headlines,
-      'articles'               => $featured_stories,
-      'featured_stories'       => $featured_stories,
-      'user'                   => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
-    ]);
-  }
-
-  function tourism() {
-    $tourist_spots    = DataFetcher::getTouristSpots(['limit'=>5]);
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'TOURISM']);
-    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-    $sections         = DataFetcher::getPageSections(['page'=>'TOURISM']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
- 
-    $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
-    
-    $sublinks[] = ['url' => '#tourist-spots', 'title'=> 'Tourist Spots']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
-    $page_settings = [
-      'current_page' => 'Tourism',
-      'color'        => 'yellow',
-      'sublinks'     => $sublinks,
-    ];
-
-    return $template->render([
-      'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
-      'tourist_spots'    => $tourist_spots,
-      'headlines'        => $headlines,
-      'articles'         => $featured_stories,
-      'featured_stories' => $featured_stories,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }

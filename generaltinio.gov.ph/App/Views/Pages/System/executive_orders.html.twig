@@ -1,13 +1,13 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}Creating Ordinances and Resolutions{% endblock title %}
+{% block title %}Creating Executive Order{% endblock title %}
 {% block right_content %}
   <div class="flex flex-col p-10">
-  <h1 class="text-center text-4xl">Module: Ordinances and Resolutions</h1>
+  <h1 class="text-center text-4xl">Module: Executive Order</h1>
   <hr class="my-5">
-  {{ include('@components/System/ordinances_resolutions-table.html.twig') }}
+  {{ include('@components/System/executive_orders-table.html.twig') }}
   <hr class="my-5">
-  {{ include('@components/System/ordinances_resolutions-form.html.twig') }}
+  {{ include('@components/System/executive_orders-form.html.twig') }}
 
   <style type="text/css">
     .swal-height{
@@ -21,15 +21,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        let table1 = new DataTable('#ORs-table', {
+        let table1 = new DataTable('#ExOr-table', {
           "columnDefs": [
-            { "width": "10%", "targets": 0 },
-            { "width": "8%", "targets": 2 },
-            { "width": "8%", "targets": 3 },
-            { "width": "5%", "targets": 4 },
-            { "width": "5%", "targets": 5 },
-            { "width": "8%", "targets": 6 },
-            { "width": "5%", "targets": 7 }
+            { "width": "5%", "targets": 0 },
+            { "width": "50%", "targets": 1 },
           ]
         });
       } catch(e) {}
@@ -46,17 +41,6 @@
         }
     };
 
-    function ORSetter(){
-      var x = document.getElementById("category").value;
-      if (x != '') {
-        document.getElementById("ORno").disabled = false;
-        document.getElementById("ORno_label").innerHTML = x + " No :"; 
-      }else{
-        document.getElementById("ORno").disabled = true;
-        document.getElementById("ORno_label").innerHTML = "No :"; 
-      }
-    }
-
     const removeErrorMessage = (e) => {
       console.log("remove error message");
 
@@ -66,11 +50,11 @@
         .addClass('hidden');
     }
 
-    $(OrdinancesResolutionsForm).find('input').focus(removeErrorMessage);
-    $(OrdinancesResolutionsForm).find('select').focus(removeErrorMessage);
-    $(OrdinancesResolutionsForm).find('textarea').focus(removeErrorMessage);
+    $(ExecutiveOrdersForm).find('input').focus(removeErrorMessage);
+    $(ExecutiveOrdersForm).find('select').focus(removeErrorMessage);
+    $(ExecutiveOrdersForm).find('textarea').focus(removeErrorMessage);
 
-    OrdinancesResolutionsForm.onsubmit = async (e) => {
+    ExecutiveOrdersForm.onsubmit = async (e) => {
       e.preventDefault();
 
       let processingModal = Swal.fire({ 
@@ -80,11 +64,11 @@
         allowEscapeKey: false,          
         showConfirmButton: false
       });
-      let hiddenIdInput = OrdinancesResolutionsForm.querySelector('#id');
-      let response = await fetch('/system/ordinances_resolutions' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
+      let hiddenIdInput = ExecutiveOrdersForm.querySelector('#id');
+      let response = await fetch('/system/executive_orders' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
         credentials: "same-origin",
         method: 'POST',
-        body: new FormData(OrdinancesResolutionsForm)
+        body: new FormData(ExecutiveOrdersForm)
       });
       let {
         message,
@@ -122,11 +106,11 @@
       }
     };
 
-    function editOrdinanceResolutions(data) {
-      let { id, category, ORno, title, author, com_incharged, date_approved, status, file } = data;
+    function editExOr(data) {
+      let { id, details, date_issued, status, file } = data;
 
-      let hiddenIdInput = OrdinancesResolutionsForm.querySelector('#id');
-      let oldFileInput = OrdinancesResolutionsForm.querySelector('#old_file');
+      let hiddenIdInput = ExecutiveOrdersForm.querySelector('#id');
+      let oldFileInput = ExecutiveOrdersForm.querySelector('#old_file');
 
       if(hiddenIdInput) {
         hiddenIdInput.value = id;
@@ -138,7 +122,7 @@
         idInput.setAttribute('id', 'id');
         idInput.setAttribute('name', 'id');
         idInput.value = id;
-        OrdinancesResolutionsForm.prepend(idInput);
+        ExecutiveOrdersForm.prepend(idInput);
 
         let oldFileInput = document.createElement('input');
 
@@ -146,37 +130,32 @@
         oldFileInput.setAttribute('id', 'old_file');
         oldFileInput.setAttribute('name', 'old_file');
         oldFileInput.value = file;
-        OrdinancesResolutionsForm.prepend(oldFileInput);
+        ExecutiveOrdersForm.prepend(oldFileInput);
       }
 
       extension = file.split('.').pop();
       if(extension === "pdf"){
-        OrdinancesResolutionsForm.querySelector('#prevFile').setAttribute('src', '/uploads/documents/OrdiReso/' + file);
+        ExecutiveOrdersForm.querySelector('#prevFile').setAttribute('src', '/uploads/documents/ExecutiveOrder/' + file);
       } else {
-        OrdinancesResolutionsForm.querySelector('#prevFile').setAttribute('src', '/assets/img/PreviewNotAvailable.jpg');
+        ExecutiveOrdersForm.querySelector('#prevFile').setAttribute('src', '/assets/img/PreviewNotAvailable.jpg');
       }
 
-      OrdinancesResolutionsForm.querySelector('#category').value = category;
-      OrdinancesResolutionsForm.querySelector('#ORno').value = ORno;
-      OrdinancesResolutionsForm.querySelector('#title').value = title;
-      OrdinancesResolutionsForm.querySelector('#author').value = author;
-      OrdinancesResolutionsForm.querySelector('#com_incharged').value = com_incharged;
-      OrdinancesResolutionsForm.querySelector('#status').value = status;
-      ORSetter();
-      let dt = new Date(date_approved);
+      ExecutiveOrdersForm.querySelector('#details').value = details;
+      ExecutiveOrdersForm.querySelector('#status').value = status;
+      let dt = new Date(date_issued);
 
-      OrdinancesResolutionsForm.querySelector('#date_approved').value = `${date_format(dt, 'Y-m-d')}`;
+      ExecutiveOrdersForm.querySelector('#date_issued').value = `${date_format(dt, 'Y-m-d')}`;
 
-      OrdinancesResolutionsForm.querySelector('#save-button').style.display = "none";
-      OrdinancesResolutionsForm.querySelector('#update-buttons').style.display = "inline-block";
+      ExecutiveOrdersForm.querySelector('#save-button').style.display = "none";
+      ExecutiveOrdersForm.querySelector('#update-buttons').style.display = "inline-block";
     };
 
     function cancelEdit() {
-      let hiddenIdInput = OrdinancesResolutionsForm.querySelector('#id');
+      let hiddenIdInput = ExecutiveOrdersForm.querySelector('#id');
         hiddenIdInput.remove();
-      let hiddenOldFileInput = OrdinancesResolutionsForm.querySelector('#old_file');
+      let hiddenOldFileInput = ExecutiveOrdersForm.querySelector('#old_file');
         hiddenOldFileInput.remove();
-      let fileInput = OrdinancesResolutionsForm.querySelector('#file');
+      let fileInput = ExecutiveOrdersForm.querySelector('#file');
       let newFileInput = document.createElement('input');
 
       newFileInput.setAttribute('type', 'file');
@@ -191,20 +170,16 @@
         }
       }
       
-      OrdinancesResolutionsForm.querySelector('#category').value = "";
-      OrdinancesResolutionsForm.querySelector('#ORno').value = "";
-      OrdinancesResolutionsForm.querySelector('#title').value = "";
-      OrdinancesResolutionsForm.querySelector('#author').value = "";
-      OrdinancesResolutionsForm.querySelector('#com_incharged').value = "";
-      OrdinancesResolutionsForm.querySelector('#status').value = "";
-      ORSetter();
-      OrdinancesResolutionsForm.querySelector('#prevFile').setAttribute('src', '/assets/img/PreviewNotAvailable.jpg');
+      ExecutiveOrdersForm.querySelector('#details').value = "";
+      ExecutiveOrdersForm.querySelector('#status').value = "";
+      ExecutiveOrdersForm.querySelector('#date_issued').value = "";
+      ExecutiveOrdersForm.querySelector('#prevFile').setAttribute('src', '/assets/img/PreviewNotAvailable.jpg');
 
-      OrdinancesResolutionsForm.querySelector('#save-button').style.display = "inline-block";
-      OrdinancesResolutionsForm.querySelector('#update-buttons').style.display = "none";
+      ExecutiveOrdersForm.querySelector('#save-button').style.display = "inline-block";
+      ExecutiveOrdersForm.querySelector('#update-buttons').style.display = "none";
     };
 
-    async function deleteOrdinanceResolutions(id) {
+    async function deleteExOr(id) {
       let result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -216,7 +191,7 @@
       });
 
       if(result.isConfirmed) {
-        let response = await fetch('/system/ordinances_resolutions/' + id, {
+        let response = await fetch('/system/executive_orders/' + id, {
           credentials: "same-origin",
           method: 'DELETE',
         });

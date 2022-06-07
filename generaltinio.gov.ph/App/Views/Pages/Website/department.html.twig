@@ -1,6 +1,6 @@
 {% extends "@pages/Website/base.html.twig" %}
 
-{% block title %}Department Page{% endblock title %}
+{% block title %}DEPARTMENTS - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   {% include('@components/Common/markdown.style.twig') %}
@@ -13,7 +13,11 @@
       </h1>
       <section class="py-4">
         <p class="bg-gray-50 p-4">
-          <img src="/uploads/departments/{{ department.logo }}" 
+          <img src="{{ 
+              (department.logo) 
+              ? '/uploads/departments/'~ department.logo 
+              : '/assets/img/transparency-seal.png' 
+            }}" 
             class="inline-block rounded-full shadow-3xl h-[100px]" 
           />
           <span class="text-gray-600">{{ department.name|upper }} LOGO</span>
@@ -22,7 +26,6 @@
       <div class="w-full editor-preview mb-5">
         {{ department.details|raw }}
       </div>
-      {% include('@components/Website/section-departments.html.twig') %}
     </section>
     <section class="lg:px-4">
       {% include('@components/Website/section-articles.html.twig') %}
@@ -31,6 +34,14 @@
       <br>
       {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
     </section>
+  </div>
+  <div class="lg:flex lg:flex-col lg:px-6">
+    {{ 
+      include('@components/Website/bottom-content.html.twig', { 
+        'page_settings': page_settings,
+        'departments'  : departments,
+      })
+    }}
   </div>
 {% endblock innerContent %}
 {% block scripts %}

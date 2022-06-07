@@ -1,6 +1,6 @@
 {% extends "@pages/Website/base.html.twig" %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}HOME - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   {% include('@components/Common/markdown.style.twig') %}
@@ -74,8 +74,6 @@
           {{ page_section|raw }}
         </div>
       {% endfor %}
-      <br>
-      {{ include('@components/Website/section-departments.html.twig', { 'page_settings': page_settings, 'departments': departments }) }}
     </section>
     <section class="lg:px-4 ">
       {% include('@components/Website/section-articles.html.twig') %}
@@ -90,64 +88,20 @@
       {{ include('@components/Website/section-events.html.twig', { 'page_settings': page_settings, 'events': events }) }}
       <br>
       {{ include('@components/Website/section-explore.html.twig', { 'page_settings': page_settings, 'tourist_spots': tourist_spots }) }}
-      {{ include('@components/Website/section-contact_us.html.twig', { 'page_settings': page_settings }) }}
     </section>
   </div>
-{% endblock %}
+  <div class="lg:flex lg:flex-col lg:px-6">
+    {{ 
+      include('@components/Website/bottom-content.html.twig', { 
+        'page_settings': page_settings,
+        'departments'  : departments,
+      })
+    }}
+  </div>
+{% endblock innerContent %}
 {% block scripts %}
   {{ parent() }}
   <script>
     $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
-    ContactUsForm.onsubmit = async (e) => {
-      e.preventDefault();
-
-      let processingModal = Swal.fire({ 
-        imageUrl: '/assets/img/loading.gif',
-        title: 'Processing...',
-        allowOutsideClick: false, 
-        allowEscapeKey: false,          
-        showConfirmButton: false
-      });
-      let hiddenIdInput = ContactUsForm.querySelector('#id');
-      let response = await fetch('/system/messages', {
-        credentials: "same-origin",
-        method: 'POST',
-        body: new FormData(ContactUsForm)
-      });
-      let {
-        message,
-        status,
-        errors
-      } = await response.json();
-
-      processingModal.close();
-      if (status == 'success') {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: message,
-          showConfirmButton: false,
-          timer: 1500
-        }).then(() => window.location.reload());
-      } else {
-        console.log(errors)
-
-        for(let key in errors) {
-          let error = errors[key];
-
-          for(let i in error) {
-            $(`#container-${key} [name]`).addClass('border-red-500');
-            $(`#container-${key} .error-message`).removeClass('hidden');
-            $(`#container-${key} .error-message`).html(error[i]);
-          }
-        }
-
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'An error occured!'
-        });
-      }
-    };
   </script>
 {% endblock scripts %}

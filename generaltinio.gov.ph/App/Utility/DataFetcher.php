@@ -1,6 +1,14 @@
 <?php
 namespace App\Utility;
 
+$dotenv = \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
+$dotenv->load();
+
+define("HOST_NAME", $_ENV['DB_HOST']);
+define("USERNAME", $_ENV['DB_USER']);
+define("PASSWORD", $_ENV['DB_PASS']);
+define("DATABASENAME", $_ENV['DB_NAME']);
+
 class DataFetcher {
 
   static function db() {
@@ -77,7 +85,7 @@ class DataFetcher {
     return $result;
   }
 
-  static function getEvents($config=['limit'=>5]) {
+  static function getEvents($config=['limit'=>4]) {
     $result = DataFetcher::db()->from('event')
       ->orderBy('date_time', 'asc')
       ->where('date_time')->gte(date("Y-m-d h:i:s"))
@@ -98,7 +106,7 @@ class DataFetcher {
     return $result;
   }
 
-  static function getDepartments($config) {
+  static function getDepartments() {
     $result = DataFetcher::db()->from('department')
       ->orderBy('sequence', 'asc')
       ->select()
@@ -155,14 +163,6 @@ class DataFetcher {
   }
 
   static function getSearchResults($config) {
-    $dotenv = \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
-    $dotenv->load();
-
-    define("HOST_NAME", $_ENV['DB_HOST']);
-    define("USERNAME", $_ENV['DB_USER']);
-    define("PASSWORD", $_ENV['DB_PASS']);
-    define("DATABASENAME", $_ENV['DB_NAME']);
-
     try {
       $pdo = new \PDO("mysql:host=".HOST_NAME.";dbname=".DATABASENAME, USERNAME, PASSWORD);
       $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -187,12 +187,8 @@ class DataFetcher {
       WHERE title LIKE :q
     ";     
     
-    if(!empty($config['type'])) {
-      $sql .= "AND type='" . $config['type'] . "'";
-    }
-
+    $stmt  = $pdo->prepare($sql);
     $title = "%". $config['q']. "%";
-    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':q', $title);
     $stmt->execute();
     $results = array();
@@ -204,4 +200,41 @@ class DataFetcher {
     return $results;
   }
 
+  static function getListResults($config) {
+    try {
+      $pdo = new \PDO("mysql:host=".HOST_NAME.";dbname=".DATABASENAME, USERNAME, PASSWORD);
+      $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    } catch(\PDOException $e) {
+      throw $e;
+    }
+
+    $sql = "
+      SELECT * FROM (
+        SELECT id, title, content, image, 'NEWS'         AS type FROM headline
+        UNION
+        SELECT id, name,  details, logo,  'DEPARTMENT'   AS type FROM department
+        UNION
+        SELECT id, title, details, image, 'EVENT'        AS type FROM event
+        UNION
+        SELECT id, title, content, image, 'ARTICLE'      AS type FROM featured_story
+        UNION
+        SELECT id, title, content, page,  'PAGE SECTION' AS type FROM section
+        UNION
+        SELECT id, name,  details, image, 'TOURIST SPOT' AS type FROM tourist_spot
+      ) AS search_results 
+      WHERE type=:type
+    ";   
+
+    $stmt = $pdo->prepare($sql);
+    $type = $config['type'];
+    $stmt->bindParam(':type', $type);
+    $stmt->execute();
+    $results = array();
+
+    while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+      $results[] = $row;
+    }
+
+    return $results;
+  }
 }

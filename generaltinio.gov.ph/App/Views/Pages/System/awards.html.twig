@@ -168,7 +168,7 @@
       }
     };
 
-    function editBid(data) {
+    function editAward(data) {
       let { id, bid_id, title, file, date_closed, details, status } = data;
 
       let hiddenIdInput = AwardsForm.querySelector('#id');
@@ -246,7 +246,7 @@
       AwardsForm.querySelector('#update-buttons').style.display = "none";
     }
     
-    async function deleteBid(id) {
+    async function deleteAward(id) {
       let result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
