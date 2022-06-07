@@ -1,6 +1,6 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}Messages{% endblock title %}
+{% block title %}SYSTEM_MODULE: {{ current_page|title }} - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block right_content %}
   <div class="flex flex-col p-10">
   <h1 class="text-center text-4xl">Module: Messages</h1>
@@ -19,12 +19,24 @@
           "columnDefs": [
             { "width": "5%", "targets": 0 },
             { "width": "10%", "targets": 1 },
-            { "width": "10%", "targets": 3 },
+            { "width": "15%", "targets": 3 },
             { "width": "10%", "targets": 4 },
           ]
         });
       } catch(e) {}
     });
+
+    forward_to.onchange = (e) => {
+      let email_account = JSON.parse(e.target.value);
+
+      if(email_account) {
+        MessagesForm.querySelector('#name').value  = email_account.name
+        MessagesForm.querySelector('#email').value = email_account.email
+      } else {
+        MessagesForm.querySelector('#name').value  = ""
+        MessagesForm.querySelector('#email').value = ""
+      }
+    }
 
     MessagesForm.onsubmit = async (e) => {
       e.preventDefault();
@@ -37,7 +49,8 @@
         showConfirmButton: false
       });
 
-      let response = await fetch('/system/messages/reply', {
+      let hiddenIdInput = MessagesForm.querySelector('#id');
+      let response = await fetch('/system/messages/' + hiddenIdInput.value + '/forward', {
         credentials: "same-origin",
         method: 'POST',
         body: new FormData(MessagesForm)
@@ -65,32 +78,29 @@
       }
     }
 
-    function replyToMessage(data) {
-      let { id, name, email, message } = data;
+    function forwardMessage(data) {
+      let { id, sender, email, message } = data;
 
-      MessagesForm.querySelector('#receiver').value = email;
-      MessagesForm.querySelector('#receiver_name').value = name;
-      MessagesForm.querySelector('#question').value = `From: ${name}\nQuestion: ${message}`;
-      MessagesForm.querySelector('#reply').removeAttribute('disabled');
-      MessagesForm.querySelector('#reply-buttons').style.display = "inline-block";
+      MessagesForm.style = "";
+      MessagesForm.querySelector('#message_details').value = 
+        `Sender: ${sender}<${email}>` + '\n' +
+        `Message: ${message}`;
+        
+      MessagesForm.querySelector('#id').value = id;
+      MessagesForm.querySelector('#sender').value = sender;
+      MessagesForm.querySelector('#sender_email').value = email;
+      MessagesForm.querySelector('#message').value = message;
+
+      $(MessagesForm.querySelector('#remarks')).focus();
     }
 
-    function cancelReply() {
-      MessagesForm.querySelector('#receiver').value = "";
-      MessagesForm.querySelector('#receiver_name').value = "";
-      MessagesForm.querySelector('#question').value = "";
-      MessagesForm.querySelector('#reply').value = "";
-      MessagesForm.querySelector('#reply-buttons').style.display = "none";
-      MessagesForm.querySelector('#reply').setAttribute('disabled', true);
-
-      let fileInput = MessagesForm.querySelector('#file');
-      let newFileInput = document.createElement('input');
-
-      newFileInput.setAttribute('type', 'file');
-      newFileInput.setAttribute('id', 'file');
-      newFileInput.setAttribute('name', 'file');
-
-      fileInput.replaceWith(newFileInput);
+    function cancelForward() {
+      {# MessagesForm.style.display = "none"; #}
+      MessagesForm.querySelector('#message_details').value = "";
+      MessagesForm.querySelector('#sender').value = "";
+      MessagesForm.querySelector('#sender_email').value = "";
+      MessagesForm.querySelector('#message').value = "";
+      MessagesForm.querySelector('#forward_to').value = "";
     }
   </script>
 {% endblock scripts %}

@@ -1,18 +1,13 @@
 {% extends '@pages/System/base.html.twig' %}
 
 {% block title %}SYSTEM_MODULE: {{ current_page|title }} - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
-{% block styles %}
-  {{ parent() }}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  {% include('@components/Common/markdown.style.twig') %}
-{% endblock styles %}
 {% block right_content %}
   <div class="flex flex-col p-10">
-    <h1 class="text-center text-4xl">Module: Page Sections</h1>
+    <h1 class="text-center text-4xl">Module: Email Accounts</h1>
     <hr class="my-5">
-    {{ include('@components/System/page_sections-table.html.twig', { 'page_sections' : page_sections }) }}
+    {{ include('@components/System/email_accounts-table.html.twig', { 'email_accounts' : email_accounts }) }}
     <hr class="my-5">
-    {{ include('@components/System/page_sections-form.html.twig') }}
+    {{ include('@components/System/email_accounts-form.html.twig') }}
   </div>
 {% endblock right_content %}
 {% block scripts %}
@@ -27,19 +22,17 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        let table = new DataTable('#page_sections-table', {
+        let table = new DataTable('#email_accounts-table', {
           "columnDefs": [
-            { "width": "3%", "targets": 0 },
-            { "width": "15%", "targets": 1 },
-            { "width": "8%", "targets": 3 },
-            { "width": "8%", "targets": 4 },
-            { "width": "10%", "targets": 5 },
+            { "width": "5%", "targets": 0 },
+            { "width": "20%", "targets": 1 },
+            { "width": "10%", "targets": 3 },
           ]
         });
       } catch(e) {}
     });
 
-    PageSectionsForm.onsubmit = async (e) => {
+    EmailAccountsForm.onsubmit = async (e) => {
       e.preventDefault();
 
       let processingModal = Swal.fire({ 
@@ -50,11 +43,11 @@
         showConfirmButton: false
       });
 
-      let hiddenIdInput = PageSectionsForm.querySelector('#id');
-      let response = await fetch('/system/page_sections' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
+      let hiddenIdInput = EmailAccountsForm.querySelector('#id');
+      let response = await fetch('/system/email_accounts' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
         credentials: "same-origin",
         method: 'POST',
-        body: new FormData(PageSectionsForm)
+        body: new FormData(EmailAccountsForm)
       });
       let {
         message,
@@ -79,9 +72,9 @@
       }
     }
 
-    function editPageSection(data) {
-      let { id, title, content, sequence, page } = data;
-      let hiddenIdInput = PageSectionsForm.querySelector('#id');
+    function editEmailAccount(data) {
+      let { id, account, name } = data;
+      let hiddenIdInput = EmailAccountsForm.querySelector('#id');
 
       if(hiddenIdInput) {
         hiddenIdInput.value = id;
@@ -92,32 +85,27 @@
         idInput.setAttribute('id', 'id');
         idInput.setAttribute('name', 'id');
         idInput.value = id;
-        PageSectionsForm.prepend(idInput);
+        EmailAccountsForm.prepend(idInput);
       }
 
-      PageSectionsForm.querySelector('#title').value = title;
-      simpleMDE.value(content);
-      PageSectionsForm.querySelector('#sequence').value = sequence;
-      PageSectionsForm.querySelector('#page').value = page;
+      EmailAccountsForm.querySelector('#account').value = account.replace('@generaltinio.gov.ph', '');
+      EmailAccountsForm.querySelector('#name').value = name;
 
-      PageSectionsForm.querySelector('#save-button').style.display = "none";
-      PageSectionsForm.querySelector('#update-buttons').style.display = "inline-block";
+      EmailAccountsForm.querySelector('#save-button').style.display = "none";
+      EmailAccountsForm.querySelector('#update-buttons').style.display = "inline-block";
     }
 
     function cancelEdit() {
-      let hiddenIdInput = PageSectionsForm.querySelector('#id');
+      let hiddenIdInput = EmailAccountsForm.querySelector('#id');
         hiddenIdInput.remove();
       
-      PageSectionsForm.querySelector('#title').value = "";
-      simpleMDE.value("");
-      PageSectionsForm.querySelector('#sequence').value = "";
-      PageSectionsForm.querySelector('#page').value = "";
-
-      PageSectionsForm.querySelector('#save-button').style.display = "inline-block";
-      PageSectionsForm.querySelector('#update-buttons').style.display = "none";
+      EmailAccountsForm.querySelector('#account').value = "";
+      EmailAccountsForm.querySelector('#name').value = "";
+      EmailAccountsForm.querySelector('#save-button').style.display = "inline-block";
+      EmailAccountsForm.querySelector('#update-buttons').style.display = "none";
     }
 
-    async function deletePageSection(id) {
+    async function deleteEmailAccount(id) {
       let result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -129,7 +117,7 @@
       });
 
       if(result.isConfirmed) {
-        let response = await fetch('/system/page_sections/' + id, {
+        let response = await fetch('/system/email_accounts/' + id, {
           credentials: "same-origin",
           method: 'DELETE',
         });

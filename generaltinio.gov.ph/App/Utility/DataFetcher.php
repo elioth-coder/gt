@@ -106,9 +106,10 @@ class DataFetcher {
     return $result;
   }
 
-  static function getDepartments() {
+  static function getDepartments($config=['limit'=>4]) {
     $result = DataFetcher::db()->from('department')
       ->orderBy('sequence', 'asc')
+      ->limit($config['limit'])
       ->select()
       ->all();
       
@@ -210,19 +211,38 @@ class DataFetcher {
 
     $sql = "
       SELECT * FROM (
-        SELECT id, title, content, image, 'NEWS'         AS type FROM headline
+        SELECT id, title, content, image, 
+          'NEWS' AS type, 
+          date AS sequence
+          FROM headline
         UNION
-        SELECT id, name,  details, logo,  'DEPARTMENT'   AS type FROM department
+        SELECT id, name,  details, logo,  
+          'DEPARTMENT' AS type,
+          (1000000 - sequence) AS sequence
+          FROM department
         UNION
-        SELECT id, title, details, image, 'EVENT'        AS type FROM event
+        SELECT id, title, details, image, 
+          'EVENT' AS type,
+          date_time AS sequence
+          FROM event
         UNION
-        SELECT id, title, content, image, 'ARTICLE'      AS type FROM featured_story
+        SELECT id, title, content, image, 
+          'ARTICLE' AS type,
+          date AS sequence
+          FROM featured_story
         UNION
-        SELECT id, title, content, page,  'PAGE SECTION' AS type FROM section
+        SELECT id, title, content, page,  
+          'PAGE SECTION' AS type,
+          sequence
+          FROM section
         UNION
-        SELECT id, name,  details, image, 'TOURIST SPOT' AS type FROM tourist_spot
+        SELECT id, name,  details, image, 
+          'TOURIST SPOT' AS type,
+          id AS sequence
+          FROM tourist_spot
       ) AS search_results 
-      WHERE type=:type
+      WHERE type=:type 
+      ORDER BY sequence DESC
     ";   
 
     $stmt = $pdo->prepare($sql);
@@ -237,4 +257,13 @@ class DataFetcher {
 
     return $results;
   }
+
+  static function getEmailAccounts() {
+    $result = DataFetcher::db()->from('email_account')
+      ->select()
+      ->all();
+      
+    return $result;
+  }
+
 }

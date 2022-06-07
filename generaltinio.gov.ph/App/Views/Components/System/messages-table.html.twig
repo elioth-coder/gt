@@ -16,16 +16,18 @@
     {% endif %}
 
     {% for message in messages %}
-        <tr>
+        <tr class="{{ (message.forwarded_to) ? '' : 'font-bold' }}">
           <td>{{ loop.index }}.</td>
-          <td>{{ message.name }}</td>
+          <td>{{ message.sender }}</td>
           <td>{{ message.message }}</td>
           <td>{{ message.email }}</td>
           <td class="text-center">
-            <button title="Reply" class="text-green-500"
-              onclick="replyToMessage({{ message|json_encode }})">
-              {{ include('@components/Common/icon-outline.twig', { 'name': 'reply', 'style': 'w-6 h-6' }) }}
-            </button>
+            {% if not message.forwarded_to %}
+              <button title="Forward" class="text-green-500"
+                onclick="{{ 'forwardMessage(' ~ message|json_encode ~ ');' }}">
+                {{ include('@components/Common/icon-outline.twig', { 'name': 'arrow-right', 'style': 'w-6 h-6' }) }}
+              </button>
+            {% endif %}
           </td>
         </tr>
     {% endfor %}

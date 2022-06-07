@@ -4,7 +4,7 @@
   </h3>    
   {% for department in departments %}
     <div class="border-b py-4 relative sm:w-1/2 sm:float-left box-border">
-      <a href="/department/{{ department.id }}#content" class="w-20 border-box block float-left mr-2">
+      <a href="/department/{{ department.id }}#content" class="w-20 h-20 border-box block float-left mr-2">
         <img src="{{ 
             (department.logo) 
             ? '/uploads/departments/'~ department.logo 
@@ -16,8 +16,17 @@
       <h3 class="hover:underline h-full pt-3 font-semibold text-lg text-{{ page_settings.color }}-900">
         <a href="/department/{{ department.id }}#content">{{ department.name }}</a>
       </h3>
-      <p class="clear-both"></p>
     </div>
   {% endfor %}  
   <div class="clear-both"></div>
+
+  <a href="/list/DEPARTMENT#content" 
+    class="hover:text-{{ page_settings.color }}-600 underline block p-3 bg-gray-100">
+    {{ include('@components/Common/icon-outline.twig', { 
+        'name'  : 'view-list', 
+        'style' : 'h-5 w-5 inline-block' 
+      }) 
+    }}    
+    <span>View All Departments</span>
+  </a>  
 </section>

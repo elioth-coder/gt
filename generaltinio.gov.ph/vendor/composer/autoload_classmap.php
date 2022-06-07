@@ -10,6 +10,7 @@ return array(
     'App\\Controller\\AwardsController' => $baseDir . '/App/Controller/AwardsController.php',
     'App\\Controller\\BiddingsController' => $baseDir . '/App/Controller/BiddingsController.php',
     'App\\Controller\\DepartmentsController' => $baseDir . '/App/Controller/DepartmentsController.php',
+    'App\\Controller\\EmailAccountsController' => $baseDir . '/App/Controller/EmailAccountsController.php',
     'App\\Controller\\EventsController' => $baseDir . '/App/Controller/EventsController.php',
     'App\\Controller\\ExecutiveOrdersController' => $baseDir . '/App/Controller/ExecutiveOrdersController.php',
     'App\\Controller\\FeaturedStoriesController' => $baseDir . '/App/Controller/FeaturedStoriesController.php',

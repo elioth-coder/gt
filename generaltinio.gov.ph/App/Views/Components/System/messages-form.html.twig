@@ -1,48 +1,54 @@
-<form id="MessagesForm" action="/system/messages/reply" method="POST" enctype="multipart/form-data" 
+<form id="MessagesForm" style="display:none;" method="POST" enctype="multipart/form-data" 
   class="p-5 flex flex-row flex-wrap shadow-lg bg-gray-100 rounded border">
-  <div class="w-1/2 p-5 pb-0">
-    <div class="w-full flex flex-col">
-      <label class="font-bold py-2 px-4 w-full">Attachments : </label>
-      <input type="file" name="file[]" id="file" multiple />
+  <input type="hidden" name="id" id="id">
+  <input type="hidden" name="sender" id="sender">
+  <input type="hidden" name="sender_email" id="sender_email">
+  <input type="hidden" name="message" id="message">
+  <input type="hidden" name="name" id="name">
+  <input type="hidden" name="email" id="email">
+  <div class="w-1/2 p-5">
+    <div class="py-4">
+      <label for="message_details" class="font-bold py-2 px-4">Message Details : </label>
+      <textarea readonly
+        rows="3"
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        id="message_details"
+      /></textarea>
     </div>
   </div>
 
   <div class="w-1/2 p-5">
     <div class="py-4">
-      <label for="receiver" class="font-bold py-2 px-4">Receiver : </label>
-      <input type="hidden" id="receiver_name" name="receiver_name" />
-      <input required readonly
-        placeholder="Receiver email"
-        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
-        type="email" id="receiver" name="receiver" 
-      />  
-    </div>
-    <div class="py-4">
-      <label for="question" class="font-bold py-2 px-4">Question : </label>
-      <textarea required readonly placeholder="Question."
+      <label for="remarks" class="font-bold py-2 px-4">Remarks : </label>
+      <textarea required
         rows="3"
         class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
-        id="question" name="question" 
+        id="remarks" name="remarks"
       /></textarea>
     </div>
     <div class="py-4">
-      <label for="reply" class="font-bold py-2 px-4">Reply : </label>
-      <textarea disabled required placeholder="Enter question reply."
-        rows="6"
+      <label for="forward_to" class="font-bold py-2 px-4">Forward To : </label>
+      <select required id="forward_to" name="forward_to" 
         class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
-        id="reply" name="reply" 
-      /></textarea>
+      />
+        <option value="">Select where to forward.</option>
+        {% for email_account in email_accounts %}
+          <option value="{{ email_account|json_encode }}">
+            {{ email_account.name }}&lt;{{ email_account.email }}&gt;
+          </option>
+        {% endfor %}
+      </select> 
     </div>
   </div>
 
   <div class="p-5 w-full border-t-2 text-right">
-    <span id="reply-buttons" style="display: none;">
+    <span id="reply-buttons">
       <button type="submit" onclick="setTimeout(() => this.blur(), 300);" 
         class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
         <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
-        <span class="relative">Send Message</span>
+        <span class="relative">Forward Message</span>
       </button>
-      <button type="button" onclick="cancelReply(); setTimeout(() => this.blur(), 300);" 
+      <button type="button" onclick="cancelForward(); setTimeout(() => this.blur(), 300);" 
         class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-red-700 border-2 border-red-700 text-red-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">
         <span class="absolute left-0 top-0 bg-transparent h-full w-full group-focus:bg-green-900 transition-all ease-out duration-300"></span>
         <span class="relative">Cancel</span>

@@ -33,7 +33,6 @@
                 <a href="/view/news/{{ result.id }}#content">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}
@@ -49,7 +48,6 @@
                 <a href="/view/article/{{ result.id }}#content">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}
@@ -65,7 +63,6 @@
                 <a href="/view/tourist_spot/{{ result.id }}#content">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}
@@ -87,7 +84,6 @@
                 <a href="/view/event/{{ result.id }}#content">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}
@@ -103,14 +99,17 @@
                 <a href="/{{ result.image|lower }}#{{ result.title|lower|split(" ")|join("-") }}">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}
 
           {% if result.type == "DEPARTMENT" %}
             <a href="/department/{{ result.id }}#content" class="block sm:w-1/3 sm:float-left">
-              <img src="/uploads/departments/{{ result.image }}" 
+              <img src="{{
+                  (result.image) 
+                  ? '/uploads/departments/'~ result.image
+                  : '/assets/img/transparency-seal.png'
+                }}" 
                 class="w-full"
               />
             </a>
@@ -119,7 +118,6 @@
                 <a href="/department/{{ result.id }}#content">{{ result.title }}</a>
               </h3>
               <p>{{ result.content[:120]}}{{ (result.content|length > 120) ? '...' : '' }}</p>
-              <p class="text-gray-500">Type: {{ result.type }}</p>
             </section>
             <p class="clear-both"></p>
           {% endif %}

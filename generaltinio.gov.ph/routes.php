@@ -5,6 +5,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use App\Controller\WebsiteController;
 use App\Controller\UsersController;
+use App\Controller\EmailAccountsController;
 use App\Controller\AnnouncementsController;
 use App\Controller\HeadlinesController;
 use App\Controller\MessagesController;
@@ -55,12 +56,17 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->delete('/system/users/{id}', [UsersController::class, 'destroy']);
   $router->post('/system/users/{id}/update', [UsersController::class, 'update']);
 
+  $router->get('/system/email_accounts', [EmailAccountsController::class, 'index']);
+  $router->post('/system/email_accounts', [EmailAccountsController::class, 'store']);
+  $router->delete('/system/email_accounts/{id}', [EmailAccountsController::class, 'destroy']);
+  $router->post('/system/email_accounts/{id}/update', [EmailAccountsController::class, 'update']);
+
   $router->get('/system/announcements', [AnnouncementsController::class, 'index']);
   $router->post('/system/announcements', [AnnouncementsController::class, 'store']);
   $router->delete('/system/announcements/{id}', [AnnouncementsController::class, 'destroy']);
   
   $router->get('/system/messages', [MessagesController::class, 'index']);
-  $router->post('/system/messages/reply', [MessagesController::class, 'reply']);
+  $router->post('/system/messages/{id}/forward', [MessagesController::class, 'forward']);
 
   $router->get('/system/headlines', [HeadlinesController::class, 'index']);
   $router->post('/system/headlines', [HeadlinesController::class, 'store']);

@@ -1,6 +1,6 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}Creating Ordinances and Resolutions{% endblock title %}
+{% block title %}SYSTEM_MODULE: {{ current_page|title }} - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block right_content %}
   <div class="flex flex-col p-10">
   <h1 class="text-center text-4xl">Module: Ordinances and Resolutions</h1>
@@ -46,14 +46,19 @@
         }
     };
 
+    document.getElementById("save-button").disabled = true;
     function ORSetter(){
       var x = document.getElementById("category").value;
       if (x != '') {
         document.getElementById("ORno").disabled = false;
-        document.getElementById("ORno_label").innerHTML = x + " No :"; 
+        document.getElementById("ORno_label").innerHTML = x + " No :";
+        document.getElementById("save-button").disabled = false;
+        document.getElementById("button-label").innerHTML = " Save " + x; 
       }else{
         document.getElementById("ORno").disabled = true;
         document.getElementById("ORno_label").innerHTML = "No :"; 
+        document.getElementById("save-button").disabled = true;
+        document.getElementById("button-label").innerHTML = " Save "; 
       }
     }
 

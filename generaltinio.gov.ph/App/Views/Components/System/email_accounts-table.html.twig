@@ -1,0 +1,33 @@
+<table id="email_accounts-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Email Account</th>
+      <th class="text-left">Name</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if email_accounts is empty %}
+        <tr>
+          <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No email accounts found.</td>
+        </tr>
+    {% endif %}
+
+    {% for email_account in email_accounts %}
+        <tr>
+          <td>{{ loop.index }}.</td>
+          <td class="truncate" title="{{ email_account.account }}">{{ email_account.account }}</td>
+          <td class="truncate" title="{{ email_account.name }}">{{ email_account.name }}</td>
+          <td class="text-center">
+            <button title="Edit"   onclick="{{ 'editEmailAccount(' ~ email_account|json_encode ~ ');' }}" class="text-blue-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}
+            </button>
+            <button title="Delete" onclick="{{ 'deleteEmailAccount(' ~ email_account.id ~ ');' }}" class="text-red-500">
+              {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+            </button>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>

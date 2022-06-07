@@ -13,5 +13,14 @@
       </a>
     {% endfor %}
     <div class="clear-both"></div>
+    <a href="/list/TOURIST SPOT#content" 
+      class="hover:text-{{ page_settings.color }}-600 underline block p-3 bg-gray-100">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : 'view-list', 
+          'style' : 'h-5 w-5 inline-block' 
+        }) 
+      }}    
+      <span>View All Tourist Spots</span>
+    </a>  
   </div>
 </section>
