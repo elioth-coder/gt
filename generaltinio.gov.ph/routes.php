@@ -36,11 +36,13 @@ $router->group(['middleware' => [MaintenanceMiddleware::class]], function(Router
   $router->post('/logout', [WebsiteController::class, 'logout']);
   $router->get('/', [WebsiteController::class, 'home']);
   $router->get('/home', [WebsiteController::class, 'home']);
-  $router->get('/about', [WebsiteController::class, 'about']);
+  $router->get('/general_info', [WebsiteController::class, 'general_info']);
   $router->get('/government', [WebsiteController::class, 'government']);
   $router->get('/tourism', [WebsiteController::class, 'tourism']);
   $router->get('/business', [WebsiteController::class, 'business']);
-  $router->get('/faq', [WebsiteController::class, 'faq']);
+  $router->get('/health', [WebsiteController::class, 'health']);
+  $router->get('/education', [WebsiteController::class, 'education']);
+  $router->get('/barangays', [WebsiteController::class, 'barangays']);
   $router->get('/search', [WebsiteController::class, 'search']);
   $router->get('/list/{type}', [WebsiteController::class, 'list']);
   $router->get('/view/{type}/{id}', [WebsiteController::class, 'view']);

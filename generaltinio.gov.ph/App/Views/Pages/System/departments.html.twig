@@ -1,6 +1,6 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}SYSTEM_MODULE: {{ current_page|title }} - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
+{% block title %}SYS_MOD: OFFICES - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -8,7 +8,7 @@
 {% endblock styles %}
 {% block right_content %}
   <div class="flex flex-col p-10">
-    <h1 class="text-center text-4xl">Module: Departments</h1>
+    <h1 class="text-center text-4xl">Module: Offices</h1>
     <hr class="my-5">
     {{ include('@components/System/departments-table.html.twig', { 'departments' : departments }) }}
     <hr class="my-5">

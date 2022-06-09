@@ -1,6 +1,6 @@
-<section id="departments">
+<section id="offices">
   <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
-    Departments / Offices
+    Offices
   </h3>    
   {% for department in departments %}
     <div class="border-b py-4 relative sm:w-1/2 sm:float-left box-border">
@@ -16,6 +16,7 @@
       <h3 class="hover:underline h-full pt-3 font-semibold text-lg text-{{ page_settings.color }}-900">
         <a href="/department/{{ department.id }}#content">{{ department.name }}</a>
       </h3>
+      <div class="clear-both"></div>
     </div>
   {% endfor %}  
   <div class="clear-both"></div>
@@ -27,6 +28,6 @@
         'style' : 'h-5 w-5 inline-block' 
       }) 
     }}    
-    <span>View All Departments</span>
+    <span>View All Offices</span>
   </a>  
 </section>

@@ -6,7 +6,7 @@
     {% for i in 0..9 %}
       {% set year = current_year - i %}
 
-      <a href="/full_disclosure/{{ year }}#content" class="block float-left h-30 w-40 m-1">
+      <a href="/full_disclosure/{{ year }}#content" class="block float-left h-30 w-36">
         {{ include('@components/Common/icon-solid.twig', { 
             'name'  : 'folder', 
             'style' : 'h-32 w-32 mx-auto text-yellow-500' 

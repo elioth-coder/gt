@@ -1,0 +1,39 @@
+{% extends "@pages/Website/base.html.twig" %}
+
+{% block title %}HEALTH - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+  {% include('@components/Common/markdown.style.twig') %}
+{% endblock styles %}
+{% block innerContent %}
+  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
+    <section class="lg:px-4 ">
+      {% for page_section in page_sections %}
+        <div class="w-full editor-preview mb-5">
+          {{ page_section|raw }}
+        </div>
+      {% endfor %}
+    </section>
+    <section class="lg:px-4 ">
+      {% include('@components/Website/section-articles.html.twig') %}
+      <br>
+      {% include('@components/Website/section-news.html.twig') %}
+      <br>
+      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
+    </section>
+  </div>
+  <div class="lg:flex lg:flex-col lg:px-6">
+    {{ 
+      include('@components/Website/bottom-content.html.twig', { 
+        'page_settings': page_settings,
+        'departments'  : departments,
+      })
+    }}
+  </div>
+{% endblock innerContent %}
+{% block scripts %}
+  {{ parent() }}
+  <script>
+    $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
+  </script>
+{% endblock scripts %}

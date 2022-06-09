@@ -54,12 +54,8 @@ class WebsiteController {
     $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/index.html.twig');    
-    $sublinks[] = ['url' => '#departments',  'title' => 'Departments' ];
     $sublinks[] = ['url' => '#upcoming-events',  'title' => 'Upcoming Events' ];
     $sublinks[] = ['url' => '#explore-the-town', 'title' => 'Explore The Town' ];
-    $sublinks[] = ['url' => '#articles',         'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news',   'title'=> 'Community News']; 
-    $sublinks[] = ['url' => '#our-location',     'title' => 'Our Location'];
     $page_settings = [
       'current_page' => 'Home',
       'color'        => 'green',
@@ -110,19 +106,17 @@ class WebsiteController {
     ]);
   }
 
-  function about() {
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'ABOUT']);
+  function general_info() {
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GENERAL INFO']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-    $sections         = DataFetcher::getPageSections(['page'=>'ABOUT']);
+    $sections         = DataFetcher::getPageSections(['page'=>'GENERAL INFO']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
-    $template = TwigTemplate::load('@pages/Website/about.html.twig');    
+    $template = TwigTemplate::load('@pages/Website/general_info.html.twig');    
   
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
-      'current_page' => 'About',
+      'current_page' => 'General Info',
       'color'        => 'orange',
       'sublinks'     => $sublinks,
     ];
@@ -153,9 +147,6 @@ class WebsiteController {
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
     $sublinks[] = ['url' => '#bids', 'title'=> 'Bids & Awards']; 
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
-    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'current_page' => 'Government',
       'color'        => 'blue',
@@ -296,11 +287,9 @@ class WebsiteController {
 
     $template = TwigTemplate::load('@pages/Website/business.html.twig');    
   
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'current_page' => 'Business',
-      'color'        => 'red',
+      'color'        => 'pink',
       'sublinks'     => $sublinks,
     ];
 
@@ -315,21 +304,73 @@ class WebsiteController {
     ]);
   }
 
-  function faq() {
-    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'FAQ']);
+  function health() {
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'HEALTH']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
-    $sections         = DataFetcher::getPageSections(['page'=>'FAQ']);
+    $sections         = DataFetcher::getPageSections(['page'=>'HEALTH']);
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
 
-    $template = TwigTemplate::load('@pages/Website/faq.html.twig');    
+    $template = TwigTemplate::load('@pages/Website/health.html.twig');    
   
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
-      'current_page' => 'FAQ',
+      'current_page' => 'Health',
+      'color'        => 'indigo',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'page_settings'    => $page_settings, 
+      'page_sections'    => $page_sections,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function education() {
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'EDUCATION']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $sections         = DataFetcher::getPageSections(['page'=>'EDUCATION']);
+    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $departments      = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/education.html.twig');    
+  
+    $page_settings = [
+      'current_page' => 'Education',
       'color'        => 'purple',
+      'sublinks'     => $sublinks,
+    ];
+
+    return $template->render([
+      'page_settings'    => $page_settings, 
+      'page_sections'    => $page_sections,
+      'headlines'        => $headlines,
+      'articles'         => $featured_stories,
+      'featured_stories' => $featured_stories,
+      'departments'      => $departments,
+      'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
+    ]);
+  }
+
+  function barangays() {
+    $featured_stories = DataFetcher::getFeaturedStories(['page'=>'BARANGAYS']);
+    $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
+    $sections         = DataFetcher::getPageSections(['page'=>'BARANGAYS']);
+    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    $departments      = DataFetcher::getDepartments();
+
+    $template = TwigTemplate::load('@pages/Website/barangays.html.twig');    
+  
+    $page_settings = [
+      'current_page' => 'BARANGAYS',
+      'color'        => 'red',
       'sublinks'     => $sublinks,
     ];
 

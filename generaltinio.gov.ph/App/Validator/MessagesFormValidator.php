@@ -7,13 +7,13 @@ class MessagesFormValidator {
   static function validate($config = ['dataset' => [], 'files' => [], 'id']) {
     
     $rules = [
-      'name' => [
+      'sender' => [
         'required',
         'max'     => 60,
-        'alias'   => 'name',
+        'alias'   => 'sender',
         'message' => [
-          'name:required' => 'This field is required.',
-          'name:max' => 'The :attribute. field exceeds the maximum of :max characters.',
+          'sender:required' => 'This field is required.',
+          'sender:max' => 'The :attribute. field exceeds the maximum of :max characters.',
         ]
       ],
       'email' => [
