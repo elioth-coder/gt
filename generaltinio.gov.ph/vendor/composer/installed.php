@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8eaad4936d3a892accf8c355ea16d5bd2dd12491',
+    'reference' => 'bfa2d3352893aedb25860a22e8ee3b1383c53950',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8eaad4936d3a892accf8c355ea16d5bd2dd12491',
+      'reference' => 'bfa2d3352893aedb25860a22e8ee3b1383c53950',
     ),
     'graham-campbell/result-type' => 
     array (

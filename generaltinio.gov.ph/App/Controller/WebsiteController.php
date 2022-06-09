@@ -257,8 +257,6 @@ class WebsiteController {
     $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
     
     $sublinks[] = ['url' => '#tourist-spots', 'title'=> 'Tourist Spots']; 
-    $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'current_page' => 'Tourism',
       'color'        => 'yellow',
