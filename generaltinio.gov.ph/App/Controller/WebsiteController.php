@@ -26,7 +26,8 @@ class WebsiteController {
       $user->username = $result->username;
       $user->image    = $result->image;
       $user->type     = $result->type;
-      $user->access   = json_decode($result->access)->features;
+      $access = json_decode($result->access);
+      $user->access   = ($access) ? $access->features : [];
 
       $_SESSION['user'] = serialize($user);
       $response = ['status' => 'success'];
