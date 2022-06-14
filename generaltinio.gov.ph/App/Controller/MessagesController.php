@@ -5,6 +5,7 @@ use App\Utility\DataFetcher;
 use Laminas\Diactoros\Response\JsonResponse;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
+use App\Utility\AccessConfiguration;
 use App\Validator\MessagesFormValidator;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -19,7 +20,12 @@ class MessagesController {
 
     $template = TwigTemplate::load('@pages/System/messages.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'           => $user,
+      'defaults'       => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'      => AccessConfiguration::extractAssignedFeatures($user),
       'current_page'   => 'messages', 
       'messages'       => $result,
       'email_accounts' => $email_accounts,

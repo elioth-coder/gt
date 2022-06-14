@@ -1,0 +1,34 @@
+{
+  "features" : [
+    { 
+      "url"  : "/system/dashboard",
+      "name" : "Dashboard",
+      "page"  : "dashboard",
+      "icon"  : "view-boards"
+    },
+    { 
+      "url"  : "https://mail.generaltinio.gov.ph:2096",
+      "name" : "Go to Webmail",
+      "page"  : "webmail",
+      "icon"  : "mail"
+    },
+    { 
+      "url"  : "/",
+      "name" : "View Website",
+      "page"  : "website",
+      "icon"  : "eye"
+    },
+    { 
+      "name" : "File Manager",
+      "url"  : "/system/file_manager",
+      "page"  : "file_manager",
+      "icon"  : "folder"
+    },
+    { 
+      "url"  : "javascript:logout()",
+      "name" : "Logout",
+      "page"  : "logout",
+      "icon"  : "logout"
+    }
+ ]
+}

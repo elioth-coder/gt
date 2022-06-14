@@ -9,6 +9,7 @@ use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 
 class HeadlinesController {
   function index() {
@@ -19,9 +20,14 @@ class HeadlinesController {
 
     $template = TwigTemplate::load('@pages/System/headlines.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'         => $user,
+      'defaults'     => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'headlines', 
-      'headlines' => $result
+      'headlines'    => $result
     ]);
   }
 

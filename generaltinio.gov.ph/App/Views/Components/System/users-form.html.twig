@@ -80,6 +80,21 @@
     </div>
   </div>
 
+  <div class="p-5 w-full">
+    <h3 class="py-2 px-4 font-bold">Accessible Features :</h3>
+    {% for feature in features %}
+      <label class="p-4 w-1/2 float-left block border">
+        <input type="checkbox" 
+          id="checkbox_{{ feature.page }}"
+          class="mr-3"
+          value="{{ feature|json_encode }}" 
+          name="feature[]" 
+        />
+        {{ feature.name }}
+      </label>
+    {% endfor %}
+  </div>
+
   <div class="p-5 w-full border-t-2 text-right">
     <button id="save-button" type="submit" onclick="setTimeout(() => this.blur(), 300);" 
       class="shadow w-max relative overflow-hidden border p-4 bg-transparent hover:bg-green-700 border-2 border-green-700 text-green-700 hover:text-white font-bold rounded-lg px-5 py-2.5 group">

@@ -5,6 +5,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\DataFetcher;
+use App\Utility\AccessConfiguration;
 
 class EmailAccountsController {
   function index() {
@@ -16,7 +17,12 @@ class EmailAccountsController {
 
     $template = TwigTemplate::load('@pages/System/email_accounts.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'           => $user,
+      'defaults'       => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'      => AccessConfiguration::extractAssignedFeatures($user),
       'current_page'   => 'email_accounts', 
       'email_accounts' => $result,
       'departments'    => $departments,

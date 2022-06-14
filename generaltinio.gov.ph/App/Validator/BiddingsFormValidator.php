@@ -9,7 +9,7 @@ class BiddingsFormValidator {
     $rules = [
       'title' => [
         'required',
-        'max'     => 30,
+        'max'     => 1000,
         'alias'   => 'title',
         'unique' => [ 
                 'bid',

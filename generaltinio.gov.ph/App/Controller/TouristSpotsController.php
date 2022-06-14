@@ -9,6 +9,7 @@ use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 
 class TouristSpotsController {
   function index() {
@@ -19,8 +20,13 @@ class TouristSpotsController {
 
     $template = TwigTemplate::load('@pages/System/tourist_spots.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
-      'current_page' => 'tourist_spots', 
+      'user'          => $user,
+      'defaults'      => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'     => AccessConfiguration::extractAssignedFeatures($user),
+      'current_page'  => 'tourist_spots', 
       'tourist_spots' => $result
     ]);
   }

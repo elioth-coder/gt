@@ -60,6 +60,25 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   <script src="/assets/js/date_format.js"></script>
   <script>
+    async function updateVisitorCounter() {
+      let response = await fetch('/visitor/increment');
+      let {
+        status,
+        message
+      } = await response.json();
+
+      if (status == 'success') {
+        let countResponse = await fetch('/visitor/count'); 
+        let { count } = await countResponse.json();
+
+        document.getElementById('visitor_counter').innerHTML = count;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      await updateVisitorCounter();
+    });
+
     ContactUsForm.onsubmit = async (e) => {
       e.preventDefault();
 
@@ -138,7 +157,7 @@
           text: 'Successfully logged in!',
           showConfirmButton: false,
           timer: 1500
-        }).then(() => window.location.href='/system/headlines');
+        }).then(() => window.location.href='/system/dashboard');
       } else {
         Swal.fire({
           icon: 'error',

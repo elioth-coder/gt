@@ -8,6 +8,7 @@ use App\Utility\FileSystem;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToDeleteFile;
 use App\Validator\ExecutiveOrdersFormValidator;
+use App\Utility\AccessConfiguration;
 
 class ExecutiveOrdersController {
 
@@ -18,8 +19,13 @@ class ExecutiveOrdersController {
             ->all();
     $template = TwigTemplate::load('@pages/System/executive_orders.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
-      'current_page' => 'executive_orders',
+      'user'            => $user,
+      'defaults'        => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'       => AccessConfiguration::extractAssignedFeatures($user),
+      'current_page'    => 'executive_orders',
       'executive_order' => $result,
     ]);
   }

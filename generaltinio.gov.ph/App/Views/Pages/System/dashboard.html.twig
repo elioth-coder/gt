@@ -1,0 +1,49 @@
+{% extends '@pages/System/base.html.twig' %}
+
+{% block title %}SYSTEM_MODULE: {{ current_page|title }} - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
+{% block styles %}
+  {{ parent() }}
+{% endblock styles %}
+{% block right_content %}
+  <div class="flex flex-col p-10">
+    <h1 class="text-4xl font-semibold m-2">My Dashboard</h1>
+    <hr class="my-5">
+    <div class="w-full block">
+      {% for default in defaults %}
+        <a href="{{ default.url }}" 
+          class="w-[175px] h-[150px] block float-left p-3 text-center m-2
+           border bg-gray-100 rounded-xl
+           hover:bg-green-700 hover:text-white
+          ">
+          {{ include('@components/Common/icon-outline.twig', { 
+              'name'  : default.icon, 
+              'style' : 'h-[75px] w-[75px] block mx-auto' 
+            }) 
+          }}
+          <h3 class="font-semibold">{{ default.name }}</h3>
+        </a>
+      {% endfor %}
+    </div>
+
+    <section class="py-5"></section>
+
+    <h1 class="text-4xl font-semibold m-2">Other Modules</h1>
+    <hr class="my-5">
+    <div class="w-full block">
+      {% for assigned in assigneds %}
+        <a href="{{ assigned.url }}" 
+          class="w-[175px] h-[150px] block float-left p-3 text-center m-2
+           border bg-gray-100 rounded-xl
+           hover:bg-green-700 hover:text-white
+          ">
+          {{ include('@components/Common/icon-outline.twig', { 
+              'name'  : assigned.icon, 
+              'style' : 'h-[75px] w-[75px] block mx-auto' 
+            }) 
+          }}
+          <h3 class="font-semibold">{{ assigned.name }}</h3>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock right_content %}

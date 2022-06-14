@@ -1,0 +1,88 @@
+{
+  "features" : [
+    { 
+      "name": "Email Accounts",
+      "url":  "/system/email_accounts",
+      "page": "email_accounts",
+      "icon": "user-group"
+    },
+    { 
+      "name": "Messages",
+      "url":  "/system/messages",
+      "page": "messages",
+      "icon": "chat-alt"
+    },
+    { 
+      "name": "Announcements",
+      "url":  "/system/announcements",
+      "page": "announcements",
+      "icon": "speakerphone"
+    },
+    { 
+      "name": "Articles",
+      "url":  "/system/featured_stories",
+      "page": "featured_stories",
+      "icon": "book-open"
+    },
+    { 
+      "name": "Headlines",
+      "url":  "/system/headlines",
+      "page": "headlines",
+      "icon": "newspaper"
+    },
+    { 
+      "name": "Events",
+      "url":  "/system/events",
+      "page": "events",
+      "icon": "calendar"
+    },
+    { 
+      "name": "Tourist Spots",
+      "url":  "/system/tourist_spots",
+      "page": "tourist_spots",
+      "icon": "location-marker"
+    },
+    { 
+      "name": "Offices",
+      "url":  "/system/departments",
+      "page": "departments",
+      "icon": "badge-check"
+    },
+    { 
+      "name": "Page Sections",
+      "url":  "/system/page_sections",
+      "page": "page_sections",
+      "icon": "template"
+    },
+    { 
+      "name": "Biddings",
+      "url":  "/system/biddings",
+      "page": "biddings",
+      "icon": "collection"
+    },
+    { 
+      "name": "Awards",
+      "url":  "/system/awards",
+      "page": "awards",
+      "icon": "chart-square-bar"
+    },
+    { 
+      "name": "Full Disclosure",
+      "url":  "/system/full_disclosure",
+      "page": "full_disclosure",
+      "icon": "pencil-alt"
+    },
+    { 
+      "name": "Ordinances",
+      "url":  "/system/ordinances_resolutions",
+      "page": "ordinances_resolutions",
+      "icon": "document-duplicate"
+    },
+    { 
+      "name": "Executive Orders",
+      "url":  "/system/executive_orders",
+      "page": "executive_orders",
+      "icon": "scale"
+    } 
+  ]
+}

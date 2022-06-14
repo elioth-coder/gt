@@ -10,6 +10,7 @@
   <div class="flex flex-col p-10">
     <h1 class="text-center text-4xl">Module: Headlines</h1>
     <hr class="my-5">
+    <h3>{{ path }}</h3>
     {{ include('@components/System/headlines-table.html.twig', { 'headlines' : headlines }) }}
     <hr class="my-5">
     {{ include('@components/System/headlines-form.html.twig') }}

@@ -5,6 +5,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToDeleteFile;
 use App\Validator\AwardsFormValidator;
@@ -20,10 +21,15 @@ class AwardsController {
 
     $template = TwigTemplate::load('@pages/System/awards.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'         => $user,
+      'defaults'     => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'awards',
-      'award' => $award,
-      'bid' => $bid
+      'award'        => $award,
+      'bid'          => $bid
     ]);
   }
 

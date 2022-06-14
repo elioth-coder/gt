@@ -6,5 +6,6 @@ class User {
   public $username;
   public $image;
   public $type;
+  public $access;
 
 }

@@ -8,6 +8,7 @@ use App\Utility\TwigTemplate;
 use App\Utility\FileSystem;
 use App\Utility\FileTypeDetector;
 use App\Utility\BytesFormatter;
+use App\Utility\AccessConfiguration;
 
 class FileManagerController {
   function index() {
@@ -31,7 +32,12 @@ class FileManagerController {
       }
     } catch (FilesystemException $exception) { }
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'         => $user,
+      'defaults'     => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'file_manager', 
       'files'        => $files,
     ]);

@@ -9,6 +9,7 @@ use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 
 class DepartmentsController {
   function index() {
@@ -20,9 +21,14 @@ class DepartmentsController {
 
     $template = TwigTemplate::load('@pages/System/departments.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
+      'user'         => $user,
+      'defaults'     => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'departments', 
-      'departments' => $result
+      'departments'  => $result
     ]);
   }
 

@@ -4,6 +4,7 @@ use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use App\Controller\WebsiteController;
+use App\Controller\DashboardController;
 use App\Controller\UsersController;
 use App\Controller\EmailAccountsController;
 use App\Controller\AnnouncementsController;
@@ -20,6 +21,7 @@ use App\Controller\FullDisclosureController;
 use App\Controller\OrdinancesResolutionsController;
 use App\Controller\ExecutiveOrdersController;
 use App\Controller\FileManagerController;
+use App\Controller\VisitorController;
 use App\Middleware\LoginMiddleware;
 use App\Middleware\MaintenanceMiddleware;
 
@@ -49,10 +51,15 @@ $router->group(['middleware' => [MaintenanceMiddleware::class]], function(Router
   $router->get('/department/{id}', [WebsiteController::class, 'department']);
   $router->get('/full_disclosure/{year}', [WebsiteController::class, 'full_disclosure']);
 
+  $router->get('/visitor/increment', [VisitorController::class, 'increment']);
+  $router->get('/visitor/count', [VisitorController::class, 'count']);
+
   $router->post('/system/messages', [MessagesController::class, 'store']);
 });
 
 $router->group(['middleware' => [LoginMiddleware::class]], function(Router $router) {
+  $router->get('/system/dashboard', [DashboardController::class, 'index']);
+
   $router->get('/system/users', [UsersController::class, 'index']);
   $router->post('/system/users', [UsersController::class, 'store']);
   $router->delete('/system/users/{id}', [UsersController::class, 'destroy']);

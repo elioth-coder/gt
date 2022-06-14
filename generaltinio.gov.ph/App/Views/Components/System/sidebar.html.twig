@@ -1,136 +1,45 @@
-{% 
-  set links = [
-    { 
-      'href'  : 'https://mail.generaltinio.gov.ph:2096',
-      'title' : 'Go to Webmail',
-      'page'  : 'webmail',
-      'icon'  : 'mail',
-    },
-    { 
-      'href'  : '/',
-      'title' : 'View Website',
-      'page'  : 'website',
-      'icon'  : 'eye',
-    },
-    { 
-      'href'  : '/system/users',
-      'title' : 'User Accounts',
-      'page'  : 'users',
-      'icon'  : 'users',
-    },
-    { 
-      'href'  : '/system/email_accounts',
-      'title' : 'Email Accounts',
-      'page'  : 'email_accounts',
-      'icon'  : 'user-group',
-    },
-    { 
-      'href'  : '/system/messages',
-      'title' : 'Messages',
-      'page'  : 'messages',
-      'icon'  : 'chat-alt',
-    },
-    { 
-      'href'  : '/system/announcements',
-      'title' : 'Announcements',
-      'page'  : 'announcements',
-      'icon'  : 'speakerphone',
-    },
-    { 
-      'href'  : '/system/featured_stories',
-      'title' : 'Articles',
-      'page'  : 'featured_stories',
-      'icon'  : 'book-open',
-    },
-    { 
-      'href'  : '/system/headlines',
-      'title' : 'Headlines',
-      'page'  : 'headlines',
-      'icon'  : 'newspaper',
-    },
-    { 
-      'href'  : '/system/events',
-      'title' : 'Events',
-      'page'  : 'events',
-      'icon'  : 'calendar',
-    },
-    { 
-      'href'  : '/system/tourist_spots',
-      'title' : 'Tourist Spots',
-      'page'  : 'tourist_spots',
-      'icon'  : 'location-marker',
-    },
-    { 
-      'href'  : '/system/departments',
-      'title' : 'Offices',
-      'page'  : 'departments',
-      'icon'  : 'badge-check',
-    },
-    { 
-      'href'  : '/system/page_sections',
-      'title' : 'Page Sections',
-      'page'  : 'page_sections',
-      'icon'  : 'template',
-    },
-    { 
-      'href'  : '/system/biddings',
-      'title' : 'Biddings',
-      'page'  : 'biddings',
-      'icon'  : 'collection',
-    },
-    { 
-      'href'  : '/system/awards',
-      'title' : 'Awards',
-      'page'  : 'awards',
-      'icon'  : 'chart-square-bar',
-    },
-    { 
-      'href'  : '/system/full_disclosure',
-      'title' : 'Full Disclosure',
-      'page'  : 'full_disclosure',
-      'icon'  : 'pencil-alt',
-    },
-    { 
-      'href'  : '/system/ordinances_resolutions',
-      'title' : 'Ordinances & Resolutions',
-      'page'  : 'ordinances_resolutions',
-      'icon'  : 'book-open',
-    },
-    { 
-      'href'  : '/system/executive_orders',
-      'title' : 'Executive Orders',
-      'page'  : 'executive_orders',
-      'icon'  : 'scale',
-    },
-    { 
-      'href'  : '/system/file_manager',
-      'title' : 'File Manager',
-      'page'  : 'file_manager',
-      'icon'  : 'folder',
-    },
-    { 
-      'href'  : 'javascript:logout()',
-      'title' : 'Logout',
-      'page'  : 'logout',
-      'icon'  : 'logout',
-    },
-  ]
-%}
-
 <section id="sidebar" class="h-screen w-64 bg-green-700 flex flex-col p-4 overflow-y-hidden hover:overflow-y-scroll hover:px-2">
-  {% for link in links %}
-    <a href="{{ link.href }}" 
+  <div class="text-center py-5">
+    <img src="{{ 
+      (user.image) 
+        ? '/uploads/users/'~ user.image
+        : '/assets/img/profile.png'
+      }}" 
+      class="h-[150px] w-[150px] rounded-full block mx-auto" 
+    />
+    <h3 class="mt-2 text-white text-2xl font-semibold">@{{ user.username }}</h3>
+  </div>
+  {% for default in defaults %}
+    <a href="{{ default.url }}" 
       class="
-        {{ (current_page==link.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} 
+        {{ (current_page==default.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} 
         w-full flex p-3 border-green-900 border-b 
-        {{ (current_page!=link.page) ? 'hover:bg-green-900 hover:border-transparent hover:rounded' : '' }}
+        {{ (current_page!=default.page) ? 'hover:bg-green-900 hover:border-transparent hover:rounded' : '' }}
       ">
       {{ include('@components/Common/icon-outline.twig', { 
-          'name'  : link.icon, 
+          'name'  : default.icon, 
           'style' : 'h-6 w-6 mr-3' 
         }) 
       }}
-      <span>{{ link.title }}</span>
+      <span>{{ default.name }}</span>
+    </a>
+  {% endfor %}
+
+  <section class="w-full h-0 my-6"></section>
+
+  {% for assigned in assigneds %}
+    <a href="{{ assigned.url }}" 
+      class="
+        {{ (current_page==assigned.page) ? 'text-green-700 bg-white font-bold rounded' : 'text-white' }} 
+        w-full flex p-3 border-green-900 border-b 
+        {{ (current_page!=assigned.page) ? 'hover:bg-green-900 hover:border-transparent hover:rounded' : '' }}
+      ">
+      {{ include('@components/Common/icon-outline.twig', { 
+          'name'  : assigned.icon, 
+          'style' : 'h-6 w-6 mr-3' 
+        }) 
+      }}
+      <span>{{ assigned.name }}</span>
     </a>
   {% endfor %}
 </section>

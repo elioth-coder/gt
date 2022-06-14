@@ -4,6 +4,7 @@ namespace App\Controller;
 use Laminas\Diactoros\Response\JsonResponse;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
+use App\Utility\AccessConfiguration;
 
 class PageSectionsController {
   function index() {
@@ -16,8 +17,13 @@ class PageSectionsController {
 
     $template = TwigTemplate::load('@pages/System/page_sections.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
-      'current_page'   => 'page_sections', 
+      'user'          => $user,
+      'defaults'      => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'     => AccessConfiguration::extractAssignedFeatures($user),
+      'current_page'  => 'page_sections', 
       'page_sections' => $result
     ]);
   }

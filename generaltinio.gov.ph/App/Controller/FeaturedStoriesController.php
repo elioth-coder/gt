@@ -9,6 +9,7 @@ use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 
 class FeaturedStoriesController {
   function index() {
@@ -19,8 +20,13 @@ class FeaturedStoriesController {
 
     $template = TwigTemplate::load('@pages/System/featured_stories.html.twig');    
 
+    $user = unserialize($_SESSION['user']);
+
     return $template->render([
-      'current_page' => 'featured_stories', 
+      'user'             => $user,
+      'defaults'         => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'        => AccessConfiguration::extractAssignedFeatures($user),
+      'current_page'     => 'featured_stories', 
       'featured_stories' => $result
     ]);
   }

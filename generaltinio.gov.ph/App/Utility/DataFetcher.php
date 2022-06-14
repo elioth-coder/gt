@@ -1,14 +1,6 @@
 <?php
 namespace App\Utility;
 
-$dotenv = \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
-$dotenv->load();
-
-define("HOST_NAME", $_ENV['DB_HOST']);
-define("USERNAME", $_ENV['DB_USER']);
-define("PASSWORD", $_ENV['DB_PASS']);
-define("DATABASENAME", $_ENV['DB_NAME']);
-
 class DataFetcher {
 
   static function db() {
@@ -165,7 +157,13 @@ class DataFetcher {
 
   static function getSearchResults($config) {
     try {
-      $pdo = new \PDO("mysql:host=".HOST_NAME.";dbname=".DATABASENAME, USERNAME, PASSWORD);
+      $pdo = new \PDO(
+        "mysql:host=".
+        DatabaseConfiguration::getHostName(). ";dbname=".
+        DatabaseConfiguration::getDatabaseName(), 
+        DatabaseConfiguration::getUserName(), 
+        DatabaseConfiguration::getPassword()
+      );
       $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     } catch(\PDOException $e) {
       throw $e;
@@ -203,7 +201,13 @@ class DataFetcher {
 
   static function getListResults($config) {
     try {
-      $pdo = new \PDO("mysql:host=".HOST_NAME.";dbname=".DATABASENAME, USERNAME, PASSWORD);
+      $pdo = new \PDO(
+        "mysql:host=".
+        DatabaseConfiguration::getHostName(). ";dbname=".
+        DatabaseConfiguration::getDatabaseName(), 
+        DatabaseConfiguration::getUserName(), 
+        DatabaseConfiguration::getPassword()
+      );
       $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     } catch(\PDOException $e) {
       throw $e;
@@ -264,6 +268,12 @@ class DataFetcher {
       ->all();
       
     return $result;
+  }
+
+  static function getVisitorCount() {
+    $count = DataFetcher::db()->from('visitor_counter')->sum('counter');
+
+    return $count;
   }
 
 }

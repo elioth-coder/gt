@@ -9,6 +9,7 @@ use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
+use App\Utility\AccessConfiguration;
 
 class UsersController {
   function index() {
@@ -18,10 +19,15 @@ class UsersController {
       ->all();
 
     $template = TwigTemplate::load('@pages/System/users.html.twig');    
+    $user = unserialize($_SESSION['user']);
 
     return $template->render([
+      'user'         => $user,
+      'features'     => AccessConfiguration::getFeatures(),
+      'defaults'     => AccessConfiguration::getDefaultFeatures(),
+      'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'users', 
-      'users' => $result
+      'users'        => $result,
     ]);
   }
 
@@ -32,12 +38,18 @@ class UsersController {
       $imageName = $this->saveImage($_FILES["file"]["tmp_name"]);
     }
 
+    $user_access = ["features" => []];
+    foreach($_POST['feature'] as $feature) {
+      $user_access['features'][] = json_decode($feature);
+    }
+
     $db = OpisDatabase::getInstance();
     $result = $db->insert([
       'username'     => $_POST['username'],
       'password'     => sha1($_POST['password']),
       'image'        => $imageName,
       'type'         => $_POST['type'],
+      'access'       => json_encode($user_access),
       'first_name'   => $_POST['first_name'],
       'middle_name'  => $_POST['middle_name'],
       'last_name'    => $_POST['last_name'],
@@ -90,21 +102,32 @@ class UsersController {
       }
     }
 
+    $user_access = ["features" => []];
+    foreach($_POST['feature'] as $feature) {
+      $user_access['features'][] = json_decode($feature);
+    }
+
     $db = OpisDatabase::getInstance();
+    $setParemeters = [
+      'username'     => $_POST['username'],
+      'image'        => $imageName,
+      'type'         => $_POST['type'],
+      'access'       => json_encode($user_access),
+      'first_name'   => $_POST['first_name'],
+      'middle_name'  => $_POST['middle_name'],
+      'last_name'    => $_POST['last_name'],
+      'gender'       => $_POST['gender'],
+      'birthday'     => $_POST['birthday'],
+      'contact_info' => $_POST['contact_info'],
+    ];
+    if(!empty($_POST['password'])) {
+      $setParemeters['password'] = sha1($_POST['password']);
+    }
+
+    // return new HtmlResponse(json_encode($setParemeters), 500);
     $result = $db->update('user')
       ->where('id')->is($id)
-      ->set([
-        'username'     => $_POST['username'],
-        'password'     => sha1($_POST['password']),
-        'image'        => $imageName,
-        'type'         => $_POST['type'],
-        'first_name'   => $_POST['first_name'],
-        'middle_name'  => $_POST['middle_name'],
-        'last_name'    => $_POST['last_name'],
-        'gender'       => $_POST['gender'],
-        'birthday'     => $_POST['birthday'],
-        'contact_info' => $_POST['contact_info'],
-      ]);
+      ->set($setParemeters);
 
     $response = ($result) 
       ? ['status' => 'success', 'message' => 'Successfully updated the user.'] 

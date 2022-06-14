@@ -87,7 +87,10 @@
     }
 
     function editUser(data) {
-      let { id, image, username, type, first_name, middle_name, last_name, gender, birthday, contact_info } = data;
+      let { id, image, username, type, access, first_name, middle_name, last_name, gender, birthday, contact_info } = data;
+      if(access) {
+        access = JSON.parse(access);
+      }
       let hiddenIdInput = UsersForm.querySelector('#id');
       let oldImageInput = UsersForm.querySelector('#old_image');
 
@@ -118,6 +121,7 @@
         UsersForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
       }
 
+      $('#password').removeAttr('required');
       UsersForm.querySelector('#username').value = username;
       UsersForm.querySelector('#password').value = "";
       UsersForm.querySelector('#type').value = type;
@@ -127,6 +131,12 @@
       UsersForm.querySelector('#gender').value = gender;
       UsersForm.querySelector('#birthday').value = birthday;
       simpleMDE.value(contact_info);
+
+      if(access.features) {
+        access.features.forEach(feature => {
+          $(`#checkbox_${feature.page}`).click();
+        });
+      }
 
       UsersForm.querySelector('#save-button').style.display = "none";
       UsersForm.querySelector('#update-buttons').style.display = "inline-block";
@@ -152,7 +162,8 @@
           image.src = URL.createObjectURL(e.target.files[0]);
         }
       }
-      
+
+      $('#password').attr('required', true);
       UsersForm.querySelector('#username').value = "";
       UsersForm.querySelector('#password').value = "";
       UsersForm.querySelector('#type').value = "";
@@ -163,6 +174,10 @@
       UsersForm.querySelector('#birthday').value = "0000-00-00";
       simpleMDE.value("");
       UsersForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
+      
+      $('#UsersForm input:checked').each(function() {
+        $(this).click();
+      });
 
       UsersForm.querySelector('#save-button').style.display = "inline-block";
       UsersForm.querySelector('#update-buttons').style.display = "none";
