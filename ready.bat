@@ -1,3 +1,4 @@
+rmdir /s /q generaltinio.gov.ph
 git clone https://github.com/elioth-coder/generaltinio.gov.ph.git
 cd generaltinio.gov.ph
 del .gitignore

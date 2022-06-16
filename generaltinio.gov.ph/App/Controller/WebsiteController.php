@@ -49,19 +49,18 @@ class WebsiteController {
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $announcement     = DataFetcher::getLatestAnnouncement();
     $sections         = DataFetcher::getPageSections(['page'=>'HOME']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $events           = DataFetcher::getEvents();
     $tourist_spots    = DataFetcher::getTouristSpots();
     $departments      = DataFetcher::getDepartments();
 
     $template = TwigTemplate::load('@pages/Website/index.html.twig');    
-    $sublinks[] = ['url' => '#upcoming-events',  'title' => 'Upcoming Events' ];
-    $sublinks[] = ['url' => '#explore-the-town', 'title' => 'Explore The Town' ];
     $page_settings = [
       'current_page' => 'Home',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => [
+        ['url' => '#', 'title'=> '. . .']
+      ],
     ];
 
     $md = new MarkdownIt(['html'=> true]);
@@ -72,24 +71,18 @@ class WebsiteController {
     if($type == "featured_story") {
       $article = DataFetcher::getFeaturedStory(['id'=>$id]);
       $article->content = $md->render($article->content);    
-      array_unshift($sublinks, ['url' => '#content', 'title'=> $article->title]);
-      $title = $article->title;
     }
 
     $news = null;
     if($type == "headline") {
       $news = DataFetcher::getHeadline(['id'=>$id]);
       $news->content = $md->render($news->content);    
-      array_unshift($sublinks, ['url' => '#content', 'title'=> $news->title]);
-      $title = $news->title;
     }
 
     $event = null;
     if($type == "event") {
       $event = DataFetcher::getEvent(['id'=>$id]);
       $event->details = $md->render($event->details);    
-      array_unshift($sublinks, ['url' => '#content', 'title'=> $event->title]);
-      $title = $event->title;
     }
 
     return $template->render([
@@ -258,7 +251,6 @@ class WebsiteController {
  
     $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
     
-    $sublinks[] = ['url' => '#tourist-spots', 'title'=> 'Tourist Spots']; 
     $page_settings = [
       'current_page' => 'Tourism',
       'color'        => 'yellow',
@@ -369,7 +361,7 @@ class WebsiteController {
     $template = TwigTemplate::load('@pages/Website/barangays.html.twig');    
   
     $page_settings = [
-      'current_page' => 'BARANGAYS',
+      'current_page' => 'Barangays',
       'color'        => 'red',
       'sublinks'     => $sublinks,
     ];
