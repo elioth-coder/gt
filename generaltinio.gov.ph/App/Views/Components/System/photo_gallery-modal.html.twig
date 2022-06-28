@@ -1,0 +1,35 @@
+<div id="modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-4xl h-full md:h-auto">
+    <div class="modal-content relative bg-white rounded-lg shadow">
+      <div class="modal-header flex justify-between items-center p-5 rounded-t border-b">
+        <h3 class="text-xl font-medium text-gray-900">
+          Loading...
+        </h3>
+        <button type="button" class="close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+        </button>
+      </div>
+      <div class="modal-body p-6 pb-0 space-y-6">
+        <div class="images-container p-2">
+          <p class="text-center text-gray-500">
+            Loading Photos...
+          </p>
+        </div>
+        <section class="clear-both"></section>
+        <div class="preview-images-container p-2"></div>
+        <section class="clear-both"></section>
+        <div class="py-2">
+          <input multiple type="file" class="inline-block" style="width:calc(100% - 150px);" name="file" id="file" accept="image/*" />
+          <button onclick="uploadAllImages();" style="display:none;" type="button" class="upload-all-btn text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+            Upload Photos
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
+        <button type="button" class="close text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

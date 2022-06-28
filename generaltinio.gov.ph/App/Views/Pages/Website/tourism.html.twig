@@ -4,6 +4,7 @@
 {% block styles %}
   {{ parent() }}
   {% include('@components/Common/markdown.style.twig') %}
+  <link rel="stylesheet" href="/assets/photoswipe/photoswipe.css" />
 {% endblock styles %}
 {% block innerContent %}
   <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
@@ -13,16 +14,16 @@
           {{ page_section|raw }}
         </div>
       {% endfor %}
-      {% include('@components/Website/section-tourist_spots.html.twig') %}
+      {% include('@components/Website/section-photo_gallery.html.twig') %}
     </section>
     <section class="lg:px-4">
       {% include('@components/Website/section-articles.html.twig') %}
       <br>
       {% include('@components/Website/section-news.html.twig') %}
       <br>
-      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
+      {% include('@components/Website/section-location.html.twig') %}
       <br>
-      {{ include('@components/Website/section-visitor_counter.html.twig') }}
+      {% include('@components/Website/section-visitor_counter.html.twig') %}
     </section>
   </div>
   <div class="lg:flex lg:flex-col lg:px-6">
@@ -38,5 +39,74 @@
   {{ parent() }}
   <script>
     $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
+  </script>
+  <script type="module">
+    import PhotoSwipeLightbox from '/assets/photoswipe/photoswipe-lightbox.esm.min.js';
+
+    const fetchImages = async (directory) => {
+      let response = await fetch(`/system/photo_gallery/${directory}/fetch` , {
+        credentials: "same-origin",
+        method: 'GET'
+      });
+      let data = await response.json();
+      let {
+        message,
+        status, 
+        images
+      } = data;
+
+      if(status == 'success') {
+        return images;
+      }
+    }
+
+    const loadPhotoSwipe = async (directory) => {
+      const options = {
+        dataSource: [],
+        showHideAnimationType: 'none',
+        pswpModule: () => import('/assets/photoswipe/photoswipe.esm.min.js'),
+      };
+
+      let processingModal = Swal.fire({ 
+        imageUrl: '/assets/img/loading.gif',
+        title: 'Fetching photos...',
+        allowOutsideClick: false, 
+        allowEscapeKey: false,          
+        showConfirmButton: false
+      });
+
+      let images = await fetchImages(directory);
+      
+      processingModal.close();
+
+      if(images.length) {
+        options.dataSource = images.map(image => {
+          return {
+            src: `/uploads/photo_gallery/${encodeURI(image.directory)}/${image.name}`,
+            width: image.width,
+            height: image.height,
+            alt: image.directory,
+          }
+        });
+
+        const lightbox = new PhotoSwipeLightbox(options);
+        lightbox.init();
+        lightbox.loadAndOpen(0)
+      } else {
+          Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: "No photos found."
+        });        
+      }
+    }
+
+    document.querySelectorAll('.photoswipe-btn').forEach(button => {
+      $(button).click(() => {
+        let directory = button.getAttribute('data-directory');
+
+        loadPhotoSwipe(directory);
+      })
+    });
   </script>
 {% endblock scripts %}

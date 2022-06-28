@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a
+class ComposerStaticInit35e31b26f1dd35713d5df1b29c8a5d17
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -236,6 +236,7 @@ class ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a
         'App\\Controller\\MessagesController' => __DIR__ . '/../..' . '/App/Controller/MessagesController.php',
         'App\\Controller\\OrdinancesResolutionsController' => __DIR__ . '/../..' . '/App/Controller/OrdinancesResolutionsController.php',
         'App\\Controller\\PageSectionsController' => __DIR__ . '/../..' . '/App/Controller/PageSectionsController.php',
+        'App\\Controller\\PhotoGalleryController' => __DIR__ . '/../..' . '/App/Controller/PhotoGalleryController.php',
         'App\\Controller\\TouristSpotsController' => __DIR__ . '/../..' . '/App/Controller/TouristSpotsController.php',
         'App\\Controller\\UsersController' => __DIR__ . '/../..' . '/App/Controller/UsersController.php',
         'App\\Controller\\VisitorController' => __DIR__ . '/../..' . '/App/Controller/VisitorController.php',
@@ -252,6 +253,7 @@ class ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a
         'App\\Utility\\FileTypeDetector' => __DIR__ . '/../..' . '/App/Utility/FileTypeDetector.php',
         'App\\Utility\\OpisDatabase' => __DIR__ . '/../..' . '/App/Utility/OpisDatabase.php',
         'App\\Utility\\PageSectionHelper' => __DIR__ . '/../..' . '/App/Utility/PageSectionHelper.php',
+        'App\\Utility\\PhotoGalleryHelper' => __DIR__ . '/../..' . '/App/Utility/PhotoGalleryHelper.php',
         'App\\Utility\\Tokenizer' => __DIR__ . '/../..' . '/App/Utility/Tokenizer.php',
         'App\\Utility\\TwigTemplate' => __DIR__ . '/../..' . '/App/Utility/TwigTemplate.php',
         'App\\Validator\\AwardsFormValidator' => __DIR__ . '/../..' . '/App/Validator/AwardsFormValidator.php',
@@ -1105,9 +1107,9 @@ class ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf7c18fa6a5225088cf1cbe2f2abfbb4a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit35e31b26f1dd35713d5df1b29c8a5d17::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit35e31b26f1dd35713d5df1b29c8a5d17::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit35e31b26f1dd35713d5df1b29c8a5d17::$classMap;
 
         }, null, ClassLoader::class);
     }

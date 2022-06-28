@@ -1,0 +1,23 @@
+<section id="photo_gallery">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Photo Gallery
+  </h3>
+  <div class="py-4">    
+    {% for directory in directories %}
+      <a class="photoswipe-btn cursor-pointer m-5 block float-left h-30 w-36" data-directory="{{ directory.name }}">
+        <section class="relative">
+          <div class="z-40 bg-white h-32 border p-2 shadow-xl rounded"></div>
+          <img src="{{ 
+              (directory.first_item) 
+                ? '/uploads/photo_gallery/'~ directory.name ~'/'~  directory.first_item 
+                : '/assets/img/no-photo.png'
+            }}" 
+            class="z-50 absolute left-3 top-3 w-40 bg-white w-40 h-32 border p-2 shadow-xl rounded" 
+          />
+        </section>
+        <h3 class="text-{{ page_settings.color }}-600 text-center text-lg font-bold ml-4 mt-8">{{ directory.name }}</h3>
+      </a>
+    {% endfor %} 
+    <div class="clear-both"></div>
+  </div>
+</section>

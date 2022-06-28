@@ -6,6 +6,7 @@ use App\Utility\PageSectionHelper;
 use App\Utility\DataFetcher;
 use App\Utility\OpisDatabase;
 use App\Model\User;
+use App\Utility\PhotoGalleryHelper;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Kaoken\MarkdownIt\MarkdownIt;
@@ -248,9 +249,12 @@ class WebsiteController {
     $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
- 
+
+    $directories = PhotoGalleryHelper::getDirectories(); 
     $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
+    $sublinks[] = ['url' => '#photo_gallery', 'title'=> 'Photo Gallery']; 
     
+
     $page_settings = [
       'current_page' => 'Tourism',
       'color'        => 'yellow',
@@ -265,6 +269,7 @@ class WebsiteController {
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
       'departments'      => $departments,
+      'directories'      => $directories,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }

@@ -7,16 +7,16 @@
       "icon"  : "view-boards"
     },
     { 
+      "url"  : "/",
+      "name" : "Go to Website",
+      "page"  : "website",
+      "icon"  : "globe-alt"
+    },
+    { 
       "url"  : "https://mail.generaltinio.gov.ph:2096",
       "name" : "Go to Webmail",
       "page"  : "webmail",
       "icon"  : "mail"
-    },
-    { 
-      "url"  : "/",
-      "name" : "View Website",
-      "page"  : "website",
-      "icon"  : "eye"
     },
     { 
       "name" : "File Manager",

@@ -53,4 +53,10 @@ class FileSystem {
     return file_exists($path) && is_dir($path);
   }
 
+  public static function renameDirectory($old, $new) {
+    $path = FileSystem::getBasePath();
+
+    return rename($path.$old, $path.$new);
+  }
+
 }

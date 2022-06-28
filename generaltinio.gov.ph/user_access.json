@@ -13,10 +13,16 @@
       "icon": "chat-alt"
     },
     { 
-      "name": "Announcements",
-      "url":  "/system/announcements",
-      "page": "announcements",
-      "icon": "speakerphone"
+      "name": "Photo Gallery",
+      "url":  "/system/photo_gallery",
+      "page": "photo_gallery",
+      "icon": "photograph"
+    },
+    { 
+      "name": "Page Sections",
+      "url":  "/system/page_sections",
+      "page": "page_sections",
+      "icon": "template"
     },
     { 
       "name": "Articles",
@@ -43,16 +49,16 @@
       "icon": "location-marker"
     },
     { 
+      "name": "Announcements",
+      "url":  "/system/announcements",
+      "page": "announcements",
+      "icon": "speakerphone"
+    },
+    { 
       "name": "Offices",
       "url":  "/system/departments",
       "page": "departments",
       "icon": "badge-check"
-    },
-    { 
-      "name": "Page Sections",
-      "url":  "/system/page_sections",
-      "page": "page_sections",
-      "icon": "template"
     },
     { 
       "name": "Biddings",
@@ -73,16 +79,16 @@
       "icon": "pencil-alt"
     },
     { 
-      "name": "Ordinances",
-      "url":  "/system/ordinances_resolutions",
-      "page": "ordinances_resolutions",
-      "icon": "document-duplicate"
-    },
-    { 
       "name": "Executive Orders",
       "url":  "/system/executive_orders",
       "page": "executive_orders",
       "icon": "scale"
-    } 
+    },
+    { 
+      "name": "Ordinances & Resolutions",
+      "url":  "/system/ordinances_resolutions",
+      "page": "ordinances_resolutions",
+      "icon": "document-duplicate"
+    }
   ]
 }

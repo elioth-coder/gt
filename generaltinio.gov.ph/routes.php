@@ -21,6 +21,7 @@ use App\Controller\FullDisclosureController;
 use App\Controller\OrdinancesResolutionsController;
 use App\Controller\ExecutiveOrdersController;
 use App\Controller\FileManagerController;
+use App\Controller\PhotoGalleryController;
 use App\Controller\VisitorController;
 use App\Middleware\LoginMiddleware;
 use App\Middleware\MaintenanceMiddleware;
@@ -55,10 +56,13 @@ $router->group(['middleware' => [MaintenanceMiddleware::class]], function(Router
   $router->get('/visitor/count', [VisitorController::class, 'count']);
 
   $router->post('/system/messages', [MessagesController::class, 'store']);
+  $router->get('/system/photo_gallery/{directory}/fetch', [PhotoGalleryController::class, 'fetch']);
 });
 
 $router->group(['middleware' => [LoginMiddleware::class]], function(Router $router) {
   $router->get('/system/dashboard', [DashboardController::class, 'index']);
+
+  $router->get('/system/photo_gallery', [PhotoGalleryController::class, 'index']);
 
   $router->get('/system/users', [UsersController::class, 'index']);
   $router->post('/system/users', [UsersController::class, 'store']);
@@ -136,6 +140,13 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->post('/system/file_manager', [FileManagerController::class, 'store']);
   $router->delete('/system/file_manager/{file_name}', [FileManagerController::class, 'destroy']);
   $router->post('/system/file_manager/{file_name}/update', [FileManagerController::class, 'update']);
+  
+  $router->get('/system/photo_gallery', [PhotoGalleryController::class, 'index']);
+  $router->post('/system/photo_gallery', [PhotoGalleryController::class, 'store']);
+  $router->delete('/system/photo_gallery/{directory}', [PhotoGalleryController::class, 'destroy']);
+  $router->post('/system/photo_gallery/{directory}/update', [PhotoGalleryController::class, 'update']);
+  $router->post('/system/photo_gallery/photo/upload', [PhotoGalleryController::class, 'upload']);
+  $router->post('/system/photo_gallery/photo/delete', [PhotoGalleryController::class, 'delete']);
 });
 
 try {
