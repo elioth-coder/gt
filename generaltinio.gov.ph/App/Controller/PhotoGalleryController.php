@@ -113,9 +113,11 @@ class PhotoGalleryController {
       $listing = $fs->listContents('photo_gallery/' . $directory . '/');
 
       foreach ($listing as $item) {
-        $imageReader = Image::make(FileSystem::getBasePath() . "/" . $item['path']);
+        $path = str_replace('\\', '/', $item['path']);
+        $name = array_reverse(explode('/', $path))[0];
+        $imageReader = Image::make(FileSystem::getBasePath() . '/' . $item['path']);
         $image = [
-          'name'      => array_reverse(explode('/', $item['path']))[0],
+          'name'      => $name,
           'size'      => BytesFormatter::format($item['file_size']),
           'width'     => $imageReader->width(),
           'height'    => $imageReader->height(),
@@ -167,6 +169,7 @@ class PhotoGalleryController {
 
     $imageName = "img-" . microtime(true) . "-" . rand(10000, 99999) . '.png'; 
     $image = Image::make($_FILES["file"]["tmp_name"]);
+    $image->orientate();
     $image->save(FileSystem::getBasePath() . $path . $imageName);
 
     return $imageName;

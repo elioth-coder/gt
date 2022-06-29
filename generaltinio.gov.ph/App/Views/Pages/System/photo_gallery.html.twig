@@ -333,14 +333,7 @@
         placement: 'center',
         backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
         onHide: () => {
-          $el.removeAttribute('data-directory');
-          $el.querySelector('.modal-header h3').innerHTML = "Loading...";
-          $el.querySelector('.modal-body .images-container').innerHTML = `
-            <p class="text-center text-gray-500">
-              Loading Photos...
-            </p>          
-          `;
-          hideUploadPhotosButton();
+          window.location.reload();
         },
         onShow: () => {
           $el.setAttribute('data-directory', directory);

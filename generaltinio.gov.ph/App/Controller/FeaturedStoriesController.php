@@ -130,6 +130,7 @@ class FeaturedStoriesController {
 
     $imageName = "img-" . microtime(true) . "-" . rand(10000, 99999) . '.png'; 
     $image = Image::make($_FILES["file"]["tmp_name"]);
+    $image->orientate();
     $image->save(FileSystem::getBasePath() . $path . $imageName);
 
     return $imageName;

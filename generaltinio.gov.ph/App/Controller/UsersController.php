@@ -124,7 +124,6 @@ class UsersController {
       $setParemeters['password'] = sha1($_POST['password']);
     }
 
-    // return new HtmlResponse(json_encode($setParemeters), 500);
     $result = $db->update('user')
       ->where('id')->is($id)
       ->set($setParemeters);
@@ -150,6 +149,7 @@ class UsersController {
 
     $imageName = "img-" . microtime(true) . "-" . rand(10000, 99999) . '.png'; 
     $image = Image::make($_FILES["file"]["tmp_name"]);
+    $image->orientate();
     $image->save(FileSystem::getBasePath() . $path . $imageName);
 
     return $imageName;
