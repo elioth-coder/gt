@@ -42,12 +42,16 @@
 
       let form = e.target;
       $(form).find('button').hide();
-      $(form).find('.loading-btn').show();        
+      $(form).find('.loading-btn').show();    
+
+      let formData = new FormData(form);
+      let index = $(form).find('[name="index"]').val();
+      formData.set('file', FILES[index]);
 
       let response = await fetch('/system/photo_gallery/photo/upload', {
         credentials: "same-origin",
         method: 'POST',
-        body: new FormData(form)
+        body: formData
       });
       let {
         message,
@@ -159,16 +163,18 @@
     }
 
     function addPreviewImageToModal(data) {
+      let { index, src } = data;
       const $el = document.getElementById('modal');
       let directory = $el.getAttribute('data-directory');
       let $container = $($el.querySelector('.preview-images-container'));
       let content = `
         <form onsubmit="uploadImage(event);" 
-          method="POST"
+          method="POST" 
+          enctype="multipart/form-data"
           class="image-uploader-form bg-black relative flex justify-center items-center float-left w-[150px] h-[150px] border">
           <input type="hidden" value="${directory}" name="directory" />
-          <input type="hidden" value="${data}" name="image" />
-          <img src="${data}" class="w-full block" />
+          <input type="hidden" value="${index}" name="index" />
+          <img src="${src}" class="w-full block" />
           <button style="display:none;" title="Uploading..." class="loading-btn
             absolute text-gray-500 bg-white hover:bg-gray-100 
             focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-full 
@@ -225,24 +231,27 @@
       $($el).find('.upload-all-btn').hide();
     }
 
+    let FILES;
+
     const onChoosePhotos = (e) => {
       let files = e.target.files
 
       if (files.length) {
+        FILES = files;
         let processed = 0;
+
         for(let i=0; i<files.length; i++) {
-          let reader = new FileReader();
+          let image = {
+            index: i,
+            src : URL.createObjectURL(files[i])
+          }
 
-          reader.addEventListener("load", function () {
-            processed++;
-            addPreviewImageToModal(reader.result);
+          addPreviewImageToModal(image);
+          processed++;
 
-            if(processed == files.length) {
-              showUploadPhotosButton();
-            }
-          }, false);
-
-          reader.readAsDataURL(files[i]);
+          if(processed == files.length) {
+            showUploadPhotosButton();
+          }
         }
       }
     }

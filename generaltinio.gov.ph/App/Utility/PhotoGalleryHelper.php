@@ -11,7 +11,8 @@ class PhotoGalleryHelper {
 
       foreach ($listing as $item) {
         if ($item instanceof DirectoryAttributes) {
-          $name = array_reverse(explode('\\', $item['path']))[0];
+          $path = str_replace('\\', '/', $item['path']);
+          $name = array_reverse(explode('/', $path))[0];
           $directory = [
             'last_modified' => date('d/m/Y h:i a', $item['last_modified']),
             'path'  => $item['path'],

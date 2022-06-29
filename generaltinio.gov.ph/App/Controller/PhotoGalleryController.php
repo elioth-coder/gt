@@ -91,20 +91,9 @@ class PhotoGalleryController {
   }
 
   function upload() {
-    $path = '/photo_gallery/' . $_POST['directory'] . "/";
-
-    try {
-      $fs = FileSystem::getInstance();
-      if(!FileSystem::isDirectoryExists($path)) {
-        $fs->createDirectory($path);
-      }
-    } catch (FilesystemException | UnableToCreateDirectory $e) {
-      return new JsonResponse(['status' => 'error', 'message' => $e->getMessage()]);
+    if($_FILES["file"]["tmp_name"]) {
+      $imageName = $this->saveImage($_FILES["file"]["tmp_name"]);
     }
-
-    $imageName = "img-" . microtime(true) . "-" . rand(10000, 99999) . '.png'; 
-    $image = Image::make($_POST["image"]);
-    $image->save(FileSystem::getBasePath() . $path . $imageName);
 
     $response = [
       'status' => 'success', 
@@ -164,4 +153,22 @@ class PhotoGalleryController {
     return new JsonResponse($response);
   }
 
+  function saveImage($tmp) {
+    $path = '/photo_gallery/' . $_POST['directory'] . '/';
+
+    try {
+      $fs = FileSystem::getInstance();
+      if(!FileSystem::isDirectoryExists($path)) {
+        $fs->createDirectory($path);
+      }
+    } catch (FilesystemException | UnableToCreateDirectory $e) {
+      throw $e;
+    }
+
+    $imageName = "img-" . microtime(true) . "-" . rand(10000, 99999) . '.png'; 
+    $image = Image::make($_FILES["file"]["tmp_name"]);
+    $image->save(FileSystem::getBasePath() . $path . $imageName);
+
+    return $imageName;
+  }
 }
