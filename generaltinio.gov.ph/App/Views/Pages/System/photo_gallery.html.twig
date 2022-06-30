@@ -272,6 +272,49 @@
       hideUploadPhotosButton();
     }
 
+    const GALLERY = {};
+    
+    const fetchImages = async (directory) => {
+      if(GALLERY[directory]) {
+        return GALLERY[directory];
+      }
+      
+      let response = await fetch(`/system/photo_gallery/${directory}/fetch` , {
+        credentials: "same-origin",
+        method: 'GET'
+      });
+      let data = await response.json();
+      let {
+        message,
+        status, 
+        images
+      } = data;
+
+      if(status == 'success') {
+        GALLERY[directory] = images;
+
+        return images;
+      }
+    }
+
+    const loadImages = async (directory) => {
+      const $el = document.getElementById('modal');
+      let images = await fetchImages(directory);
+
+      if(!images || !images.length) {
+        $el.querySelector('.modal-body .images-container').innerHTML = `
+          <p class="text-center text-gray-500">
+            Folder is empty.
+          </p>          
+        `;
+      } else {
+        $el.querySelector('.modal-body .images-container').innerHTML = ``;
+        images.forEach(image => {
+          addImageToModal(image);
+        })
+      }
+    }
+
     async function showModal(directory) {
       const $el = document.getElementById('modal');
       const resetFileInput = () => {
@@ -299,41 +342,18 @@
           });      
       }
 
-      const fetchImages = async (directory) => {
-        let response = await fetch(`/system/photo_gallery/${directory}/fetch` , {
-          credentials: "same-origin",
-          method: 'GET'
-        });
-        let data = await response.json();
-        let {
-          message,
-          status, 
-          images
-        } = data;
-
-        if(status == 'success') {
-          if(!images || !images.length) {
-            $el.querySelector('.modal-body .images-container').innerHTML = `
-              <p class="text-center text-gray-500">
-                Folder is empty.
-              </p>          
-            `;
-          } else {
-            $el.querySelector('.modal-body .images-container').innerHTML = ``;
-            images.forEach(image => {
-              addImageToModal(image);
-            })
-          }
-        } else {
-          console.log(message);
-        }
-      }
-
       const options = {
         placement: 'center',
         backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
         onHide: () => {
-          window.location.reload();
+          $el.removeAttribute('data-directory');
+          $el.querySelector('.modal-header h3').innerHTML = "Loading...";
+          $el.querySelector('.modal-body .images-container').innerHTML = `
+            <p class="text-center text-gray-500">
+              Loading Photos...
+            </p>          
+          `;
+          $el.querySelector('.modal-body .preview-images-container').innerHTML = '';
         },
         onShow: () => {
           $el.setAttribute('data-directory', directory);
@@ -341,7 +361,7 @@
 
           resetFileInput();
           registerCloseButtons();
-          fetchImages(directory);
+          loadImages(directory);
         },
         onToggle: () => {
             console.log('modal has been toggled');
