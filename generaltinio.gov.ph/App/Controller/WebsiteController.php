@@ -64,26 +64,29 @@ class WebsiteController {
       ],
     ];
 
-    $md = new MarkdownIt(['html'=> true]);
-    $type = $announcement->type;
-    $id   = $announcement->data_id;
-
     $article = null;
-    if($type == "featured_story") {
-      $article = DataFetcher::getFeaturedStory(['id'=>$id]);
-      $article->content = $md->render($article->content);    
-    }
-
     $news = null;
-    if($type == "headline") {
-      $news = DataFetcher::getHeadline(['id'=>$id]);
-      $news->content = $md->render($news->content);    
-    }
-
     $event = null;
-    if($type == "event") {
-      $event = DataFetcher::getEvent(['id'=>$id]);
-      $event->details = $md->render($event->details);    
+
+    if($announcement) {
+      $md = new MarkdownIt(['html'=> true]);
+      $type = $announcement->type;
+      $id   = $announcement->data_id;
+  
+      if($type == "featured_story") {
+        $article = DataFetcher::getFeaturedStory(['id'=>$id]);
+        $article->content = $md->render($article->content);    
+      }
+  
+      if($type == "headline") {
+        $news = DataFetcher::getHeadline(['id'=>$id]);
+        $news->content = $md->render($news->content);    
+      }
+  
+      if($type == "event") {
+        $event = DataFetcher::getEvent(['id'=>$id]);
+        $event->details = $md->render($event->details);    
+      }  
     }
 
     return $template->render([

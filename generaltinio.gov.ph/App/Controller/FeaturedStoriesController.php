@@ -74,6 +74,13 @@ class FeaturedStoriesController {
     $result = $db->from('featured_story')
       ->where('id')->is($id)
       ->delete();
+    
+    if($result) {
+      $result = $db->from('announcement')
+      ->where('data_id')->is($id)
+      ->andWhere('type')->is('featured_story')
+      ->delete();
+    }
 
     $response = ($result) 
       ? ['status' => 'success', 'image' => $image, 'message' => 'Successfully deleted the featured story.'] 

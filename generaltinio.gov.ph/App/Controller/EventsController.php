@@ -73,6 +73,13 @@ class EventsController {
       ->where('id')->is($id)
       ->delete();
 
+    if($result) {
+      $result = $db->from('announcement')
+      ->where('data_id')->is($id)
+      ->andWhere('type')->is('event')
+      ->delete();
+    }
+
     $response = ($result) 
       ? ['status' => 'success', 'image' => $image, 'message' => 'Successfully deleted the event.'] 
       : ['status' => 'error', 'message' => 'Failed to delete the event.'];

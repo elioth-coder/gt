@@ -72,6 +72,13 @@ class HeadlinesController {
       ->where('id')->is($id)
       ->delete();
 
+    if($result) {
+      $result = $db->from('announcement')
+      ->where('data_id')->is($id)
+      ->andWhere('type')->is('headline')
+      ->delete();
+    }
+
     $response = ($result) 
       ? ['status' => 'success', 'image' => $image, 'message' => 'Successfully deleted the headline.'] 
       : ['status' => 'error', 'message' => 'Failed to delete the headline.'];
