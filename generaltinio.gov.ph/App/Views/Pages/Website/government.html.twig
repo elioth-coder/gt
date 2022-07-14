@@ -14,6 +14,7 @@
           {{ page_section|raw }}
         </div>
       {% endfor %}
+      {{ include('@components/Website/section-departments.html.twig', { 'page_settings': page_settings, 'departments': departments }) }}
       {% include('@components/Website/section-full_disclosures.html.twig') %}
       {% include('@components/Website/section-bids.html.twig') %}
       {% include('@components/Website/section-ordinances_resolutions.html.twig') %}

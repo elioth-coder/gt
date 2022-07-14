@@ -143,6 +143,7 @@ class WebsiteController {
 
     $template = TwigTemplate::load('@pages/Website/government.html.twig');    
   
+    $sublinks[] = ['url' => '#offices', 'title'=> 'Offices']; 
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
     $sublinks[] = ['url' => '#bids', 'title'=> 'Bids & Awards']; 
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
