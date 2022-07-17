@@ -19,18 +19,17 @@
   /* lg: */
   @media (min-width: 1024px) {
     #content {
-      max-width: 960px;
-      margin-top: 400px;
+      margin-top: -70px;
     }
-    #footer {
+    #footer .inner, #content .inner {
       max-width: 960px;
     }    
   }
 
   /* xl: */
   @media (min-width: 1280px) {
-    #content,
-    #footer {
+    #content .inner,
+    #footer .inner {
       max-width: 1070px;
     }
   }
@@ -38,11 +37,15 @@
   <main class="flex flex-col bg-gray-300 overflow-hidden">
     {{ include('@components/Website/header.html.twig', { 'page_settings': page_settings, 'user': user }) }}
     {{ include('@components/Website/carousel.html.twig', { 'featured_stories': featured_stories }) }}
-    <div id="content" class="p-4 bg-white lg:border lg:mx-auto lg:z-10">
-      {% block innerContent %}{% endblock %}
+    <div id="content" class="p-4 bg-white lg:border lg:mx-auto lg:z-10 w-full">
+      <div class="inner mx-auto">
+        {% block innerContent %}{% endblock %}
+      </div>
     </div>
     <footer id="footer" class="p-4 bg-gray-100 mx-auto w-full">
-      {{ include('@components/Website/section-media_and_copyright.html.twig') }}
+      <div class="inner mx-auto">
+        {{ include('@components/Website/section-media_and_copyright.html.twig') }}
+      </div>
     </footer>
 
     <a href="#header" class="fixed bottom-4 right-4 z-10 rounded-lg p-3 text-white hover:bg-opacity-100 bg-opacity-75 bg-{{ page_settings.color }}-900">

@@ -5,7 +5,7 @@
       <th class="text-left">Name</th>
       <th class="text-left">Username</th>
       <th class="text-left">Password</th>
-      <th class="text-left">Type</th>
+      <th class="text-left">Designation</th>
       <th class="text-center">Action</th>
     </tr>
   </thead>
@@ -22,7 +22,7 @@
           <td class="truncate">{{ user.last_name }}, {{ user.first_name }}</td>
           <td>{{ user.username }}</td>
           <td><span class="text-2xl">********</span></td>
-          <td>{{ user.type }}</td>
+          <td>{{ user.designation }}</td>
           <td class="text-center">
             <button onclick="{{ 'editUser(' ~ user|json_encode() ~ ');' }}" class="text-blue-500">
               {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}

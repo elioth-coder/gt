@@ -13,6 +13,17 @@
       <img id="image" class="border border-gray-300 rounded h-72 w-full mb-5" src="/assets/img/default.jpg" alt="" />
       <input type="file" name="file" id="file" accept="image/*" />
     </div>
+    <div class="py-4">
+      <label for="department_head" class="font-bold py-2 px-4">Department Head : </label>
+      <select required
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="department_head" name="department_head">
+        <option value="0">Set Department Head: </option>
+        {% for user in users %}
+          <option value="{{ user.id }}">{{ user.first_name|upper }}, {{ user.last_name|upper }}</option>
+        {% endfor %}
+      </select>
+    </div>
   </div>
 
   <div class="w-1/2 p-5">

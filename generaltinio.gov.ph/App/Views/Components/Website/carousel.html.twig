@@ -3,10 +3,10 @@
     'section': [
       'py-3 px-5',
       'sm:px-20 sm:absolute sm:inset-x-0 sm:top-10 sm:z-10',
-      'lg:px-10 lg:pt-12 lg:mx-auto',
+      'lg:px-10 lg:mx-auto lg:top-1/3',
     ]|join(' '),
     'title': [
-      'text-'~ page_settings.color ~'-600',
+      'text-'~ page_settings.color ~'-600 max-w-5xl truncate',
       'sm:bg-'~ page_settings.color ~'-600 sm:bg-opacity-90 sm:text-white sm:w-max sm:p-3',
     ]|join(' '),
     'mainTitle': [
@@ -36,16 +36,20 @@
 <style>
 /* lg: */
 @media (min-width: 1024px) {
-  #carousel-container {
-    top: 179px;
-  }
-
   #carousel section {
     max-width: 960px;
   }
 
   .carousel-img-container {
     height: calc(100vh - 170px);
+  }
+
+  .carousel-img-container img {
+    display:none;
+  }
+
+  .carousel-img-container .cover-image {
+    display:block;
   }
 }
 
@@ -56,18 +60,24 @@
   }
   #carouselPrev {
     left: calc(50% - 560px);
-    top: 150px;
+    top: calc(50% - 50px);
   }
   #carouselNext {
     right: calc(50% - 560px);
-    top: 150px;
+    top: calc(50% - 50px);
   }
 }
 </style>
-<div id="carousel-container" class="relative lg:absolute lg:w-full">
+<div id="carousel-container" class="relative lg:w-full">
   <div id="carousel" class="bg-gray-200">
     {% for featured_story in featured_stories %}
       <div class="flex flex-col relative carousel-img-container">
+        <div class="cover-image hidden w-full h-full" style="
+          background: url(/uploads/featured_stories/{{ featured_story.image }});
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          "></div>
         <img src="/uploads/featured_stories/{{ featured_story.image }}" class="h-full mx-auto" />
         <section
           class="{{ styles.carousel.section }}">

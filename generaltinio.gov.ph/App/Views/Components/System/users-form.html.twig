@@ -30,6 +30,18 @@
         <option value="EMPLOYEE">EMPLOYEE</option>
       </select>
     </div>
+    <div class="py-4">
+      <label for="designation" class="font-bold py-2 px-4">Designation : </label>
+      <input required placeholder="Enter designation of the user."
+        class="w-full py-2 px-4 rounded border border-gray-300 focus:border-green-700 focus:outline-none" 
+        type="text" id="designation" name="designation" list="designations" autocomplete="off"
+      />  
+      <datalist id="designations">
+        {% for designation in designations %}
+         <option value="{{ designation.designation }}">
+        {% endfor %}
+      </datalist>
+    </div>    
   </div>
 
   <div class="w-1/2 p-5">

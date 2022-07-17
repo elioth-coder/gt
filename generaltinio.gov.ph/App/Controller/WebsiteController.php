@@ -132,7 +132,8 @@ class WebsiteController {
   }
 
   function government() {
-    $bids                   = DataFetcher::getBidsAndAwards();
+    $bids                   = DataFetcher::getBids();
+    $awards                 = DataFetcher::getAwards();
     $ordinances_resolutions = DataFetcher::getOrdinancesAndResolutions();
     $featured_stories       = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
     $headlines              = DataFetcher::getHeadlines(['limit'=>3]);
@@ -145,7 +146,8 @@ class WebsiteController {
   
     $sublinks[] = ['url' => '#offices', 'title'=> 'Offices']; 
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
-    $sublinks[] = ['url' => '#bids', 'title'=> 'Bids & Awards']; 
+    $sublinks[] = ['url' => '#bids', 'title'=> 'Bids']; 
+    $sublinks[] = ['url' => '#awards', 'title'=> 'Awards']; 
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
     $page_settings = [
       'current_page' => 'Government',
@@ -155,6 +157,7 @@ class WebsiteController {
 
     return $template->render([
       'bids'                   => $bids,
+      'awards'                 => $awards,
       'ordinances_resolutions' => $ordinances_resolutions,
       'current_year'           => date('Y'),
       'page_settings'          => $page_settings, 
@@ -169,6 +172,7 @@ class WebsiteController {
 
   function department($id) {
     $department       = DataFetcher::getDepartment(['id'=>$id]);
+    $department_head  = DataFetcher::getUser(['id'=>$department->department_head]);
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $departments      = DataFetcher::getDepartments();
@@ -192,6 +196,7 @@ class WebsiteController {
     return $template->render([
       'page_settings'    => $page_settings, 
       'department'       => $department,
+      'department_head'  => $department_head,
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,

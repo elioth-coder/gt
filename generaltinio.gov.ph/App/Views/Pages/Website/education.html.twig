@@ -6,25 +6,17 @@
   {% include('@components/Common/markdown.style.twig') %}
 {% endblock styles %}
 {% block innerContent %}
-  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
-    <section class="lg:px-4 ">
+  <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-8">
+    <section class="w-full">
       {% for page_section in page_sections %}
         <div class="w-full editor-preview mb-5">
           {{ page_section|raw }}
         </div>
       {% endfor %}
     </section>
-    <section class="lg:px-4 ">
-      {% include('@components/Website/section-articles.html.twig') %}
-      <br>
-      {% include('@components/Website/section-news.html.twig') %}
-      <br>
-      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
-      <br>
-      {{ include('@components/Website/section-visitor_counter.html.twig') }}
-    </section>
+    {% include('@components/Website/right-sidebar.html.twig') %}
   </div>
-  <div class="lg:flex lg:flex-col lg:px-6">
+  <div class="lg:flex lg:flex-col">
     {{ 
       include('@components/Website/bottom-content.html.twig', { 
         'page_settings': page_settings,

@@ -6,38 +6,47 @@
   {% include('@components/Common/markdown.style.twig') %}
 {% endblock styles %}
 {% block innerContent %}
-  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
-    <section class="lg:px-4">
+  <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-8">
+    <section class="w-full">
       <h1 class="border-b border-gray-300 text-3xl text-blue-600 py-4 font-semibold">
         {{ department.name }}
       </h1>
       <section class="py-4">
-        <p class="bg-gray-50 p-4">
+        <div class="bg-gray-50 p-4 flex items-center justify-between">
+          <div>
+            <img src="{{ 
+                (department_head.image) 
+                ? '/uploads/users/'~ department_head.image 
+                : '/assets/img/profile.png' 
+              }}" 
+              class="inline-block rounded-full shadow-3xl h-[100px] justify-self-start" 
+            />          
+            <section class="inline-block text-gray-600 align-bottom px-2 leading-tight">
+              <b class="underline">
+                {{ (department_head.gender == 'MALE') ? 'MR.' : 'MS.' }}
+                {{ department_head.first_name|upper }}
+                {{ department_head.last_name|upper }}
+              </b>
+              <br>{{ department_head.designation|upper }}<br>
+              {{ department.name|upper }}
+            </section>
+          </div>
           <img src="{{ 
               (department.logo) 
               ? '/uploads/departments/'~ department.logo 
               : '/assets/img/transparency-seal.png' 
             }}" 
-            class="inline-block rounded-full shadow-3xl h-[100px]" 
-          />
-          <span class="text-gray-600">{{ department.name|upper }} LOGO</span>
-        </p>
+            class="block rounded-full shadow-3xl h-[100px]" 
+          />          
+        </div>
       </section>
       <div class="w-full editor-preview mb-5">
         {{ department.details|raw }}
       </div>
     </section>
-    <section class="lg:px-4">
-      {% include('@components/Website/section-articles.html.twig') %}
-      <br>
-      {% include('@components/Website/section-news.html.twig') %}
-      <br>
-      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
-      <br>
-      {{ include('@components/Website/section-visitor_counter.html.twig') }}
-    </section>
+    {% include('@components/Website/right-sidebar.html.twig') %}
   </div>
-  <div class="lg:flex lg:flex-col lg:px-6">
+  <div class="lg:flex lg:flex-col">
     {{ 
       include('@components/Website/bottom-content.html.twig', { 
         'page_settings': page_settings,

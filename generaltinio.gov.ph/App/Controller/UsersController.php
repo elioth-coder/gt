@@ -10,6 +10,7 @@ use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
 use App\Utility\AccessConfiguration;
+use App\Utility\DataFetcher;
 
 class UsersController {
   function index() {
@@ -17,12 +18,14 @@ class UsersController {
     $result = $db->from('user')
       ->select()
       ->all();
+    $designations = DataFetcher::getDesignations();
 
     $template = TwigTemplate::load('@pages/System/users.html.twig');    
     $user = unserialize($_SESSION['user']);
 
     return $template->render([
       'user'         => $user,
+      'designations' => $designations,
       'features'     => AccessConfiguration::getFeatures(),
       'defaults'     => AccessConfiguration::getDefaultFeatures(),
       'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
@@ -49,6 +52,7 @@ class UsersController {
       'password'     => sha1($_POST['password']),
       'image'        => $imageName,
       'type'         => $_POST['type'],
+      'designation'  => $_POST['designation'],
       'access'       => json_encode($user_access),
       'first_name'   => $_POST['first_name'],
       'middle_name'  => $_POST['middle_name'],
@@ -112,6 +116,7 @@ class UsersController {
       'username'     => $_POST['username'],
       'image'        => $imageName,
       'type'         => $_POST['type'],
+      'designation'  => $_POST['designation'],
       'access'       => json_encode($user_access),
       'first_name'   => $_POST['first_name'],
       'middle_name'  => $_POST['middle_name'],

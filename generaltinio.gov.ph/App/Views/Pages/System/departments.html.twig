@@ -85,7 +85,7 @@
     }
 
     function editDepartment(data) {
-      let { id, logo, name, details, sequence } = data;
+      let { id, logo, name, details, sequence, department_head } = data;
       let hiddenIdInput = DepartmentsForm.querySelector('#id');
       let oldImageInput = DepartmentsForm.querySelector('#old_image');
 
@@ -117,6 +117,7 @@
       }
 
       DepartmentsForm.querySelector('#name').value = name;
+      DepartmentsForm.querySelector('#department_head').value = department_head;
       simpleMDE.value(details);
       DepartmentsForm.querySelector('#sequence').value = sequence;
 
@@ -146,6 +147,7 @@
       }
       
       DepartmentsForm.querySelector('#name').value = "";
+      DepartmentsForm.querySelector('#department_head').value = "";
       simpleMDE.value("");
       DepartmentsForm.querySelector('#sequence').value = "";
       DepartmentsForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');

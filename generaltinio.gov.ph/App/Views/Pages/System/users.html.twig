@@ -87,7 +87,7 @@
     }
 
     function editUser(data) {
-      let { id, image, username, type, access, first_name, middle_name, last_name, gender, birthday, contact_info } = data;
+      let { id, image, username, type, designation, access, first_name, middle_name, last_name, gender, birthday, contact_info } = data;
       if(access) {
         access = JSON.parse(access);
       }
@@ -125,6 +125,7 @@
       UsersForm.querySelector('#username').value = username;
       UsersForm.querySelector('#password').value = "";
       UsersForm.querySelector('#type').value = type;
+      UsersForm.querySelector('#designation').value = designation;
       UsersForm.querySelector('#first_name').value = first_name;
       UsersForm.querySelector('#middle_name').value = middle_name;
       UsersForm.querySelector('#last_name').value = last_name;
@@ -167,6 +168,7 @@
       UsersForm.querySelector('#username').value = "";
       UsersForm.querySelector('#password').value = "";
       UsersForm.querySelector('#type').value = "";
+      UsersForm.querySelector('#designation').value = "";
       UsersForm.querySelector('#first_name').value = "";
       UsersForm.querySelector('#middle_name').value = "";
       UsersForm.querySelector('#last_name').value = "";

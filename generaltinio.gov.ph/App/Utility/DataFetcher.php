@@ -7,6 +7,35 @@ class DataFetcher {
     return OpisDatabase::getInstance();
   }
 
+  static function getDesignations() {
+    $db = OpisDatabase::getInstance();
+    $result = $db->from('user')
+      ->distinct()
+      ->select(['designation'])
+      ->all();
+ 
+    return $result;
+  }
+
+  static function getUsers() {
+    $db = OpisDatabase::getInstance();
+    $result = $db->from('user')
+      ->select()
+      ->all();
+ 
+    return $result;
+  }
+
+  static function getUser($config) {
+    $db = OpisDatabase::getInstance();
+    $result = $db->from('user')
+      ->where('id')->is($config['id'])
+      ->select()
+      ->first();
+ 
+    return $result;
+  }
+
   static function getLatestAnnouncement() {
     $result = DataFetcher::db()->from('announcement')
       ->orderBy('id', 'desc')
@@ -117,9 +146,20 @@ class DataFetcher {
     return $result;
   }
   
-  static function getBidsAndAwards($config=['limit'=>5]) {
+  static function getBids($config=['limit'=>5]) {
     $result = DataFetcher::db()->from('bid')
       ->select()
+      ->all();
+      
+    return $result;
+  }
+  
+  static function getAwards($config=['limit'=>5]) {
+    $result = DataFetcher::db()->from('award')
+      ->join('bid', function($join){
+        $join->on('award.bid_id', 'bid.id');
+      })  
+      ->select(['*', 'award.file'])         
       ->all();
       
     return $result;

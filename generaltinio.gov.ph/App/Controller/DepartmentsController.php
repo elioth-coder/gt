@@ -10,6 +10,7 @@ use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
 use App\Utility\AccessConfiguration;
+use App\Utility\DataFetcher;
 
 class DepartmentsController {
   function index() {
@@ -21,10 +22,12 @@ class DepartmentsController {
 
     $template = TwigTemplate::load('@pages/System/departments.html.twig');    
 
-    $user = unserialize($_SESSION['user']);
+    $user  = unserialize($_SESSION['user']);
+    $users = DataFetcher::getUsers();
 
     return $template->render([
       'user'         => $user,
+      'users'        => $users,
       'defaults'     => AccessConfiguration::getDefaultFeatures(),
       'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
       'current_page' => 'departments', 
@@ -45,6 +48,7 @@ class DepartmentsController {
       'name'     => $_POST['name'],
       'details'  => $_POST['details'],
       'sequence' => $_POST['sequence'],
+      'department_head' => $_POST['department_head'],
     ])
     ->into('department');
 
@@ -99,6 +103,7 @@ class DepartmentsController {
         'name'     => $_POST['name'],
         'details'  => $_POST['details'],
         'sequence' => $_POST['sequence'],
+        'department_head' => $_POST['department_head'],
       ]);
 
     $response = ($result) 

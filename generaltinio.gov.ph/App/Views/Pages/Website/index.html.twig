@@ -6,8 +6,8 @@
   {% include('@components/Common/markdown.style.twig') %}
 {% endblock styles %}
 {% block innerContent %}
-  <div class="lg:flex lg:flex-row lg:justify-between lg:p-6 lg:space-x-5">
-    <section class="lg:px-4">
+  <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-8">
+    <section class="w-full">
       {% if article %}
         <section class="mb-5">
           <h1 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
@@ -75,24 +75,16 @@
         </div>
       {% endfor %}
     </section>
-    <section class="lg:px-4 ">
-      {% include('@components/Website/section-articles.html.twig') %}
-      <br>
-      {% include('@components/Website/section-news.html.twig') %}
-      <br>
-      {{ include('@components/Website/section-location.html.twig', { 'page_settings': page_settings }) }}
-      <br>
-      {{ include('@components/Website/section-visitor_counter.html.twig') }}
-    </section>
+    {% include('@components/Website/right-sidebar.html.twig') %}
   </div>
-  <div class="lg:flex lg:flex-col lg:px-6">
-    <section class="lg:px-4">
+  <div class="lg:flex lg:flex-col">
+    <section class="w-full">
       {{ include('@components/Website/section-events.html.twig', { 'page_settings': page_settings, 'events': events }) }}
       <br>
       {{ include('@components/Website/section-explore.html.twig', { 'page_settings': page_settings, 'tourist_spots': tourist_spots }) }}
     </section>
   </div>
-  <div class="lg:flex lg:flex-col lg:px-6">
+  <div class="lg:flex lg:flex-col">
     {{ 
       include('@components/Website/bottom-content.html.twig', { 
         'page_settings': page_settings,
