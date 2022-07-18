@@ -12,16 +12,16 @@
         {{ department.name }}
       </h1>
       <section class="py-4">
-        <div class="bg-gray-50 p-4 flex items-center justify-between">
-          <div>
+        <div class="bg-gray-50 p-4 flex flex-col-reverse lg:flex-row items-center justify-between">
+          <div class="flex flex-col lg:flex-row items-center space-y-5 mt-5 lg:mt-0">
             <img src="{{ 
                 (department_head.image) 
                 ? '/uploads/users/'~ department_head.image 
                 : '/assets/img/profile.png' 
               }}" 
-              class="inline-block rounded-full shadow-3xl h-[100px] justify-self-start" 
+              class="border border-gray-300 block rounded-full shadow-3xl h-[120px] w-[120px] justify-self-start" 
             />          
-            <section class="inline-block text-gray-600 align-bottom px-2 leading-tight">
+            <section class="block text-gray-600 align-bottom px-2 leading-tight text-center lg:text-left">
               <b class="underline">
                 {{ (department_head.gender == 'MALE') ? 'MR.' : 'MS.' }}
                 {{ department_head.first_name|upper }}
@@ -36,7 +36,7 @@
               ? '/uploads/departments/'~ department.logo 
               : '/assets/img/transparency-seal.png' 
             }}" 
-            class="block rounded-full shadow-3xl h-[100px]" 
+            class="border border-gray-300 block rounded-full shadow-3xl h-[120px] w-[120px]" 
           />          
         </div>
       </section>

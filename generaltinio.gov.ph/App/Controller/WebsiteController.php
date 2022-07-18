@@ -184,9 +184,9 @@ class WebsiteController {
 
     $sublinks   = array();
     $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
-    $sublinks[] = ['url' => '#departments', 'title'=> 'Departments']; 
+    $sublinks[] = ['url' => '/government#offices', 'title'=> 'Offices']; 
+    $sublinks[] = ['url' => '#headlines', 'title'=> 'Headlines']; 
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'current_page' => 'Government',
       'color'        => 'blue',
@@ -216,8 +216,8 @@ class WebsiteController {
     $sublinks   = array();
     $sublinks[] = ['url' => '/government', 'title'=> 'Go Back']; 
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
+    $sublinks[] = ['url' => '#headlines', 'title'=> 'Headlines']; 
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'current_page' => 'Government',
       'color'        => 'blue',
@@ -400,9 +400,9 @@ class WebsiteController {
     $template = TwigTemplate::load('@pages/Website/search.html.twig');    
     
     $sublinks   = array();
-    $sublinks[] = ['url' => '#search-results', 'title'=> 'Search Results']; 
+    $sublinks[] = ['url' => '#content', 'title'=> 'Search Results']; 
+    $sublinks[] = ['url' => '#headlines', 'title'=> 'Headlines']; 
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'title'        => 'Search results for: "' . htmlspecialchars($_GET['q']) . '"',
       'current_page' => 'Search',
@@ -433,9 +433,9 @@ class WebsiteController {
     
     $title = (new Convert('LIST OF ' . $type))->toTitle();
     $sublinks   = array();
-    $sublinks[] = ['url' => '#list-results', 'title'=> $title]; 
+    $sublinks[] = ['url' => '#content', 'title'=> $title]; 
+    $sublinks[] = ['url' => '#headlines', 'title'=> 'Headlines']; 
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $page_settings = [
       'title'        => $title,
       'current_page' => 'List',
@@ -463,8 +463,8 @@ class WebsiteController {
     $template = TwigTemplate::load('@pages/Website/view.html.twig');    
     
     $sublinks   = array();
+    $sublinks[] = ['url' => '#headlines', 'title'=> 'Healines']; 
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
-    $sublinks[] = ['url' => '#community-news', 'title'=> 'Community News']; 
     $md = new MarkdownIt(['html'=> true]);
     $title = "PAPAYA Page";
 
