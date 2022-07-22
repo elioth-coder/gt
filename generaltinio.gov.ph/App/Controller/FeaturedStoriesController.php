@@ -76,10 +76,10 @@ class FeaturedStoriesController {
       ->delete();
     
     if($result) {
-      $result = $db->from('announcement')
-      ->where('data_id')->is($id)
-      ->andWhere('type')->is('featured_story')
-      ->delete();
+      $db->from('announcement')
+        ->where('data_id')->is($id)
+        ->andWhere('type')->is('featured_story')
+        ->delete();
     }
 
     $response = ($result) 

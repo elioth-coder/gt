@@ -11,6 +11,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Kaoken\MarkdownIt\MarkdownIt;
 use Jawira\CaseConverter\Convert;
+use function _\map;
 
 class WebsiteController {
   function login() {
@@ -172,7 +173,7 @@ class WebsiteController {
 
   function department($id) {
     $department       = DataFetcher::getDepartment(['id'=>$id]);
-    $department_head  = DataFetcher::getUser(['id'=>$department->department_head]);
+    $department_head  = json_decode($department->department_head);
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $departments      = DataFetcher::getDepartments();
@@ -368,9 +369,25 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'BARANGAYS']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'BARANGAYS']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
     $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
+    $barangays        = DataFetcher::getBarangays();
+
+    $md = new MarkdownIt(['html'=> true]);
+
+    $barangays = map($barangays, function($barangay) use ($md) { 
+      $barangay->chairman = json_decode($barangay->chairman);
+      $barangay->details = $md->render($barangay->details);
+
+      return $barangay;
+    });
+
+    $sublinks = map($barangays, function($barangay) { 
+      return [
+        'url'   => '/barangays'.'#'.(new Convert($barangay->name))->toKebab() , 
+        'title' => $barangay->name
+      ];
+    });
 
     $template = TwigTemplate::load('@pages/Website/barangays.html.twig');    
   
@@ -386,6 +403,7 @@ class WebsiteController {
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
+      'barangays'        => $barangays,
       'departments'      => $departments,
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);

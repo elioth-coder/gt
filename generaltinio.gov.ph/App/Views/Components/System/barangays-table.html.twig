@@ -1,0 +1,35 @@
+<table id="barangays-table" class="border mb-5 divide-y divide-gray-200 table-fixed">
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="text-left">#</th>
+      <th class="text-left">Name</th>
+      <th class="text-left">Details</th>
+      <th class="text-left">Sequence</th>
+      <th class="text-center">Action</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+    {% if barangays is empty %}
+      <tr>
+        <td colspan="5" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No barangays found.</td>
+      </tr>
+    {% endif %}
+
+    {% for barangay in barangays %}
+      <tr>
+        <td>{{ loop.index }}.</td>
+        <td class="truncate">{{ barangay.name }}</td>
+        <td class="truncate">{{ barangay.details }}</td>
+        <td>{{ barangay.sequence }}</td>
+        <td class="text-center">
+          <button onclick="{{ 'editBarangay(' ~ barangay|json_encode() ~ ');' }}" class="text-blue-500">
+            {{ include('@components/Common/icon-outline.twig', { 'name': 'pencil', 'style': 'w-6 h-6' }) }}
+          </button>
+          <button onclick="{{ 'deleteBarangay(' ~ barangay.id ~ ');' }}" class="text-red-500">
+            {{ include('@components/Common/icon-outline.twig', { 'name': 'trash', 'style': 'w-6 h-6' }) }}
+          </button>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

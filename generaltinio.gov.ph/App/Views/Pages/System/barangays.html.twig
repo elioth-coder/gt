@@ -1,6 +1,6 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}SYS_MOD: OFFICES - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
+{% block title %}SYS_MOD: BARANGAYS - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -8,11 +8,11 @@
 {% endblock styles %}
 {% block right_content %}
   <div class="flex flex-col p-10">
-    <h1 class="text-center text-4xl">Module: Offices</h1>
+    <h1 class="text-center text-4xl">Module: Barangays</h1>
     <hr class="my-5">
-    {{ include('@components/System/departments-table.html.twig', { 'departments' : departments }) }}
+    {{ include('@components/System/barangays-table.html.twig', { 'barangays' : barangays }) }}
     <hr class="my-5">
-    {{ include('@components/System/departments-form.html.twig') }}
+    {{ include('@components/System/barangays-form.html.twig') }}
   </div>
 {% endblock right_content %}
 {% block scripts %}
@@ -27,7 +27,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        let table = new DataTable('#departments-table', {
+        let table = new DataTable('#barangays-table', {
           "columnDefs": [
             { "width": "3%", "targets": 0 },
             { "width": "20%", "targets": 1 },
@@ -50,7 +50,7 @@
       }
     }
 
-    DepartmentsForm.onsubmit = async (e) => {
+    BarangaysForm.onsubmit = async (e) => {
       e.preventDefault();
 
       let processingModal = Swal.fire({ 
@@ -61,11 +61,11 @@
         showConfirmButton: false
       });
 
-      let hiddenIdInput = DepartmentsForm.querySelector('#id');
-      let response = await fetch('/system/departments' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
+      let hiddenIdInput = BarangaysForm.querySelector('#id');
+      let response = await fetch('/system/barangays' + ((hiddenIdInput) ? ('/' + hiddenIdInput.value + '/update') : ''), {
         credentials: "same-origin",
         method: 'POST',
-        body: new FormData(DepartmentsForm)
+        body: new FormData(BarangaysForm)
       });
       let {
         message,
@@ -90,17 +90,17 @@
       }
     }
 
-    function editDepartment(data) {
-      let { id, logo, name, details, sequence, department_head } = data;
-        department_head = JSON.parse(department_head) || {};
-      let hiddenIdInput = DepartmentsForm.querySelector('#id');
-      let oldImageInput = DepartmentsForm.querySelector('#old_image');
-      let oldPhotoInput = DepartmentsForm.querySelector('#old_photo');
+    function editBarangay(data) {
+      let { id, logo, name, details, sequence, chairman } = data;
+        chairman = JSON.parse(chairman) || {};
+      let hiddenIdInput = BarangaysForm.querySelector('#id');
+      let oldImageInput = BarangaysForm.querySelector('#old_image');
+      let oldPhotoInput = BarangaysForm.querySelector('#old_photo');
 
       if(hiddenIdInput) {
         hiddenIdInput.value = id;
         oldImageInput.value = logo;
-        oldPhotoInput.value = department_head.photo;
+        oldPhotoInput.value = chairman.photo;
       } else {
         let idInput = document.createElement('input');
 
@@ -108,7 +108,7 @@
         idInput.setAttribute('id', 'id');
         idInput.setAttribute('name', 'id');
         idInput.value = id;
-        DepartmentsForm.prepend(idInput);
+        BarangaysForm.prepend(idInput);
 
         let oldImageInput = document.createElement('input');
 
@@ -116,47 +116,46 @@
         oldImageInput.setAttribute('id', 'old_image');
         oldImageInput.setAttribute('name', 'old_image');
         oldImageInput.value = logo;
-        DepartmentsForm.prepend(oldImageInput);
+        BarangaysForm.prepend(oldImageInput);
 
         let oldPhotoInput = document.createElement('input');
 
         oldPhotoInput.setAttribute('type', 'hidden');
         oldPhotoInput.setAttribute('id', 'old_photo');
         oldPhotoInput.setAttribute('name', 'old_photo');
-        oldPhotoInput.value = department_head.photo;
-        DepartmentsForm.prepend(oldPhotoInput);
+        oldPhotoInput.value = chairman.photo;
+        BarangaysForm.prepend(oldPhotoInput);
       }
 
       if(logo) {
-        DepartmentsForm.querySelector('#image').setAttribute('src', '/uploads/departments/' + logo);
+        BarangaysForm.querySelector('#image').setAttribute('src', '/uploads/barangays/' + logo);
       } else {
-        DepartmentsForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
+        BarangaysForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
       }
 
-      if(department_head.photo) {
-        DepartmentsForm.querySelector('#profile').setAttribute('src', '/uploads/departments/' + department_head.photo);
+      if(chairman.photo) {
+        BarangaysForm.querySelector('#profile').setAttribute('src', '/uploads/barangays/' + chairman.photo);
       } else {
-        DepartmentsForm.querySelector('#profile').setAttribute('src', '/assets/img/profile.png');
+        BarangaysForm.querySelector('#profile').setAttribute('src', '/assets/img/profile.png');
       }
 
-      DepartmentsForm.querySelector('#name').value = name;
-      DepartmentsForm.querySelector('#department_head').value = department_head.name;
-      DepartmentsForm.querySelector('#designation').value = department_head.designation;
+      BarangaysForm.querySelector('#name').value = name;
+      BarangaysForm.querySelector('#chairman').value = chairman.name;
       simpleMDE.value(details);
-      DepartmentsForm.querySelector('#sequence').value = sequence;
+      BarangaysForm.querySelector('#sequence').value = sequence;
 
-      DepartmentsForm.querySelector('#save-button').style.display = "none";
-      DepartmentsForm.querySelector('#update-buttons').style.display = "inline-block";
+      BarangaysForm.querySelector('#save-button').style.display = "none";
+      BarangaysForm.querySelector('#update-buttons').style.display = "inline-block";
     }
 
     function cancelEdit() {
-      let hiddenIdInput = DepartmentsForm.querySelector('#id');
+      let hiddenIdInput = BarangaysForm.querySelector('#id');
         hiddenIdInput.remove();
-      let hiddenOldImageInput = DepartmentsForm.querySelector('#old_image');
+      let hiddenOldImageInput = BarangaysForm.querySelector('#old_image');
         hiddenOldImageInput.remove();
-      let hiddenOldPhotoInput = DepartmentsForm.querySelector('#old_photo');
+      let hiddenOldPhotoInput = BarangaysForm.querySelector('#old_photo');
         hiddenOldPhotoInput.remove();
-      let fileInput = DepartmentsForm.querySelector('#file');
+      let fileInput = BarangaysForm.querySelector('#file');
       let newFileInput = document.createElement('input');
 
       newFileInput.setAttribute('type', 'file');
@@ -166,7 +165,7 @@
 
       fileInput.replaceWith(newFileInput);
 
-      let photoInput = DepartmentsForm.querySelector('#photo');
+      let photoInput = BarangaysForm.querySelector('#photo');
       let newPhotoInput = document.createElement('input');
 
       newPhotoInput.setAttribute('type', 'file');
@@ -188,19 +187,18 @@
         }
       }      
 
-      DepartmentsForm.querySelector('#name').value = "";
-      DepartmentsForm.querySelector('#department_head').value = "";
-      DepartmentsForm.querySelector('#designation').value = "";
+      BarangaysForm.querySelector('#name').value = "";
+      BarangaysForm.querySelector('#chairman').value = "";
       simpleMDE.value("");
-      DepartmentsForm.querySelector('#sequence').value = "";
-      DepartmentsForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
-      DepartmentsForm.querySelector('#profile').setAttribute('src', '/assets/img/profile.png');
+      BarangaysForm.querySelector('#sequence').value = "";
+      BarangaysForm.querySelector('#image').setAttribute('src', '/assets/img/default.jpg');
+      BarangaysForm.querySelector('#profile').setAttribute('src', '/assets/img/profile.png');
 
-      DepartmentsForm.querySelector('#save-button').style.display = "inline-block";
-      DepartmentsForm.querySelector('#update-buttons').style.display = "none";
+      BarangaysForm.querySelector('#save-button').style.display = "inline-block";
+      BarangaysForm.querySelector('#update-buttons').style.display = "none";
     }
 
-    async function deleteDepartment(id) {
+    async function deleteBarangay(id) {
       let result = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -212,7 +210,7 @@
       });
 
       if(result.isConfirmed) {
-        let response = await fetch('/system/departments/' + id, {
+        let response = await fetch('/system/barangays/' + id, {
           credentials: "same-origin",
           method: 'DELETE',
         });

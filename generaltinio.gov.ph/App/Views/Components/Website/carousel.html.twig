@@ -105,6 +105,9 @@
         </section>
       </div>
     {% endfor %}
+    {% if featured_stories is empty %}
+      <div class="flex flex-col relative carousel-img-container"></div>
+    {% endif %}    
   </div>
   <section id="carousel-arrows" class="overflow-visible">
     <button id="carouselPrev" 

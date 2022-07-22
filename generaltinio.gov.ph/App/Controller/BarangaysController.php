@@ -11,15 +11,15 @@ use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
 use App\Utility\AccessConfiguration;
 
-class DepartmentsController {
+class BarangaysController {
   function index() {
     $db = OpisDatabase::getInstance();
-    $result = $db->from('department')
+    $result = $db->from('barangay')
       ->orderBy('sequence', 'asc')      
       ->select()
       ->all();
 
-    $template = TwigTemplate::load('@pages/System/departments.html.twig');    
+    $template = TwigTemplate::load('@pages/System/barangays.html.twig');    
 
     $user  = unserialize($_SESSION['user']);
 
@@ -27,8 +27,8 @@ class DepartmentsController {
       'user'         => $user,
       'defaults'     => AccessConfiguration::getDefaultFeatures(),
       'assigneds'    => AccessConfiguration::extractAssignedFeatures($user),
-      'current_page' => 'departments', 
-      'departments'  => $result
+      'current_page' => 'barangays', 
+      'barangays'  => $result
     ]);
   }
 
@@ -50,13 +50,13 @@ class DepartmentsController {
       'name'     => $_POST['name'],
       'details'  => $_POST['details'],
       'sequence' => $_POST['sequence'],
-      'department_head' => json_encode([
-        'name' => $_POST['department_head'],
-        'designation' => $_POST['designation'],
+      'chairman' => json_encode([
+        'name' => $_POST['chairman'],
+        'designation' => 'Brgy. Chairman',
         'photo' => $photoName,
       ])
     ])
-    ->into('department');
+    ->into('barangay');
 
     $response = ($result) ? ['status' => 'success'] : ['status' => 'error'];
 
@@ -65,24 +65,24 @@ class DepartmentsController {
 
   function destroy($id) {
     $db = OpisDatabase::getInstance();
-    $image = $db->from('department')
+    $image = $db->from('barangay')
       ->where('id')->is($id)
       ->column('logo');
     
     if($image) {
       try {
         $fs = FileSystem::getInstance();
-        $fs->delete('departments/' . $image);
+        $fs->delete('barangays/' . $image);
       } catch (FilesystemException | UnableToDeleteFile $e) { } 
     }
     
-    $result = $db->from('department')
+    $result = $db->from('barangay')
       ->where('id')->is($id)
       ->delete();
 
     $response = ($result) 
-      ? ['status' => 'success', 'image' => $image, 'message' => 'Successfully deleted the department.'] 
-      : ['status' => 'error', 'message' => 'Failed to delete the department.'];
+      ? ['status' => 'success', 'image' => $image, 'message' => 'Successfully deleted the barangay.'] 
+      : ['status' => 'error', 'message' => 'Failed to delete the barangay.'];
 
     return new JsonResponse($response);
   }
@@ -97,7 +97,7 @@ class DepartmentsController {
       if($_POST['old_image']) {
         try {
           $fs = FileSystem::getInstance();
-          $fs->delete('departments/' . $_POST['old_image']);
+          $fs->delete('barangays/' . $_POST['old_image']);
         } catch (FilesystemException | UnableToDeleteFile $e) { } 
       }
     }
@@ -108,35 +108,35 @@ class DepartmentsController {
       if($_POST['old_photo']) {
         try {
           $fs = FileSystem::getInstance();
-          $fs->delete('departments/' . $_POST['old_photo']);
+          $fs->delete('barangays/' . $_POST['old_photo']);
         } catch (FilesystemException | UnableToDeleteFile $e) { } 
       }
     }
 
     $db = OpisDatabase::getInstance();
-    $result = $db->update('department')
+    $result = $db->update('barangay')
       ->where('id')->is($id)
       ->set([
         'logo'     => $imageName,
         'name'     => $_POST['name'],
         'details'  => $_POST['details'],
         'sequence' => $_POST['sequence'],
-        'department_head' => json_encode([
-          'name' => $_POST['department_head'],
-          'designation' => $_POST['designation'],
+        'chairman' => json_encode([
+          'name' => $_POST['chairman'],
+          'designation' => 'Brgy. Chairman',
           'photo' => $photoName,
         ])
       ]);
 
     $response = ($result) 
-      ? ['status' => 'success', 'message' => 'Successfully updated the department.'] 
-      : ['status' => 'error', 'message' => 'Failed to update the department.'];
+      ? ['status' => 'success', 'message' => 'Successfully updated the barangay.'] 
+      : ['status' => 'error', 'message' => 'Failed to update the barangay.'];
 
     return new JsonResponse($response);
   }
 
   function saveImage($file) {
-    $path = '/departments/';
+    $path = '/barangays/';
 
     try {
       $fs = FileSystem::getInstance();

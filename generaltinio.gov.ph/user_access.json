@@ -25,6 +25,12 @@
       "icon": "template"
     },
     { 
+      "name": "Barangays",
+      "url":  "/system/barangays",
+      "page": "barangays",
+      "icon": "home"
+    },
+    { 
       "name": "Articles",
       "url":  "/system/featured_stories",
       "page": "featured_stories",

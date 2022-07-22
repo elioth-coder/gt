@@ -8,6 +8,11 @@
 {% block innerContent %}
   <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-8">
     <section class="w-full">
+      {% for barangay in barangays %}
+        {% set chairman = barangay.chairman %}
+        {% include('@components/Website/section-barangays.html.twig') %}
+      {% endfor %}
+
       {% for page_section in page_sections %}
         <div class="w-full editor-preview mb-5">
           {{ page_section|raw }}
@@ -29,5 +34,6 @@
   {{ parent() }}
   <script>
     $('.editor-preview h1').addClass("text-{{ page_settings.color }}-600");
+    $('.barangay h1').addClass("text-{{ page_settings.color }}-600");
   </script>
 {% endblock scripts %}

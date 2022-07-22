@@ -73,10 +73,10 @@ class HeadlinesController {
       ->delete();
 
     if($result) {
-      $result = $db->from('announcement')
-      ->where('data_id')->is($id)
-      ->andWhere('type')->is('headline')
-      ->delete();
+      $db->from('announcement')
+        ->where('data_id')->is($id)
+        ->andWhere('type')->is('headline')
+        ->delete();
     }
 
     $response = ($result) 

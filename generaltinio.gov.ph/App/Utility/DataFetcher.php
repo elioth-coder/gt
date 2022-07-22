@@ -54,6 +54,15 @@ class DataFetcher {
     return $result;
   }
 
+  static function getBarangay($config) {
+    $result = DataFetcher::db()->from('barangay')
+      ->where('id')->is($config['id'])
+      ->select()
+      ->first();
+      
+    return $result;
+  }
+
   static function getDepartment($config) {
     $result = DataFetcher::db()->from('department')
       ->where('id')->is($config['id'])
@@ -121,6 +130,15 @@ class DataFetcher {
     $result = DataFetcher::db()->from('tourist_spot')
       ->orderBy('id', 'desc')
       ->limit(!empty($config['limit']) ? $config['limit'] : 3)
+      ->select()
+      ->all();
+      
+    return $result;
+  }
+
+  static function getBarangays() {
+    $result = DataFetcher::db()->from('barangay')
+      ->orderBy('sequence', 'asc')
       ->select()
       ->all();
       
@@ -214,6 +232,8 @@ class DataFetcher {
         SELECT id, title, content, image, 'NEWS'         AS type FROM headline
         UNION
         SELECT id, name,  details, logo,  'DEPARTMENT'   AS type FROM department
+        UNION
+        SELECT id, name,  details, logo,  'BARANGAY'     AS type FROM barangay
         UNION
         SELECT id, title, details, image, 'EVENT'        AS type FROM event
         UNION

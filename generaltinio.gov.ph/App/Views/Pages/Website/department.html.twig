@@ -15,19 +15,17 @@
         <div class="bg-gray-50 p-4 flex flex-col-reverse lg:flex-row items-center justify-between">
           <div class="flex flex-col lg:flex-row items-center space-y-5 mt-5 lg:mt-0">
             <img src="{{ 
-                (department_head.image) 
-                ? '/uploads/users/'~ department_head.image 
+                (department_head.photo) 
+                ? '/uploads/departments/'~ department_head.photo 
                 : '/assets/img/profile.png' 
               }}" 
               class="border border-gray-300 block rounded-full shadow-3xl h-[120px] w-[120px] justify-self-start" 
             />          
             <section class="block text-gray-600 align-bottom px-2 leading-tight text-center lg:text-left">
               <b class="underline">
-                {{ (department_head.gender == 'MALE') ? 'MR.' : 'MS.' }}
-                {{ department_head.first_name|upper }}
-                {{ department_head.last_name|upper }}
+                {{ department_head.name }}
               </b>
-              <br>{{ department_head.designation|upper }}<br>
+              <br>{{ department_head.designation }}<br>
               {{ department.name|upper }}
             </section>
           </div>

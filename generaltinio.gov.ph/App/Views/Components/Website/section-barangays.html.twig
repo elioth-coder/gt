@@ -1,0 +1,35 @@
+<div class="barangay">
+  <h1 id="{{ barangay.name|lower|split(" ")|join("-") }}" class="border-b border-gray-300 text-3xl py-4 font-semibold">
+    Barangay {{ barangay.name }}
+  </h1>
+  <section class="py-4">
+    <div class="bg-gray-50 p-4 flex flex-col-reverse lg:flex-row items-center justify-between">
+      <div class="flex flex-col lg:flex-row items-center space-y-5 mt-5 lg:mt-0">
+        <img src="{{ 
+            (chairman.photo) 
+            ? '/uploads/barangays/'~ chairman.photo 
+            : '/assets/img/profile.png' 
+          }}" 
+          class="border border-gray-300 block rounded-full shadow-3xl h-[120px] w-[120px] justify-self-start" 
+        />          
+        <section class="block text-gray-600 align-bottom px-2 leading-tight text-center lg:text-left">
+          <b class="underline">
+            {{ chairman.name }}
+          </b>
+          <br>{{ chairman.designation }}<br>
+          Brgy. {{ barangay.name }}, General Tinio, Nueva Ecija
+        </section>
+      </div>
+      <img src="{{ 
+          (barangay.logo) 
+          ? '/uploads/barangays/'~ barangay.logo 
+          : '/assets/img/transparency-seal.png' 
+        }}" 
+        class="border border-gray-300 block rounded-full shadow-3xl h-[120px] w-[120px]" 
+      />          
+    </div>
+  </section>
+  <div class="w-full editor-preview mb-5">
+    {{ barangay.details|raw }}
+  </div>
+</div>

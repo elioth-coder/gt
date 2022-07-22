@@ -3,8 +3,8 @@
     Upcoming Events
   </h3>   
   {% for event in events %}
-    <div class="p-4 pl-28 relative sm:w-1/2 sm:float-left box-border">
-      <a href="/view/event/{{ event.id }}#content" class="flex flex-col w-20 shadow-3xl float-left mr-4 absolute left-4 lg:left-0 top-4">
+    <div class="py-4 pl-24 relative sm:w-1/2 sm:float-left box-border">
+      <a href="/view/event/{{ event.id }}#content" class="flex flex-col w-20 shadow-3xl float-left mr-4 absolute left-0 top-4">
         {% set commonStyles = [
           'border w-full font-black uppercase text-center', 
           'border-' ~ page_settings.color ~ '-700',

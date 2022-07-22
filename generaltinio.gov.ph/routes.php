@@ -13,6 +13,7 @@ use App\Controller\MessagesController;
 use App\Controller\EventsController;
 use App\Controller\FeaturedStoriesController;
 use App\Controller\TouristSpotsController;
+use App\Controller\BarangaysController;
 use App\Controller\DepartmentsController;
 use App\Controller\PageSectionsController;
 use App\Controller\BiddingsController;
@@ -110,6 +111,11 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->post('/system/page_sections', [PageSectionsController::class, 'store']);
   $router->delete('/system/page_sections/{id}', [PageSectionsController::class, 'destroy']);
   $router->post('/system/page_sections/{id}/update', [PageSectionsController::class, 'update']);
+
+  $router->get('/system/barangays', [BarangaysController::class, 'index']);
+  $router->post('/system/barangays', [BarangaysController::class, 'store']);
+  $router->delete('/system/barangays/{id}', [BarangaysController::class, 'destroy']);
+  $router->post('/system/barangays/{id}/update', [BarangaysController::class, 'update']);
 
   $router->get('/system/biddings', [BiddingsController::class, 'index']);
   $router->post('/system/biddings', [BiddingsController::class, 'store']);

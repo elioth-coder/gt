@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitecf76535c6a49f84fbf0e093508843b7
+class ComposerStaticInit3a13fad3189616b140c81a8c07039359
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -223,6 +223,7 @@ class ComposerStaticInitecf76535c6a49f84fbf0e093508843b7
     public static $classMap = array (
         'App\\Controller\\AnnouncementsController' => __DIR__ . '/../..' . '/App/Controller/AnnouncementsController.php',
         'App\\Controller\\AwardsController' => __DIR__ . '/../..' . '/App/Controller/AwardsController.php',
+        'App\\Controller\\BarangaysController' => __DIR__ . '/../..' . '/App/Controller/BarangaysController.php',
         'App\\Controller\\BiddingsController' => __DIR__ . '/../..' . '/App/Controller/BiddingsController.php',
         'App\\Controller\\DashboardController' => __DIR__ . '/../..' . '/App/Controller/DashboardController.php',
         'App\\Controller\\DepartmentsController' => __DIR__ . '/../..' . '/App/Controller/DepartmentsController.php',
@@ -1107,9 +1108,9 @@ class ComposerStaticInitecf76535c6a49f84fbf0e093508843b7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitecf76535c6a49f84fbf0e093508843b7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitecf76535c6a49f84fbf0e093508843b7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitecf76535c6a49f84fbf0e093508843b7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3a13fad3189616b140c81a8c07039359::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3a13fad3189616b140c81a8c07039359::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3a13fad3189616b140c81a8c07039359::$classMap;
 
         }, null, ClassLoader::class);
     }
