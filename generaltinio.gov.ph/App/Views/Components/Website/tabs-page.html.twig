@@ -33,7 +33,7 @@
     <a href="#" onclick="toggleCollapse();"
       class="text-center relative {{ styles.tabsPage.anchor }}">
       <button onclick="document.getElementById('tabs-main').classList.toggle('collapse'); event.stopPropagation();"
-        class="absolute top-0 left-0 p-2 bg-{{ page_settings.color }}-700">
+        class="absolute top-0 left-0 p-2 border-r border-green-500">
         {{ include('@components/Common/icon-outline.twig', { 
             'name'  : 'menu', 
             'style' : 'h-6 w-6' 

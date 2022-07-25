@@ -117,7 +117,7 @@ class WebsiteController {
   
     $page_settings = [
       'current_page' => 'General Info',
-      'color'        => 'orange',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -152,7 +152,7 @@ class WebsiteController {
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
     $page_settings = [
       'current_page' => 'Government',
-      'color'        => 'blue',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -190,7 +190,7 @@ class WebsiteController {
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
     $page_settings = [
       'current_page' => 'Government',
-      'color'        => 'blue',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -221,7 +221,7 @@ class WebsiteController {
     $sublinks[] = ['url' => '#articles', 'title'=> 'Articles']; 
     $page_settings = [
       'current_page' => 'Government',
-      'color'        => 'blue',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -267,7 +267,7 @@ class WebsiteController {
 
     $page_settings = [
       'current_page' => 'Tourism',
-      'color'        => 'yellow',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -296,7 +296,7 @@ class WebsiteController {
   
     $page_settings = [
       'current_page' => 'Business',
-      'color'        => 'pink',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -323,7 +323,7 @@ class WebsiteController {
   
     $page_settings = [
       'current_page' => 'Health',
-      'color'        => 'indigo',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -350,7 +350,7 @@ class WebsiteController {
   
     $page_settings = [
       'current_page' => 'Education',
-      'color'        => 'purple',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 
@@ -393,7 +393,7 @@ class WebsiteController {
   
     $page_settings = [
       'current_page' => 'Barangays',
-      'color'        => 'red',
+      'color'        => 'green',
       'sublinks'     => $sublinks,
     ];
 

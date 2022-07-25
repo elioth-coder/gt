@@ -1,42 +1,34 @@
 {% set links = [
   { 
     'url'  : '/', 
-    'color': 'green',
     'title': 'Home',  
   },
   { 
     'url'  : '/general_info', 
-    'color': 'orange',
     'title': 'General Info',  
   },
   { 
     'url'  : '/government', 
-    'color': 'blue',
     'title': 'Government',  
   },
   { 
     'url'  : '/barangays', 
-    'color': 'red',
     'title': 'Barangays',  
   },
   { 
     'url'  : '/business', 
-    'color': 'pink',
     'title': 'Business',  
   },
   { 
     'url'  : '/health', 
-    'color': 'indigo',
     'title': 'Health',  
   },
   { 
     'url'  : '/education', 
-    'color': 'purple',
     'title': 'Education',  
   },
   { 
     'url'  : '/tourism', 
-    'color': 'yellow',
     'title': 'Tourism',  
   },
 ] %}
@@ -61,19 +53,24 @@
   }
 } %}
 
-<ul id="tabs-main" class="collapse {{ styles.tabsMain.self }}">
+<ul id="tabs-main" class="collapse {{ styles.tabsMain.self }} border-r border-green-800">
   {% for link in links %}
     {% set isCollapse = page_settings.current_page == link.title %}
     <li {{ (page_settings.current_page == link.title) ? 'id="current-tab"' : '' }} 
-      class="{{ [
-        ['tab', ((isCollapse) ? 'collapse' : '')]|join(" "),
-        styles.tabsMain.list,
-      ]|join(" ") }}">
+      class="
+        {{ 
+          [
+            ['tab', ((isCollapse) ? 'collapse' : '')]|join(" "),
+            styles.tabsMain.list,
+            'border-l border-t border-green-800'
+          ]|join(" ") 
+        }}
+        ">
       <a href="{{ (page_settings.current_page == link.title) ? "#" : link.url }}" onclick="toggleCollapse();"
-        class="{{ [
-          ['bg-'~ link.color ~'-600']|join(" "),
-          styles.tabsMain.anchor
-        ]|join(" ") }}">
+        class="
+          {{ styles.tabsMain.anchor }}
+          {{ (page_settings.current_page == link.title) ? 'bg-'~ page_settings.color ~'-600' : '' }}
+        ">
         {{ link.title }}
         {% if isCollapse %}
           <button class="chevron chevron-down {{ styles.tabsMain.chevron }}">
