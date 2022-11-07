@@ -53,14 +53,14 @@
   }
 } %}
 
-<ul id="tabs-main" class="collapse {{ styles.tabsMain.self }} border-r border-green-800">
+<ul id="tabs-main" class="collapsed {{ styles.tabsMain.self }} border-r border-green-800">
   {% for link in links %}
     {% set isCollapse = page_settings.current_page == link.title %}
     <li {{ (page_settings.current_page == link.title) ? 'id="current-tab"' : '' }} 
       class="
         {{ 
           [
-            ['tab', ((isCollapse) ? 'collapse' : '')]|join(" "),
+            ['tab', ((isCollapse) ? 'collapsed' : '')]|join(" "),
             styles.tabsMain.list,
             'border-l border-t border-green-800'
           ]|join(" ") 

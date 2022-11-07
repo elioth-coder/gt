@@ -19,7 +19,7 @@
 {% set styles = {
   'tabsQuick': {
     'self' : [
-      'flex flex-col bg-green-800 collapse',
+      'flex flex-col bg-green-800 collapsed',
       'sm:flex-row sm:justify-center',
       'lg:absolute lg:right-0 lg:top-2 lg:w-max lg:bg-transparent',
     ]|join(" "),
@@ -40,7 +40,7 @@
 } %}
 <ul id="tabs-quick" class="{{ styles.tabsQuick.self }}">
   <li class="border-t sm:hidden {{ styles.tabsQuick.list }}">
-    <a href="#" onclick="document.getElementById('tabs-quick').classList.toggle('collapse');"
+    <a href="#" onclick="document.getElementById('tabs-quick').classList.toggle('collapsed');"
       class="{{ styles.tabsQuick.anchor }}">
       Quicklinks
       <button class="chevron-down {{ styles.tabsQuick.chevron }}">

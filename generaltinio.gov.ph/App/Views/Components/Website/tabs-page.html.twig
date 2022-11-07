@@ -26,13 +26,13 @@
 }
 </style>
 <ul id="tabs-page" class="{{ [
-    ['collapse']|join(" "),
+    ['collapsed']|join(" "),
     styles.tabsPage.self
   ]|join(" ") }}">
   <li class="border-t sm:hidden {{ styles.tabsPage.list }}">
     <a href="#" onclick="toggleCollapse();"
       class="text-center relative {{ styles.tabsPage.anchor }}">
-      <button onclick="document.getElementById('tabs-main').classList.toggle('collapse'); event.stopPropagation();"
+      <button onclick="document.getElementById('tabs-main').classList.toggle('collapsed'); event.stopPropagation();"
         class="absolute top-0 left-0 p-2 border-r border-green-500">
         {{ include('@components/Common/icon-outline.twig', { 
             'name'  : 'menu', 
