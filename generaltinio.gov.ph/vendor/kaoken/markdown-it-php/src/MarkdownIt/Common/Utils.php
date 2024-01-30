@@ -14,7 +14,7 @@ class Utils
     const UNESCAPE_MD_RE  = "/".self::UNESCAPE_MD."/";  // /g
     const ENTITY_RE       = '/&([a-z#][a-z0-9]{1,31});/i';  // /g
     const UNESCAPE_ALL_RE = "/".self::UNESCAPE_MD."|&([a-z#][a-z0-9]{1,31});/i";  // /g
-    const DIGITAL_ENTITY_TEST_RE = "/^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))/i";
+    const DIGITAL_ENTITY_TEST_RE = "/^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i";
 
     protected static ?Utils $instance=null;
 
@@ -45,8 +45,6 @@ class Utils
      */
     public function replaceEntityPattern(string $match, ?string $name): string
     {
-        $code = 0;
-
         if (isset($name)) {
             $e = html_entity_decode('&'.$name.';', ENT_HTML5|ENT_COMPAT);
             if( '&'.$name.';' != $e) return $e;
@@ -139,7 +137,6 @@ class Utils
         return array_merge(array_slice($src, 0, $pos), $newElements, array_slice($src, $pos + 1));
     }
 
-////////////////////////////////////////////////////////////////////////////////
     /**
      * @param int[]|string[] ...$args intrger|string array
      * @return string
@@ -184,7 +181,7 @@ class Utils
      * @param integer $c
      * @return string
      */
-    public function fromCodePoint($c): string
+    public function fromCodePoint(int $c): string
     {
         if ($c < 0x7F) // U+0000-U+007F - 1 byte
             return chr($c);
@@ -196,6 +193,32 @@ class Utils
         return chr(0xF0 | ($c >> 18)) . chr(0x80 | ($c >> 12) & 0x3F) .chr(0x80 | (($c >> 6) & 0x3F)) . chr(0x80 | ($c & 0x3F));
     }
 
+    /**
+     * @param int $n
+     * @return int
+     */
+    public function getByteCountUtf8(int $n): int
+    {
+        if (0 <= $n && $n <= 0x7F) {
+            return 1;
+        }
+        else if (0xC2 <= $n && $n <= 0xDF) {
+            return 2;
+        }
+        else if (0xE0 <= $n && $n <= 0xEF) {
+            return 3;
+        }
+        else if (0xF0 <= $n && $n <= 0xF7) {
+            return 4;
+        }
+        else if(0xF8 <= $n && $n <= 0xFB ){
+            return 5;
+        }
+        else if(0xFC <= $n && $n <= 0xFD ){
+            return 6;
+        }
+        return 0;
+    }
     /**
      * Acquire the character one last the $pos position.
      * simple and easy utf8 check.
@@ -258,7 +281,6 @@ class Utils
         return -1;
     }
 
-////////////////////////////////////////////////////////////////////////////////
 
     const REGEXP_ESCAPE_RE = "/[.?*+^$[\]\\(){}|-]/"; // /g
 
@@ -272,7 +294,6 @@ class Utils
         return preg_replace(self::REGEXP_ESCAPE_RE, '\\\\$0', $str);
     }
 
-////////////////////////////////////////////////////////////////////////////////
 
     /**
      * @param string $ch
@@ -285,15 +306,14 @@ class Utils
 
     /**
      * Zs (unicode class) || [\t\f\v\r\n]
-     * @param $code
+     * @param string $code
      * @return bool
      */
-    public function isWhiteSpace($code): bool
+    public function isWhiteSpace(string $code): bool
     {
         return preg_match("/\p{Zs}|[\t\f\v\r\n]/u", $code) === 1;
     }
 
-////////////////////////////////////////////////////////////////////////////////
 
     /*eslint-disable max-len*/
 
@@ -355,10 +375,6 @@ class Utils
         // .toLowerCase().toUpperCase() should get rid of all differences
         // between letter variants.
         //
-        // Final result should be uppercased, because it's later stored in an object
-        // (this avoid a conflict with Object.prototype members,
-        // most notably, `__proto__`)
-        //
         // Simple .toLowerCase() doesn't normalize 125 code points correctly,
         // and .toUpperCase doesn't normalize 6 of them (list of exceptions:
         // İ, ϴ, ẞ, Ω, K, Å - those are already uppercased, but have differently
@@ -383,6 +399,10 @@ class Utils
         //
         // Note: this is equivalent to unicode case folding; unicode normalization
         // is a different step that is not required here.
+        //
+        // Final result should be uppercased, because it's later stored in an object
+        // (this avoid a conflict with Object.prototype members,
+        // most notably, `__proto__`)
         //
         return mb_strtoupper(mb_strtolower($str));
     }

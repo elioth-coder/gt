@@ -18,6 +18,7 @@ use App\Controller\DepartmentsController;
 use App\Controller\PageSectionsController;
 use App\Controller\BiddingsController;
 use App\Controller\AwardsController;
+use App\Controller\NoticeToProceedController;
 use App\Controller\FullDisclosureController;
 use App\Controller\OrdinancesResolutionsController;
 use App\Controller\ExecutiveOrdersController;
@@ -126,6 +127,11 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->post('/system/awards', [AwardsController::class, 'store']);
   $router->delete('/system/awards/{id}', [AwardsController::class, 'destroy']);
   $router->post('/system/awards/{id}/update', [AwardsController::class, 'update']);
+  
+  $router->get('/system/notice_to_proceed', [NoticeToProceedController::class, 'index']);
+  $router->post('/system/notice_to_proceed', [NoticeToProceedController::class, 'store']);
+  $router->delete('/system/notice_to_proceed/{id}', [NoticeToProceedController::class, 'destroy']);
+  $router->post('/system/notice_to_proceed/{id}/update', [NoticeToProceedController::class, 'update']);
 
   $router->get('/system/full_disclosure', [FullDisclosureController::class, 'index']);
   $router->post('/system/full_disclosure', [FullDisclosureController::class, 'store']);

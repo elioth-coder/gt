@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
+class ComposerStaticInitde9db87d67905db8b7b7012565a5f05e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -235,6 +235,7 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'App\\Controller\\FullDisclosureController' => __DIR__ . '/../..' . '/App/Controller/FullDisclosureController.php',
         'App\\Controller\\HeadlinesController' => __DIR__ . '/../..' . '/App/Controller/HeadlinesController.php',
         'App\\Controller\\MessagesController' => __DIR__ . '/../..' . '/App/Controller/MessagesController.php',
+        'App\\Controller\\NoticeToProceedController' => __DIR__ . '/../..' . '/App/Controller/NoticeToProceedController.php',
         'App\\Controller\\OrdinancesResolutionsController' => __DIR__ . '/../..' . '/App/Controller/OrdinancesResolutionsController.php',
         'App\\Controller\\PageSectionsController' => __DIR__ . '/../..' . '/App/Controller/PageSectionsController.php',
         'App\\Controller\\PhotoGalleryController' => __DIR__ . '/../..' . '/App/Controller/PhotoGalleryController.php',
@@ -337,6 +338,7 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'GuzzleHttp\\Psr7\\StreamWrapper' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/StreamWrapper.php',
         'GuzzleHttp\\Psr7\\UploadedFile' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UploadedFile.php',
         'GuzzleHttp\\Psr7\\Uri' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Uri.php',
+        'GuzzleHttp\\Psr7\\UriComparator' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UriComparator.php',
         'GuzzleHttp\\Psr7\\UriNormalizer' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UriNormalizer.php',
         'GuzzleHttp\\Psr7\\UriResolver' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/UriResolver.php',
         'GuzzleHttp\\Psr7\\Utils' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Utils.php',
@@ -496,7 +498,7 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'Jawira\\CaseConverter\\Split\\UppercaseSplitter' => __DIR__ . '/..' . '/jawira/case-converter/src/Split/UppercaseSplitter.php',
         'Kaoken\\LinkifyIt\\Def' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/LinkifyIt/Def.php',
         'Kaoken\\LinkifyIt\\LinkifyIt' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/LinkifyIt/LinkifyIt.php',
-        'Kaoken\\LinkifyIt\\Match' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/LinkifyIt/Match.php',
+        'Kaoken\\LinkifyIt\\MatchResult' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/LinkifyIt/MatchResult.php',
         'Kaoken\\LinkifyIt\\Re' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/LinkifyIt/Re.php',
         'Kaoken\\MDUrl\\DecodeTrait' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MDUrl/DecodeTrait.php',
         'Kaoken\\MDUrl\\EncodeTrait' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MDUrl/EncodeTrait.php',
@@ -554,20 +556,22 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'Kaoken\\MarkdownIt\\RulesCore\\ReplaceMents' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesCore/ReplaceMents.php',
         'Kaoken\\MarkdownIt\\RulesCore\\SmartQuotes' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesCore/SmartQuotes.php',
         'Kaoken\\MarkdownIt\\RulesCore\\StateCore' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesCore/StateCore.php',
+        'Kaoken\\MarkdownIt\\RulesCore\\TextJoin' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesCore/TextJoin.php',
         'Kaoken\\MarkdownIt\\RulesInline\\AutoLink' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/AutoLink.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Backticks' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Backticks.php',
         'Kaoken\\MarkdownIt\\RulesInline\\BalancePairs' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/BalancePairs.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Emphasis' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Emphasis.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Entity' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Entity.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Escape' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Escape.php',
+        'Kaoken\\MarkdownIt\\RulesInline\\FragmentsJoin' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/FragmentsJoin.php',
         'Kaoken\\MarkdownIt\\RulesInline\\HtmlInline' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/HtmlInline.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Image' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Image.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Link' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Link.php',
+        'Kaoken\\MarkdownIt\\RulesInline\\Linkify' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Linkify.php',
         'Kaoken\\MarkdownIt\\RulesInline\\NewLine' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/NewLine.php',
         'Kaoken\\MarkdownIt\\RulesInline\\StateInline' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/StateInline.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Strikethrough' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Strikethrough.php',
         'Kaoken\\MarkdownIt\\RulesInline\\Text' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/Text.php',
-        'Kaoken\\MarkdownIt\\RulesInline\\TextCollapse' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/RulesInline/TextCollapse.php',
         'Kaoken\\MarkdownIt\\Rules\\DefaultRules' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/Rules/DefaultRules.php',
         'Kaoken\\MarkdownIt\\Token' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/MarkdownIt/Token.php',
         'Kaoken\\Punycode\\Punycode' => __DIR__ . '/..' . '/kaoken/markdown-it-php/src/Punycode/Punycode.php',
@@ -577,6 +581,8 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'Laminas\\Diactoros\\Exception\\DeserializationException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/DeserializationException.php',
         'Laminas\\Diactoros\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/ExceptionInterface.php',
         'Laminas\\Diactoros\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/InvalidArgumentException.php',
+        'Laminas\\Diactoros\\Exception\\InvalidForwardedHeaderNameException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/InvalidForwardedHeaderNameException.php',
+        'Laminas\\Diactoros\\Exception\\InvalidProxyAddressException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/InvalidProxyAddressException.php',
         'Laminas\\Diactoros\\Exception\\InvalidStreamPointerPositionException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/InvalidStreamPointerPositionException.php',
         'Laminas\\Diactoros\\Exception\\RuntimeException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/RuntimeException.php',
         'Laminas\\Diactoros\\Exception\\SerializationException' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Exception/SerializationException.php',
@@ -611,6 +617,10 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'Laminas\\Diactoros\\Response\\XmlResponse' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Response/XmlResponse.php',
         'Laminas\\Diactoros\\ServerRequest' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequest.php',
         'Laminas\\Diactoros\\ServerRequestFactory' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequestFactory.php',
+        'Laminas\\Diactoros\\ServerRequestFilter\\DoNotFilter' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequestFilter/DoNotFilter.php',
+        'Laminas\\Diactoros\\ServerRequestFilter\\FilterServerRequestInterface' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequestFilter/FilterServerRequestInterface.php',
+        'Laminas\\Diactoros\\ServerRequestFilter\\FilterUsingXForwardedHeaders' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequestFilter/FilterUsingXForwardedHeaders.php',
+        'Laminas\\Diactoros\\ServerRequestFilter\\IPRange' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/ServerRequestFilter/IPRange.php',
         'Laminas\\Diactoros\\Stream' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/Stream.php',
         'Laminas\\Diactoros\\StreamFactory' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/StreamFactory.php',
         'Laminas\\Diactoros\\UploadedFile' => __DIR__ . '/..' . '/laminas/laminas-diactoros/src/UploadedFile.php',
@@ -658,6 +668,7 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'League\\Flysystem\\Visibility' => __DIR__ . '/..' . '/league/flysystem/src/Visibility.php',
         'League\\Flysystem\\WhitespacePathNormalizer' => __DIR__ . '/..' . '/league/flysystem/src/WhitespacePathNormalizer.php',
         'League\\MimeTypeDetection\\EmptyExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php',
+        'League\\MimeTypeDetection\\ExtensionLookup' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionLookup.php',
         'League\\MimeTypeDetection\\ExtensionMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionMimeTypeDetector.php',
         'League\\MimeTypeDetection\\ExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\FinfoMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/FinfoMimeTypeDetector.php',
@@ -738,6 +749,7 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
         'Opis\\Database\\Schema\\CreateColumn' => __DIR__ . '/..' . '/opis/database/src/Schema/CreateColumn.php',
         'Opis\\Database\\Schema\\CreateTable' => __DIR__ . '/..' . '/opis/database/src/Schema/CreateTable.php',
         'Opis\\Database\\Schema\\ForeignKey' => __DIR__ . '/..' . '/opis/database/src/Schema/ForeignKey.php',
+        'PHPMailer\\PHPMailer\\DSNConfigurator' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/DSNConfigurator.php',
         'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
         'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
         'PHPMailer\\PHPMailer\\OAuthTokenProvider' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuthTokenProvider.php',
@@ -1108,9 +1120,9 @@ class ComposerStaticInita2f95866365e89c703cfbfc345575c7d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita2f95866365e89c703cfbfc345575c7d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita2f95866365e89c703cfbfc345575c7d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita2f95866365e89c703cfbfc345575c7d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitde9db87d67905db8b7b7012565a5f05e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitde9db87d67905db8b7b7012565a5f05e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitde9db87d67905db8b7b7012565a5f05e::$classMap;
 
         }, null, ClassLoader::class);
     }

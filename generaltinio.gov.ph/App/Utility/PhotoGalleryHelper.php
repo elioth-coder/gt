@@ -27,7 +27,7 @@ class PhotoGalleryHelper {
       }
     } catch (FilesystemException $exception) { }    
     
-    return $directories;
+    return $directories ?? [];
   }
 
   public static function countItems($directory) {

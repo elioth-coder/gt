@@ -182,7 +182,16 @@ class DataFetcher {
       
     return $result;
   }
-  
+    
+  static function getNotices($config=['limit'=>5]) {
+    $result = DataFetcher::db()->from('notice_to_proceed')
+      ->where('status')->is('Publish')
+      ->select()         
+      ->all();
+      
+    return $result;
+  }
+
   static function getOrdinancesAndResolutions($config=['limit'=>5]) {
     $result = DataFetcher::db()->from('ordinances_resolutions')
       ->select()

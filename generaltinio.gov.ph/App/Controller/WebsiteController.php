@@ -51,10 +51,13 @@ class WebsiteController {
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $announcement     = DataFetcher::getLatestAnnouncement();
     $sections         = DataFetcher::getPageSections(['page'=>'HOME']);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $events           = DataFetcher::getEvents();
     $tourist_spots    = DataFetcher::getTouristSpots();
     $departments      = DataFetcher::getDepartments();
+
+    if(count($sections)) {
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $template = TwigTemplate::load('@pages/Website/index.html.twig');    
     $page_settings = [
@@ -92,7 +95,7 @@ class WebsiteController {
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
       'headlines'        => $headlines,
@@ -110,20 +113,23 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'GENERAL INFO']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'GENERAL INFO']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
     $template = TwigTemplate::load('@pages/Website/general_info.html.twig');    
   
+    if(count($sections)) {
+      $sublinks               = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections          = PageSectionHelper::extractSectionsFrom($sections);
+    }
+
     $page_settings = [
       'current_page' => 'General Info',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => $sublinks ?? [],
     ];
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
@@ -135,20 +141,25 @@ class WebsiteController {
   function government() {
     $bids                   = DataFetcher::getBids();
     $awards                 = DataFetcher::getAwards();
+    $notices                = DataFetcher::getNotices();
     $ordinances_resolutions = DataFetcher::getOrdinancesAndResolutions();
     $featured_stories       = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
     $headlines              = DataFetcher::getHeadlines(['limit'=>3]);
     $sections               = DataFetcher::getPageSections(['page'=>'GOVERNMENT']);
-    $sublinks               = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections          = PageSectionHelper::extractSectionsFrom($sections);
     $departments            = DataFetcher::getDepartments();
 
+    if(count($sections)) {
+      $sublinks               = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections          = PageSectionHelper::extractSectionsFrom($sections);
+    }
+    
     $template = TwigTemplate::load('@pages/Website/government.html.twig');    
   
     $sublinks[] = ['url' => '#offices', 'title'=> 'Offices']; 
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
-    $sublinks[] = ['url' => '#bids', 'title'=> 'Bids']; 
-    $sublinks[] = ['url' => '#awards', 'title'=> 'Awards']; 
+    $sublinks[] = ['url' => '#bids', 'title'=> 'Invitation to Bid']; 
+    $sublinks[] = ['url' => '#awards', 'title'=> 'Notice of Awards']; 
+    $sublinks[] = ['url' => '#notices', 'title'=> 'Notice to Proceed']; 
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
     $page_settings = [
       'current_page' => 'Government',
@@ -159,6 +170,7 @@ class WebsiteController {
     return $template->render([
       'bids'                   => $bids,
       'awards'                 => $awards,
+      'notices'                => $notices,
       'ordinances_resolutions' => $ordinances_resolutions,
       'current_year'           => date('Y'),
       'page_settings'          => $page_settings, 
@@ -256,9 +268,12 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'TOURISM']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'TOURISM']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
+
+    if(count($sections)) {
+      $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $directories = PhotoGalleryHelper::getDirectories(); 
     $template = TwigTemplate::load('@pages/Website/tourism.html.twig');    
@@ -268,18 +283,18 @@ class WebsiteController {
     $page_settings = [
       'current_page' => 'Tourism',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => $sublinks ?? [],
     ];
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'tourist_spots'    => $tourist_spots,
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
       'departments'      => $departments,
-      'directories'      => $directories,
+      'directories'      => $directories ?? [],
       'user'             => (empty($_SESSION['user'])) ? false : unserialize($_SESSION['user']),
     ]);
   }
@@ -288,21 +303,24 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'BUSINESS']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'BUSINESS']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
+
+    if(count($sections)) {
+      $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $template = TwigTemplate::load('@pages/Website/business.html.twig');    
   
     $page_settings = [
       'current_page' => 'Business',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => $sublinks ?? [],
     ];
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
@@ -315,21 +333,24 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'HEALTH']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'HEALTH']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
+
+    if(count($sections)) {
+      $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $template = TwigTemplate::load('@pages/Website/health.html.twig');    
   
     $page_settings = [
       'current_page' => 'Health',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => $sublinks ?? [],
     ];
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
@@ -342,21 +363,24 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'EDUCATION']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'EDUCATION']);
-    $sublinks         = PageSectionHelper::extractLinksFrom($sections);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
+
+    if(count($sections)) {
+      $sublinks         = PageSectionHelper::extractLinksFrom($sections);
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $template = TwigTemplate::load('@pages/Website/education.html.twig');    
   
     $page_settings = [
       'current_page' => 'Education',
       'color'        => 'green',
-      'sublinks'     => $sublinks,
+      'sublinks'     => $sublinks ?? [],
     ];
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,
@@ -369,9 +393,12 @@ class WebsiteController {
     $featured_stories = DataFetcher::getFeaturedStories(['page'=>'BARANGAYS']);
     $headlines        = DataFetcher::getHeadlines(['limit'=>3]);
     $sections         = DataFetcher::getPageSections(['page'=>'BARANGAYS']);
-    $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
     $departments      = DataFetcher::getDepartments();
     $barangays        = DataFetcher::getBarangays();
+   
+    if(count($sections)) {
+      $page_sections    = PageSectionHelper::extractSectionsFrom($sections);
+    }
 
     $md = new MarkdownIt(['html'=> true]);
 
@@ -399,7 +426,7 @@ class WebsiteController {
 
     return $template->render([
       'page_settings'    => $page_settings, 
-      'page_sections'    => $page_sections,
+      'page_sections'    => $page_sections ?? [],
       'headlines'        => $headlines,
       'articles'         => $featured_stories,
       'featured_stories' => $featured_stories,

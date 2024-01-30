@@ -1,0 +1,37 @@
+<section id="notices">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Notice to Proceed
+  </h3>
+  <div class="py-5">   
+    <table id="notices-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left">Category</th>
+          <th class="text-left">Project</th>
+          <th class="text-left">Issued</th>
+          <th class="text-left">Created</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% if notices is empty %}
+            <tr>
+              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No notices to proceed found.</td>
+            </tr>
+        {% endif %}
+        {% for notice in notices %}
+          <tr>
+            <td class="truncate" title="{{  notice.category }}">{{ notice.category }}</td>
+            <td class="truncate" title="{{  notice.title }}">
+              <a href="/uploads/documents/notice-to-proceed/{{ notice.file }}" 
+                target="_blank" class="underline text-{{ page_settings.color }}-600">
+                {{ notice.title }}
+              </a>
+            </td>
+            <td>{{ notice.date_issued|date('Y-m-d') }}</td>
+            <td>{{ notice.date_created|date('Y-m-d') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

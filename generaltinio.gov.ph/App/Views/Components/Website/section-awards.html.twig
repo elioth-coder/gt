@@ -1,6 +1,6 @@
 <section id="awards">
   <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
-    Awards
+    Notice of Awards
   </h3>
   <div class="py-5">   
     <table id="awards-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
@@ -15,7 +15,7 @@
       <tbody class="bg-white divide-y divide-gray-200">
         {% if awards is empty %}
             <tr>
-              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No Bids found.</td>
+              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No notices of award found.</td>
             </tr>
         {% endif %}
         {% for award in awards %}

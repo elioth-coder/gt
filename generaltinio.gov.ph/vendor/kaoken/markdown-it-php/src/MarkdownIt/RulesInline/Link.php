@@ -145,10 +145,11 @@ class Link
             if ($title) {
                 $token->attrs[] = [ 'title', $title ];
             }
-
+            $state->linkLevel++;
             $state->md->inline->tokenize($state);
+            $state->linkLevel--;
 
-            $token        = $state->push('link_close', 'a', -1);
+            $state->push('link_close', 'a', -1);
         }
 
         $state->pos = $pos;

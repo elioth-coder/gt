@@ -7,11 +7,12 @@ http://opensource.org/licenses/mit-license.php
  */
 namespace Kaoken\Test\LinkifyIt;
 
+use Kaoken\LinkifyIt\MatchResult;
 use Kaoken\Test\EasyTest;
 use Kaoken\LinkifyIt\LinkifyIt;
 
 class LinkifyItTest extends LinkifyIt{
-    public function normalize(&$match) { }
+    public function normalize(MatchResult &$match) { }
 }
 
 class CTest extends EasyTest
@@ -264,10 +265,42 @@ class CTest extends EasyTest
                 $l = (new LinkifyIt());
 
                 $gg->equal($l->match('http://e.com/foo---bar')[0]->text, 'http://e.com/foo---bar');
+                $gg->strictEqual($l->match('text@example.com---foo'), null);
 
                 $l = (new LinkifyIt(null, [ '---'=> true ]));
 
                 $gg->equal($l->match('http://e.com/foo---bar')[0]->text, 'http://e.com/foo');
+                $gg->strictEqual($l->match('text@example.com---foo')[0]->text, 'text@example.com');
+            });
+            //-----------------------------------------------
+            $g->group("should accept `---` if enabled", function($gg) {
+                $l = (new LinkifyIt());
+
+                $l->set(["fuzzyLink" => true ]);
+
+                $gg->strictEqual($l->matchAtStart('http://google.com 123')->text, 'http://google.com');
+                $gg->ok(!$l->matchAtStart('google.com 123'));
+                $gg->ok(!$l->matchAtStart('  http://google.com 123'));
+            });
+            //-----------------------------------------------
+            $g->group("matchAtStart should not interfere with normal match", function($gg) {
+                $l = (new LinkifyIt());
+
+                $str = 'http://google.com http://google.com';
+                $gg->ok($l->matchAtStart($str));
+                $gg->strictEqual(count($l->match($str)), 2);
+
+                $str = 'aaa http://google.com http://google.com';
+                $gg->ok(!$l->matchAtStart($str));
+                $gg->strictEqual(count($l->match($str)), 2);
+            });
+            //-----------------------------------------------
+            $g->group("should not match incomplete links", function($gg) {
+                // regression test for https://github.com/markdown-it/markdown-it/issues/868
+                $l = (new LinkifyIt());
+
+                $gg->ok(!$l->matchAtStart('http://'));
+                $gg->ok(!$l->matchAtStart('https://'));
             });
         });
     }

@@ -5,10 +5,18 @@ use Kaoken\MarkdownIt\Common\Utils;
 
 class Linkify
 {
-
+    /**
+     * @param $str
+     * @return false|int
+     */
     protected function isLinkOpen(&$str) {
         return preg_match("/^<a[>\s]/i", $str);
     }
+
+    /**
+     * @param $str
+     * @return false|int
+     */
     protected function isLinkClose(&$str) {
         return preg_match("/^<\/a\s*>/i", $str);
     }
@@ -16,7 +24,7 @@ class Linkify
     /**
      * @param StateCore $state
      */
-    public function set(StateCore &$state)
+    public function set(StateCore &$state): void
     {
         if (!$state->md->options->linkify) { return; }
 
@@ -60,10 +68,20 @@ class Linkify
                     $text = $currentToken->content;
                     $links = $state->md->linkify->match($text);
 
-                    // Now split string to $nodes
+                    // Now split string to nodes
                     $nodes = [];
                     $level = $currentToken->level;
                     $lastPos = 0;
+
+                    // forbid escape sequence at the start of the string,
+                    // this avoids http\://example.com/ from being linkified as
+                    // http:<a href="//example.com/">//example.com/</a>
+                    if (count($links) > 0 &&
+                        $links[0]->index === 0 &&
+                        $i > 0 &&
+                        $tokens[$i - 1]->type === 'text_special') {
+                        $links = array_slice($links, 1);
+                    }
 
                     foreach( $links as &$link ) {
 
@@ -94,23 +112,23 @@ class Linkify
                             $nodes[] = $token;
                         }
 
-                        $token         = $state->createToken('link_open', 'a', 1);
-                        $token->attrs   = [ [ 'href', $fullUrl ] ];
-                        $token->level   = $level++;
-                        $token->markup  = 'linkify';
-                        $token->info    = 'auto';
-                        $nodes[] = $token;
+                        $token_o            = $state->createToken('link_open', 'a', 1);
+                        $token_o->attrs     = [ [ 'href', $fullUrl ] ];
+                        $token_o->level     = $level++;
+                        $token_o->markup    = 'linkify';
+                        $token_o->info      = 'auto';
+                        $nodes[] = $token_o;
 
-                        $token         = $state->createToken('text', '', 0);
-                        $token->content = $urlText;
-                        $token->level   = $level;
-                        $nodes[] = $token;
+                        $token_t            = $state->createToken('text', '', 0);
+                        $token_t->content   = $urlText;
+                        $token_t->level     = $level;
+                        $nodes[] = $token_t;
 
-                        $token         = $state->createToken('link_close', 'a', -1);
-                        $token->level   = --$level;
-                        $token->markup  = 'linkify';
-                        $token->info    = 'auto';
-                        $nodes[] = $token;
+                        $token_c            = $state->createToken('link_close', 'a', -1);
+                        $token_c->level     = --$level;
+                        $token_c->markup    = 'linkify';
+                        $token_c->info      = 'auto';
+                        $nodes[] = $token_c;
 
                         $lastPos = $link->lastIndex;
                     }

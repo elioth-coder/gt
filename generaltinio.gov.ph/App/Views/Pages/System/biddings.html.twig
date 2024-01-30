@@ -59,14 +59,16 @@
     }
 
     file.onchange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-          extension = e.target.files[0]['name'].split('.').pop();
-          if(extension === "pdf"){
-            prevFile.src = URL.createObjectURL(e.target.files[0]);
-          }else{
-            prevFile.src = '/assets/img/PreviewNotAvailable.jpg';
-          }
+      let extension;
+
+      if (e.target.files && e.target.files[0]) {
+        extension = e.target.files[0]['name'].split('.').pop();
+        if(extension === "pdf"){
+          prevFile.src = URL.createObjectURL(e.target.files[0]);
+        }else{
+          prevFile.src = '/assets/img/PreviewNotAvailable.jpg';
         }
+      }
     };
 
     const removeErrorMessage = (e) => {
@@ -160,6 +162,8 @@
         oldFileInput.value = file;
         BiddingsForm.prepend(oldFileInput);
       }
+      
+      let extension;
 
       extension = file.split('.').pop();
       if(extension === "pdf"){

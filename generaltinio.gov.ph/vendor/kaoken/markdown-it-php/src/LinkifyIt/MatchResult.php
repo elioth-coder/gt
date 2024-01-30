@@ -10,11 +10,11 @@ namespace Kaoken\LinkifyIt;
 use Kaoken\MarkdownIt\RulesCore\Linkify;
 
 /**
- * class Match
+ * class MatchResult
  *
  * Match result. Single element of array, returned by [[LinkifyIt#match]]
  **/
-class Match
+class MatchResult
 {
     /**
      * Prefix (protocol) for matched string.
@@ -50,9 +50,9 @@ class Match
     /**
      * Match constructor.
      * @param LinkifyIt $self
-     * @param $shift
+     * @param integer $shift
      */
-    public function __construct(LinkifyIt $self, $shift)
+    public function __construct(LinkifyIt $self, int $shift)
     {
         $start = $self->getIndex();
         $end   = $self->getLastIndex();

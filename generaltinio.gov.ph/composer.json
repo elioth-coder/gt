@@ -12,10 +12,10 @@
         "intervention/image": "^2.7",
         "rakit/validation": "^1.4",
         "league/flysystem": "^2.4",
-        "kaoken/markdown-it-php": "^13.3",
         "jawira/case-converter": "^3.4",
         "vlucas/phpdotenv": "^5.4",
         "phpmailer/phpmailer": "^6.6",
-        "lodash-php/lodash-php": "^0.0.7"
+        "lodash-php/lodash-php": "^0.0.7",
+        "kaoken/markdown-it-php": "^14.0"
     }
 }

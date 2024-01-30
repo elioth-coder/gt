@@ -8,6 +8,7 @@ namespace Kaoken\MarkdownIt;
 
 use Kaoken\MarkdownIt\RulesInline;
 use Kaoken\MarkdownIt\RulesInline\StateInline;
+use Exception;
 
 /**
  * new ParserInline()
@@ -16,6 +17,7 @@ class ParserInline
 {
     protected array $_rules = [
         [ 'text',            \Kaoken\MarkdownIt\RulesInline\Text::class, 'text' ],
+        [ 'linkify',         \Kaoken\MarkdownIt\RulesInline\Linkify::class, 'linkify'  ],
         [ 'newline',         \Kaoken\MarkdownIt\RulesInline\NewLine::class, 'newline'],
         [ 'escape',          \Kaoken\MarkdownIt\RulesInline\Escape::class, 'escape'],
         [ 'backticks',       \Kaoken\MarkdownIt\RulesInline\Backticks::class, 'backticks'],
@@ -28,11 +30,18 @@ class ParserInline
         [ 'entity',          \Kaoken\MarkdownIt\RulesInline\Entity::class, 'entity' ]
     ];
 
+    // `rule2` ruleset was created specifically for emphasis/strikethrough
+    // post-processing and may be changed in the future.
+    //
+    // Don't use this for anything except pairs (plugins working with `balance_pairs`).
+    //
     protected array $_rules2 = [
         [ 'balance_pairs',   \Kaoken\MarkdownIt\RulesInline\BalancePairs::class, 'linkPairs'  ],
         [ 'strikethrough',   \Kaoken\MarkdownIt\RulesInline\Strikethrough::class, 'postProcess' ],
         [ 'emphasis',        \Kaoken\MarkdownIt\RulesInline\Emphasis::class, 'postProcess' ],
-        [ 'text_collapse',   \Kaoken\MarkdownIt\RulesInline\TextCollapse::class, 'textCollapse' ],
+        // rules for pairs separate '**' into its own text tokens, which may be left unused,
+        // rule below merges unused segments back with the rest of the text
+        [ 'fragments_join',  \Kaoken\MarkdownIt\RulesInline\FragmentsJoin::class, 'fragmentsJoin' ],
     ];
     /**
      * @var Ruler
@@ -85,6 +94,7 @@ class ParserInline
     /**
      * returns `true` if any rule reported success
      * @param StateInline $state
+     * @throws Exception
      */
     public function skipToken(StateInline &$state)
     {
@@ -114,7 +124,10 @@ class ParserInline
 
                 $state->level--;
 
-                if ($ok) break;
+                if ($ok) {
+                    if ($pos >= $state->pos) { throw new Exception("inline rule didn't increment state.pos"); }
+                    break;
+                }
             }
         } else {
             // Too much nesting, just skip until the end of the paragraph.
@@ -139,16 +152,16 @@ class ParserInline
     /**
      * Generate tokens for input range
      * @param StateInline $state
+     * @throws Exception
      */
     public function tokenize(StateInline &$state)
     {
+        $i = 0;
         $rules = $this->ruler->getRules('');
         $len = count($rules);
         $end = $state->posMax;
         $maxNesting = $state->md->options->maxNesting;
-        $ok = false;
 
-        $i = 0;
         while ($state->pos < $end) {
             // Try all possible rules.
             // On success, rule should:
@@ -156,6 +169,9 @@ class ParserInline
             // - update `state.pos`
             // - update `state.tokens`
             // - return true
+            $prevPos = $state->pos;
+            $ok = false;
+
             if ($state->level < $maxNesting) {
                 $i = 0;
                 foreach ($rules as &$rule) {
@@ -164,7 +180,10 @@ class ParserInline
                         $ok = $rule[0]->{$rule[1]}($state, false);
                     else
                         $ok = $rule($state, false);
-                    if ($ok) { break; }
+                    if ($ok)  {
+                        if ($prevPos >= $state->pos) { throw new Exception("inline rule didn't increment state.pos"); }
+                        break;
+                    }
                 }
             }
 

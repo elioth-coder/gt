@@ -201,7 +201,7 @@ class PropertyAccessor implements PropertyAccessorInterface
                 // OR
                 // 2. its child is not passed by reference
                 //
-                // This may avoid uncessary value setting process for array elements.
+                // This may avoid unnecessary value setting process for array elements.
                 // For example:
                 // '[a][b][c]' => 'old-value'
                 // If you want to change its value to 'new-value',
@@ -470,7 +470,7 @@ class PropertyAccessor implements PropertyAccessorInterface
                         [$trace] = $e->getTrace();
 
                         // handle uninitialized properties in PHP >= 7
-                        if (__FILE__ === $trace['file']
+                        if (__FILE__ === ($trace['file'] ?? null)
                             && $name === $trace['function']
                             && $object instanceof $trace['class']
                             && preg_match('/Return value (?:of .*::\w+\(\) )?must be of (?:the )?type (\w+), null returned$/', $e->getMessage(), $matches)
@@ -737,7 +737,7 @@ class PropertyAccessor implements PropertyAccessorInterface
         }
 
         $apcu = new ApcuAdapter($namespace, $defaultLifetime / 5, $version);
-        if ('cli' === \PHP_SAPI && !filter_var(ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) {
+        if ('cli' === \PHP_SAPI && !filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) {
             $apcu->setLogger(new NullLogger());
         } elseif (null !== $logger) {
             $apcu->setLogger($logger);

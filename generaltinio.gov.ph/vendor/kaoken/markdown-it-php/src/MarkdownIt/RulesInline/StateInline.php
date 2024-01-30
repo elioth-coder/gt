@@ -11,7 +11,10 @@ use stdClass;
 
 class StateInline
 {
-	public $src = '';
+    /**
+     * @var string
+     */
+	public string $src = '';
     /**
      * @var null|object
      */
@@ -26,7 +29,7 @@ class StateInline
 	public array $tokens = [];
 
     /**
-     * @var array
+     * @var ArrayObj|array
      */
     public $tokens_meta = [];
 
@@ -77,6 +80,13 @@ class StateInline
      * @var bool
      */
     public bool $backticksScanned = false;
+
+    // Counter used to disable inline linkify-it execution
+    // inside <a> and markdown links
+    /**
+     * @var int
+     */
+    public int $linkLevel = 0;
 
     /**
      * @param string $src

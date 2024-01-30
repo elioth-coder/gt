@@ -1,12 +1,12 @@
 # markdown-it-php
 
-[![Build Status](https://img.shields.io/travis/markdown-it/markdown-it/master.svg?style=flat)](https://github.com/kaoken/markdown-it-php)
-[![composer version](https://img.shields.io/badge/version-12.3.2.0-blue.svg)](https://github.com/kaoken/markdown-it-php)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/kaoken/markdown-it-php)
+[![composer version](https://img.shields.io/badge/version-14.0.0.0-blue.svg)](https://github.com/kaoken/markdown-it-php)
 [![licence](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/kaoken/markdown-it-php)
 [![php version](https://img.shields.io/badge/php%20version-≧7.4.0-red.svg)](https://github.com/kaoken/markdown-it-php)
 
 
-このジェムは、Puzrin とアレックス Kocharin による  [markdown-it Javascript package](https://github.com/markdown-it/markdown-it)ポートになります。現在、markdown-it 12.3.2 と同期しています。
+このジェムは、Puzrin とアレックス Kocharin による  [markdown-it Javascript package](https://github.com/markdown-it/markdown-it)ポートになります。現在、markdown-it 14.0.0 と同期しています。
 
 __[Javascript Live demo](https://markdown-it.github.io)__
 
@@ -130,13 +130,13 @@ $md = new MarkdownIt([
   "highlight"=> function ($str, $lang) {
     if ( $lang ) {
       try {
-        return '<pre class="hljs"><code>' .
+        return '<pre><code class="hljs">' .
                highlight_string($str) .
                '</code></pre>';
       } catch (Exception $e) {}
     }
 
-    return '<pre class="hljs"><code>' . $md->utils->escapeHtml($str) . '</code></pre>';
+    return '<pre><code class="hljs">' . $md->utils->escapeHtml($str) . '</code></pre>';
   }
 ]);
 ```
@@ -161,7 +161,7 @@ $md->linkify->set(['fuzzyEmail'=>false]);  // トップレベルドメインと�
 
 以下のプラグインは **kaoken\markdown-it-php\MarkdownIt\Plugins** ディレクトリにあります：
 
-- [subscript](https://github.com/markdown-it/markdown-it-sub) ``\MarkdownItSub``(非推奨)
+- [subscript](https://github.com/markdown-it/markdown-it-sub) ``\MarkdownItSub``
 - [superscript](https://github.com/markdown-it/markdown-it-sup) ``\MarkdownItSup``
 - [footnote](https://github.com/markdown-it/markdown-it-footnote) ``\MarkdownItFootnote``
 - [definition list](https://github.com/markdown-it/markdown-it-deflist) ``\MarkdownItDeflist``
@@ -194,8 +194,8 @@ $md = new MarkdownIt([
 ```
 
 ソース内のすべてのルールを見つけることができます:
-[ParserCore](src/MarkdownIt/ParserCore.php), [ParserBlock](ParserInline/ParserBlock.php),
-[ParserInline](src/MarkdownIt/ParserInline.js).
+[ParserCore](src/MarkdownIt/ParserCore.php), [ParserBlock](src/MarkdownIt/ParserBlock.php),
+[ParserInline](src/MarkdownIt/ParserInline.php).
 
 
 ## 参照 / 謝辞

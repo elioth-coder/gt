@@ -12,8 +12,8 @@
  * http://opensource->org/licenses/mit-license->php
  *
  *
- * use javascript version 2.0.0
- * @see https://github.com/markdown-it/markdown-it-emoji/tree/2.0.0
+ * use javascript version 3.0.0
+ * @see https://github.com/markdown-it/markdown-it-emoji/tree/3.0.0
  */
 
 namespace Kaoken\MarkdownIt\Plugins;
@@ -28,7 +28,10 @@ use stdClass;
 
 class MarkdownItEmoji
 {
-    protected $type;
+    /**
+     * @var string
+     */
+    protected string $type;
 
     public function __construct($type='full')
     {
@@ -66,7 +69,9 @@ class MarkdownItEmoji
 
         $md->renderer->rules->emoji = [new Render(), 'emoji_html'];
 
-        $md->core->ruler->push('emoji',
+        $md->core->ruler->after(
+            'linkify',
+            'emoji',
             [
                 new Replace($md, $opts->defs, $opts->shortcuts, $opts->scanRE, $opts->replaceRE),
                 'replace'

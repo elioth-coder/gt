@@ -3,18 +3,19 @@
 {% block title %}FULL DISCLOSURE POLICY - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
-  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" />
+  {% include('@components/Common/markdown.style.twig') %}
+  <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css"/>
 {% endblock styles %}
 {% block innerContent %}
   <div class="lg:flex lg:flex-row lg:justify-between lg:space-x-8">
     <section class="w-full">
-      <h1 class="border-b border-gray-300 text-3xl text-blue-600 py-4 font-semibold">
+      <h1 class="border-b border-gray-300 text-{{ page_settings.color }}-600 text-3xl py-4 font-semibold">
         Full Disclosure ({{ year }})
       </h1>
       <div class="py-4">
         {% for quarter in quarters %}
           <section class="py-4">
-            <h2 class="text-xl text-blue-600 font-semibold">QUARTER {{ quarter.number }}</h2>
+            <h2 class="text-xl text-{{ page_settings.color }}-600 font-semibold">QUARTER {{ quarter.number }}</h2>
             {% if quarter.documents is empty %}
               <p class="text-center text-gray-400 my-5">No documents found.</p>
             {% else %}
