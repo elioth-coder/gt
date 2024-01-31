@@ -79,7 +79,7 @@
       "icon": "chart-square-bar"
     },
     { 
-      "name": "Notice To Proceed",
+      "name": "Contract / Notice To Proceed",
       "url":  "/system/notice_to_proceed",
       "page": "notice_to_proceed",
       "icon": "document-text"

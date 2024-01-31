@@ -142,6 +142,7 @@ class WebsiteController {
     $bids                   = DataFetcher::getBids();
     $awards                 = DataFetcher::getAwards();
     $notices                = DataFetcher::getNotices();
+    $contracts              = DataFetcher::getContracts();
     $ordinances_resolutions = DataFetcher::getOrdinancesAndResolutions();
     $featured_stories       = DataFetcher::getFeaturedStories(['page'=>'GOVERNMENT']);
     $headlines              = DataFetcher::getHeadlines(['limit'=>3]);
@@ -159,6 +160,7 @@ class WebsiteController {
     $sublinks[] = ['url' => '#full_disclosures', 'title'=> 'Full Disclosure']; 
     $sublinks[] = ['url' => '#bids', 'title'=> 'Invitation to Bid']; 
     $sublinks[] = ['url' => '#awards', 'title'=> 'Notice of Awards']; 
+    $sublinks[] = ['url' => '#contracts', 'title'=> 'Contracts']; 
     $sublinks[] = ['url' => '#notices', 'title'=> 'Notice to Proceed']; 
     $sublinks[] = ['url' => '#ordinances_resolutions', 'title'=> 'Ordinances & Resolutions']; 
     $page_settings = [
@@ -171,6 +173,7 @@ class WebsiteController {
       'bids'                   => $bids,
       'awards'                 => $awards,
       'notices'                => $notices,
+      'contracts'              => $contracts,
       'ordinances_resolutions' => $ordinances_resolutions,
       'current_year'           => date('Y'),
       'page_settings'          => $page_settings, 

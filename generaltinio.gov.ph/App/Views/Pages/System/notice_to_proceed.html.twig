@@ -1,6 +1,6 @@
 {% extends '@pages/System/base.html.twig' %}
 
-{% block title %}SYS_MOD: NOTICE TO PROCEED - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
+{% block title %}SYS_MOD: CONTRACT / NOTICE TO PROCEED - General Tinio, Nueva Ecija | The Official Website{% endblock title %}
 {% block styles %}
   {{ parent() }}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -8,7 +8,7 @@
 {% endblock styles %}
 {% block right_content %}
   <div class="flex flex-col p-10">
-    <h1 class="text-center text-4xl">Module: Notice To Proceed</h1>
+    <h1 class="text-center text-4xl">Module: Contract / Notice To Proceed</h1>
     <hr class="my-5">
     {{ include('@components/System/notice_to_proceed-table.html.twig', { 'barangays' : barangays }) }}
     <hr class="my-5">
@@ -89,7 +89,7 @@
     }
 
     function editNotice(data) {
-      let { id, date_issued, title, details, category, status, file } = data;
+      let { id, date_issued, title, details, category, type, file } = data;
       let hiddenIdInput = NoticeToProceedForm.querySelector('#id');
       let oldFileInput = NoticeToProceedForm.querySelector('#old_file');
 
@@ -129,7 +129,7 @@
       NoticeToProceedForm.querySelector('#title').value = title;
       NoticeToProceedForm.querySelector('#details').value = details;
       NoticeToProceedForm.querySelector('#category').value = category;
-      NoticeToProceedForm.querySelector('#status').value = status;
+      NoticeToProceedForm.querySelector('#type').value = type;
       NoticeToProceedForm.querySelector('#save-button').style.display = "none";
       NoticeToProceedForm.querySelector('#update-buttons').style.display = "inline-block";
     }
@@ -169,7 +169,7 @@
       NoticeToProceedForm.querySelector('#title').value = "";
       NoticeToProceedForm.querySelector('#details').value = "";
       NoticeToProceedForm.querySelector('#category').value = "";
-      NoticeToProceedForm.querySelector('#status').value = "";
+      NoticeToProceedForm.querySelector('#type').value = "";
       NoticeToProceedForm.querySelector('#prevFile').setAttribute('src', '/assets/img/PreviewNotAvailable.jpg');
 
       NoticeToProceedForm.querySelector('#save-button').style.display = "inline-block";

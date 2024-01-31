@@ -4,7 +4,7 @@
       <th class="text-left">#</th>
       <th class="text-left">Title</th>
       <th class="text-right">Categories</th>
-      <th class="text-center">Status</th>
+      <th class="text-center">Type</th>
       <th class="text-right">Date Issued</th>
       <th class="text-center">Action</th>
     </tr>
@@ -21,7 +21,7 @@
         <td>{{ loop.index }}.</td>
         <td class="truncate">{{ notice.title }}</td>
         <td class="text-right">{{ notice.category }}</td>
-        <td class="text-center">{{ notice.status }}</td>
+        <td class="text-center">{{ notice.type }}</td>
         <td class="text-right">{{ notice.date_issued }}</td>
         <td class="text-center">
           <button onclick="{{ 'editNotice(' ~ notice|json_encode() ~ ');' }}" class="text-blue-500">

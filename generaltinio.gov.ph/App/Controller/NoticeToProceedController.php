@@ -2,10 +2,8 @@
 namespace App\Controller;
 
 use Laminas\Diactoros\Response\JsonResponse;
-use Intervention\Image\ImageManagerStatic as Image;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\UnableToDeleteFile;
-use League\Flysystem\UnableToCreateDirectory;
 use App\Utility\TwigTemplate;
 use App\Utility\OpisDatabase;
 use App\Utility\FileSystem;
@@ -15,6 +13,7 @@ class NoticeToProceedController {
   function index() {
     $db = OpisDatabase::getInstance();
     $notices = $db->from('notice_to_proceed')
+      ->orderBy('type', 'desc')
       ->orderBy('date_issued', 'desc')
       ->select()
       ->all();
@@ -60,7 +59,7 @@ class NoticeToProceedController {
       'title'       => $_POST['title'],
       'details'     => $_POST['details'],
       'category'    => $_POST['category'],
-      'status'      => $_POST['status'],
+      'type'        => $_POST['type'],
       'file'        => $fileName ?? "",
     ])
     ->into('notice_to_proceed');
@@ -122,7 +121,7 @@ class NoticeToProceedController {
         'title'       => $_POST['title'],
         'details'     => $_POST['details'],
         'category'    => $_POST['category'],
-        'status'      => $_POST['status'],
+        'type'        => $_POST['type'],
         'file'        => $fileName ?? "",
       ]);
 

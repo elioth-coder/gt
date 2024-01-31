@@ -1,0 +1,37 @@
+<section id="contracts">
+  <h3 class="border-b border-gray-300 text-3xl text-{{ page_settings.color }}-600 py-4 font-semibold">
+    Contracts
+  </h3>
+  <div class="py-5">   
+    <table id="contracts-table" class="border mb-5 divide-y divide-gray-200 table-fixed" style="width: 100%;">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left">Category</th>
+          <th class="text-left">Project</th>
+          <th class="text-left">Issued</th>
+          <th class="text-left">Created</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        {% if contracts is empty %}
+            <tr>
+              <td colspan="4" class="px-2 py-3 max-w-max align-top text-center text-gray-500">No contracts found.</td>
+            </tr>
+        {% endif %}
+        {% for contract in contracts %}
+          <tr>
+            <td class="truncate" title="{{  contract.category }}">{{ contract.category }}</td>
+            <td class="truncate" title="{{  contract.title }}">
+              <a href="/uploads/documents/contract-to-proceed/{{ contract.file }}" 
+                target="_blank" class="underline text-{{ page_settings.color }}-600">
+                {{ contract.title }}
+              </a>
+            </td>
+            <td>{{ contract.date_issued|date('Y-m-d') }}</td>
+            <td>{{ contract.date_created|date('Y-m-d') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

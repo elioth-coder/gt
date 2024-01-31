@@ -185,7 +185,18 @@ class DataFetcher {
     
   static function getNotices($config=['limit'=>5]) {
     $result = DataFetcher::db()->from('notice_to_proceed')
-      ->where('status')->is('Publish')
+      ->where('type')->is('Notice')
+      ->andWhere('status')->is('Publish')
+      ->select()         
+      ->all();
+      
+    return $result;
+  }  
+
+  static function getContracts($config=['limit'=>5]) {
+    $result = DataFetcher::db()->from('notice_to_proceed')
+      ->where('type')->is('Contract')
+      ->andWhere('status')->is('Publish')
       ->select()         
       ->all();
       
