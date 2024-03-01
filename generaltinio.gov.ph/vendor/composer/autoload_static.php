@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d
+class ComposerStaticInit121ad6ec9218829a503824751ad018ca
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -246,6 +246,14 @@ class ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d
         'App\\Middleware\\LoginMiddleware' => __DIR__ . '/../..' . '/App/Middleware/LoginMiddleware.php',
         'App\\Middleware\\MaintenanceMiddleware' => __DIR__ . '/../..' . '/App/Middleware/MaintenanceMiddleware.php',
         'App\\Model\\User' => __DIR__ . '/../..' . '/App/Model/User.php',
+        'App\\MonitoringSystem\\Controllers\\AttendanceController' => __DIR__ . '/../..' . '/App/MonitoringSystem/Controllers/AttendanceController.php',
+        'App\\MonitoringSystem\\Controllers\\ScheduleController' => __DIR__ . '/../..' . '/App/MonitoringSystem/Controllers/ScheduleController.php',
+        'App\\MonitoringSystem\\Controllers\\SettingController' => __DIR__ . '/../..' . '/App/MonitoringSystem/Controllers/SettingController.php',
+        'App\\MonitoringSystem\\Controllers\\TeacherController' => __DIR__ . '/../..' . '/App/MonitoringSystem/Controllers/TeacherController.php',
+        'App\\MonitoringSystem\\Controllers\\UserController' => __DIR__ . '/../..' . '/App/MonitoringSystem/Controllers/UserController.php',
+        'App\\MonitoringSystem\\Middleware\\AuthenticatedMiddleware' => __DIR__ . '/../..' . '/App/MonitoringSystem/Middleware/AuthenticatedMiddleware.php',
+        'App\\MonitoringSystem\\Middleware\\CorsMiddleware' => __DIR__ . '/../..' . '/App/MonitoringSystem/Middleware/CorsMiddleware.php',
+        'App\\MonitoringSystem\\Utility\\DBConnection' => __DIR__ . '/../..' . '/App/MonitoringSystem/Utility/DBConnection.php',
         'App\\Utility\\AccessConfiguration' => __DIR__ . '/../..' . '/App/Utility/AccessConfiguration.php',
         'App\\Utility\\Authenticator' => __DIR__ . '/../..' . '/App/Utility/Authenticator.php',
         'App\\Utility\\BytesFormatter' => __DIR__ . '/../..' . '/App/Utility/BytesFormatter.php',
@@ -1120,9 +1128,9 @@ class ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit80400a23fbaf21fbc6e73b7698a8ba0d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit121ad6ec9218829a503824751ad018ca::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit121ad6ec9218829a503824751ad018ca::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit121ad6ec9218829a503824751ad018ca::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,8 +1,6 @@
 <?php
 use MiladRahimi\PhpRouter\Router;
-use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
+use MiladRahimi\PhpRouter\View\View;
 use App\Controller\WebsiteController;
 use App\Controller\DashboardController;
 use App\Controller\UsersController;
@@ -160,13 +158,3 @@ $router->group(['middleware' => [LoginMiddleware::class]], function(Router $rout
   $router->post('/system/photo_gallery/photo/upload', [PhotoGalleryController::class, 'upload']);
   $router->post('/system/photo_gallery/photo/delete', [PhotoGalleryController::class, 'delete']);
 });
-
-try {
-  $router->dispatch();
-} catch (RouteNotFoundException $e) {
-  // It's 404!
-  $router->getPublisher()->publish(new RedirectResponse('/404'));
-} catch (Throwable $e) {
-  // Log and report...
-  $router->getPublisher()->publish(new HtmlResponse('Internal error.' . $e->getMessage(), 500));
-}
