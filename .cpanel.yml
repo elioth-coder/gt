@@ -4,6 +4,7 @@ deployment:
     - export DEPLOYPATH=/home/generaltiniogov/public_html/
     - /bin/cp -R generaltinio.gov.ph/App $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/assets $DEPLOYPATH
+    - /bin/cp -R generaltinio.gov.ph/monitoring-system $DEPLOYPATH
     # - /bin/cp -R generaltinio.gov.ph/uploads $DEPLOYPATH
     - /bin/cp -R generaltinio.gov.ph/vendor $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/.env.example $DEPLOYPATH
@@ -11,6 +12,8 @@ deployment:
     - /bin/cp generaltinio.gov.ph/composer.json $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/composer.lock $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/index.php $DEPLOYPATH
+    - /bin/cp generaltinio.gov.ph/routes-dispatch.php $DEPLOYPATH
+    - /bin/cp generaltinio.gov.ph/routes-monitoring.php $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/routes.php $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/user_access.json $DEPLOYPATH
     - /bin/cp generaltinio.gov.ph/default_access.json $DEPLOYPATH
